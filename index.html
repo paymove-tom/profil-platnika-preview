@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f2f3f7">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Klikalny prototyp profilu płatnika Paymove: dane, historia zakupów botów, zwroty i limity.">
+<title>Profil płatnika Paymove · prototyp</title>
+<link rel="icon" type="image/svg+xml" href="assets/logos/sygnet.svg">
+<link rel="stylesheet" href="styles.css">
+<script>
+  /* Tryb zrzutów: ?shot=1 wyłącza animacje i panel Stany jeszcze przed pierwszym renderem */
+  (function () {
+    var q = location.search || '';
+    if (/[?&]shot=1(&|$)/.test(q)) document.documentElement.classList.add('is-shot');
+  })();
+</script>
+</head>
+<body>
+<div id="app" class="app" data-app>
+  <noscript>
+    <div class="noscript">Prototyp wymaga włączonego JavaScriptu.</div>
+  </noscript>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/s-auth.js"></script>
+<script src="js/s-dane.js"></script>
+<script src="js/s-historia.js"></script>
+<script src="js/s-boty.js"></script>
+<script src="js/s-limity.js"></script>
+<script>
+  if (window.PM && typeof PM.start === 'function') PM.start();
+</script>
+</body>
+</html>
