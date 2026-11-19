@@ -2,6 +2,8 @@
    Paymove Wallet · prototyp · js/s-auth.js
    Sekcja „1 Logowanie i onboarding” (tab null):
      #/login                      social login (Google, Apple, Facebook)
+     #/onboarding/start           powitanie po logowaniu: szklany sheet nad
+                                  rozmytym ekranem logowania, podgląd 3 kroków
      #/onboarding/1               adres
      #/onboarding/2               numer rejestracyjny
      #/onboarding/3               BLIK (portfel)
@@ -370,7 +372,7 @@
     for (var i = 1; i <= STEPS; i++) {
       segs += '<i class="' + (i < n ? 'is-done' : i === n ? 'is-active' : '') + '"></i>';
     }
-    var backHref = n === 1 ? '#/login' : '#/onboarding/' + (n - 1);
+    var backHref = n === 1 ? '#/onboarding/start' : '#/onboarding/' + (n - 1);
     var header =
       '<header class="hdr au-ob-hdr">' +
         '<a class="hdr-back press" href="' + backHref + '" data-ob-back aria-label="Wstecz">' + PM.icon('arrow-left-s-line', 20) + '</a>' +
@@ -496,7 +498,7 @@
         b.setAttribute('aria-busy', 'true');
         auth().provider = b.getAttribute('data-provider');
         prefillMail();
-        goSoon('#/onboarding/1', 900);
+        goSoon('#/onboarding/start', 900);
       });
     });
   }
@@ -505,6 +507,188 @@
     title: 'Zaloguj się', group: G, label: 'Logowanie (social)', tab: null,
     render: function () { return loginScreen({ bots: false }); },
     mount: loginMount
+  });
+
+  /* ---------- 1a. Powitanie po logowaniu: sheet ze sprężyną nad rozmytym logowaniem ---------- */
+  PM.css(
+    '.au-st{overflow:hidden;background:var(--bg)}' +
+    /* tło: rozmyta sylwetka logowania, plamy w barwach makiety, przyciemnienie */
+    '.au-st-ghost{position:absolute;inset:0;z-index:0;display:flex;flex-direction:column;pointer-events:none;filter:blur(12px) saturate(.9);opacity:.6;transform:scale(1.03);animation:au-st-recede .6s ease both}' +
+    '.au-st-ghost *{animation:none!important}' +
+    '.au-st-ghost-mid{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:0 20px}' +
+    '.au-st-gl{display:block;height:14px;width:62%;max-width:240px;border-radius:7px;background:rgba(26,26,26,.55)}' +
+    '.au-st-gl+.au-st-gl{width:80%;max-width:300px;height:10px;background:rgba(26,26,26,.2)}' +
+    '.au-st-ghost-btns{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 20px 32px}' +
+    '.au-st-ghost-btns i{display:block;width:100%;max-width:360px;height:48px;border-radius:999px;background:rgba(255,255,255,.85);border:1px solid var(--border)}' +
+    '.au-st-blobs{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}' +
+    '.au-st-blob{position:absolute;border-radius:50%;filter:blur(42px);animation:au-st-drift 14s ease-in-out infinite alternate}' +
+    '.au-st-blob--1{width:280px;height:280px;left:-70px;top:4%;background:rgba(32,80,245,.22)}' +
+    '.au-st-blob--2{width:240px;height:240px;right:-60px;top:28%;background:rgba(230,0,126,.15);animation-duration:17s;animation-direction:alternate-reverse}' +
+    '.au-st-blob--3{width:300px;height:300px;left:22%;bottom:-90px;background:rgba(106,207,251,.24);animation-duration:19s}' +
+    '.au-st-scrim{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(242,243,247,.28) 0%,rgba(30,32,48,.16) 100%);animation:au-st-fade .4s ease both}' +
+
+    /* warstwa i sheet */
+    '.au-st-layer{position:relative;z-index:3;flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center;padding:16px 10px max(12px,env(safe-area-inset-bottom))}' +
+    '.au-st-sheet{position:relative;width:100%;max-width:440px;max-height:100%;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;display:flex;flex-direction:column;gap:20px;padding:24px 22px 16px;border-radius:var(--r-sheet);border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.74);-webkit-backdrop-filter:blur(44px);backdrop-filter:blur(44px);box-shadow:0 8px 24px rgba(31,41,82,.08),0 32px 72px -16px rgba(31,41,82,.32),inset 0 1px 0 rgba(255,255,255,.9);animation:au-st-spring .85s ease-out .08s both}' +
+    '.au-st-sheet::-webkit-scrollbar{display:none}' +
+    '@media (min-width:1024px){.au-st-layer{align-items:center;padding:24px}.au-st-sheet{max-width:460px;padding:28px 28px 20px}}' +
+
+    /* ilustracja: stos kart, wachlarz, kłódka */
+    '.au-st-art{position:relative;flex:none;height:128px}' +
+    '.au-st-card{position:absolute;top:6px;left:50%;width:88px;height:104px;margin-left:-44px;border-radius:16px;padding:10px;display:flex;flex-direction:column;justify-content:space-between;background:rgba(255,255,255,.94);border:1px solid var(--border);box-shadow:0 12px 24px -12px rgba(31,41,82,.3),inset 0 1px 0 #fff;transform-origin:50% 90%;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1);animation:au-st-pop .35s ease .24s both,au-st-fan .75s cubic-bezier(.3,1.5,.5,1) .6s both}' +
+    '.au-st-card--a{--x:-66px;--y:8px;--r:-11deg;--sy:-10px;--ss:.9;z-index:1}' +
+    '.au-st-card--b{--x:0px;--y:0px;--r:0deg;--sy:0px;--ss:1;z-index:3}' +
+    '.au-st-card--c{--x:66px;--y:8px;--r:11deg;--sy:-5px;--ss:.95;z-index:2;color:#fff;border-color:rgba(255,255,255,.08);background:radial-gradient(120% 90% at 100% 0%,rgba(230,0,126,.46) 0%,rgba(230,0,126,0) 60%),#000;box-shadow:0 14px 28px -12px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.14)}' +
+    '.au-st-ci{width:28px;height:28px;border-radius:8px;background:var(--input-strong);display:grid;place-items:center}' +
+    '.au-st-ci .ico{width:16px;height:16px}' +
+    '.au-st-blik{display:block;height:18px;width:auto;margin-top:4px}' +
+    '.au-st-cl{display:flex;flex-direction:column;gap:5px}' +
+    '.au-st-cl i{display:block;height:5px;width:80%;border-radius:3px;background:var(--chip)}' +
+    '.au-st-cl i+i{width:52%}' +
+    '.au-st-card--c .au-st-cl i{background:rgba(255,255,255,.18)}' +
+    '.au-st-cn{font:500 10px/12px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ts)}' +
+    '.au-st-card--c .au-st-cn{color:rgba(255,255,255,.7)}' +
+    '.au-st-lock{position:absolute;left:50%;bottom:0;z-index:4;width:40px;height:40px;margin-left:-20px;border-radius:50%;display:grid;place-items:center;background:var(--tp);color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.9),0 10px 20px -6px rgba(0,0,0,.45);animation:au-st-lockin .5s cubic-bezier(.3,1.6,.5,1) 1.2s both}' +
+    '.au-st-lock svg{display:block;overflow:visible}' +
+    '.au-st-shackle{animation:au-st-snap .45s cubic-bezier(.3,1.7,.5,1) 1.55s both}' +
+    '.au-st-lock::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--tp);opacity:0;pointer-events:none;animation:au-st-ring .7s ease-out 1.9s both}' +
+
+    /* tekst */
+    '.au-st-head{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}' +
+    '.au-st-kick{font:500 12px/16px var(--mono);letter-spacing:.04em;color:var(--ts)}' +
+    '.au-st-title{font:700 26px/32px var(--sans);letter-spacing:-.02em}' +
+    '.au-st-lead{font:400 15px/22px var(--sans);color:var(--ts);max-width:360px}' +
+
+    /* podgląd kroków */
+    '.au-st-steps{list-style:none;margin:0;padding:0;border-radius:var(--r-card);background:rgba(255,255,255,.62);border:1px solid var(--border);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}' +
+    '.au-st-step{display:flex;align-items:center;gap:12px;padding:10px 14px}' +
+    '.au-st-step+.au-st-step{border-top:1px solid var(--divider)}' +
+    '.au-st-ico{width:36px;height:36px;border-radius:10px;background:var(--input-strong);display:grid;place-items:center;flex:none}' +
+    '.au-st-ico .ico{width:18px;height:18px}' +
+    '.au-st-ico--blik{background:#fff;border:1px solid var(--tile-border)}' +
+    '.au-st-ico--blik img{width:22px;height:auto}' +
+    '.au-st-nl{display:flex;align-items:center;justify-content:space-between;gap:8px}' +
+    '.au-st-step .name{font:500 15px/20px var(--sans)}' +
+    '.au-st-step .meta{font-size:13px;line-height:18px}' +
+    '.au-st-opt{flex:none;padding:3px 8px;border-radius:999px;background:var(--chip);font:500 11px/14px var(--mono);color:var(--ts);white-space:nowrap}' +
+
+    /* CTA */
+    '.au-st-foot{display:flex;flex-direction:column;align-items:center;gap:2px}' +
+    '.au-st-foot .btn{width:100%;max-width:360px}' +
+    '.au-st-skip{display:inline-flex;align-items:center;height:40px;padding:0 12px;font:500 14px/20px var(--sans);color:var(--ts);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(142,142,147,.4);transition:color .15s ease}' +
+    '.au-st-skip:hover{color:var(--tp)}' +
+
+    /* klatki */
+    '@keyframes au-st-fade{from{opacity:0}to{opacity:1}}' +
+    '@keyframes au-st-recede{from{opacity:1;transform:none}to{opacity:.6;transform:scale(1.03)}}' +
+    '@keyframes au-st-drift{from{transform:translate(0,0) scale(1)}to{transform:translate(24px,-18px) scale(1.08)}}' +
+    '@keyframes au-st-spring{0%{opacity:0;transform:translateY(72px) scale(.96)}55%{opacity:1;transform:translateY(-8px) scale(1.006)}75%{transform:translateY(3px) scale(.999)}90%{transform:translateY(-1px) scale(1)}100%{opacity:1;transform:none}}' +
+    '@keyframes au-st-pop{from{opacity:0}to{opacity:1}}' +
+    '@keyframes au-st-fan{from{transform:translate(0px,var(--sy)) rotate(0deg) scale(var(--ss))}to{transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1)}}' +
+    '@keyframes au-st-lockin{from{opacity:0;transform:translateY(6px) scale(.4)}to{opacity:1;transform:none}}' +
+    '@keyframes au-st-snap{from{transform:translateY(-4px)}to{transform:translateY(0)}}' +
+    '@keyframes au-st-ring{0%{opacity:0;transform:scale(.9)}12%{opacity:.4}100%{opacity:0;transform:scale(1.7)}}' +
+
+    /* bez ruchu: stan końcowy od razu */
+    '@media (prefers-reduced-motion:reduce){.au-st *,.au-st *::before,.au-st *::after{animation:none!important}}' +
+    '.is-shot .au-st *,.is-shot .au-st *::before,.is-shot .au-st *::after{animation:none!important}'
+  );
+
+  var LOCK_SVG = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
+    '<path class="au-st-shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/>' +
+    '<rect x="5" y="11" width="14" height="10" rx="2.5"/>' +
+    '<path d="M12 15v2"/>' +
+    '</svg>';
+
+  function stArt() {
+    return '<div class="au-st-art" aria-hidden="true">' +
+      '<div class="au-st-card au-st-card--a">' +
+        '<span class="au-st-ci">' + PM.icon('map-pin-line', 16) + '</span>' +
+        '<span class="au-st-cl"><i></i><i></i></span>' +
+        '<span class="au-st-cn">Adres</span>' +
+      '</div>' +
+      '<div class="au-st-card au-st-card--c">' +
+        '<img class="au-st-blik" src="' + BLIK_LOGO + '" alt="" draggable="false">' +
+        '<span class="au-st-cl"><i></i><i></i></span>' +
+        '<span class="au-st-cn">OneClick</span>' +
+      '</div>' +
+      '<div class="au-st-card au-st-card--b">' +
+        '<span class="au-st-ci">' + PM.icon('car-line', 16) + '</span>' +
+        '<span class="au-st-cl"><i></i><i></i></span>' +
+        '<span class="au-st-cn">Auto</span>' +
+      '</div>' +
+      '<span class="au-st-lock">' + LOCK_SVG + '</span>' +
+      '</div>';
+  }
+
+  function stStep(o, d) {
+    return '<li class="au-st-step au-in" style="--d:' + d + 's">' +
+      '<span class="au-st-ico' + (o.blik ? ' au-st-ico--blik' : '') + '">' +
+        (o.blik ? '<img src="assets/logos/blik-mark-noborder.svg" alt="" draggable="false">' : PM.icon(o.icon, 18)) +
+      '</span>' +
+      '<div class="grow">' +
+        '<div class="au-st-nl"><span class="name">' + PM.esc(o.name) + '</span>' +
+          (o.opt ? '<span class="au-st-opt">Możesz pominąć</span>' : '') + '</div>' +
+        '<div class="meta">' + PM.esc(o.meta) + '</div>' +
+      '</div>' +
+      '</li>';
+  }
+
+  function startScreen() {
+    var u = PM.state.user || {};
+    var hi = u.imie ? 'Cześć, ' + u.imie : 'Cześć';
+    var ghost =
+      '<div class="au-st-ghost" aria-hidden="true">' +
+        brandHeader() +
+        '<div class="au-st-ghost-mid">' + heroCards() + '<i class="au-st-gl"></i><i class="au-st-gl"></i></div>' +
+        '<div class="au-st-ghost-btns"><i></i><i></i><i></i></div>' +
+      '</div>';
+    var blobs =
+      '<div class="au-st-blobs" aria-hidden="true">' +
+        '<i class="au-st-blob au-st-blob--1"></i><i class="au-st-blob au-st-blob--2"></i><i class="au-st-blob au-st-blob--3"></i>' +
+      '</div>';
+    var steps =
+      '<ul class="au-st-steps" aria-label="Kroki">' +
+        stStep({ icon: 'map-pin-line', name: 'Adres', meta: 'Bot wpisze go, gdy zakup tego wymaga', opt: true }, 0.58) +
+        stStep({ icon: 'car-line', name: 'Nr rejestracyjny', meta: 'Parking bez wpisywania numeru', opt: true }, 0.64) +
+        stStep({ blik: true, name: 'BLIK', meta: 'Płacisz jednym OK w banku' }, 0.7) +
+      '</ul>';
+    return '<section class="screen au-st">' +
+      ghost + blobs +
+      '<div class="au-st-scrim" aria-hidden="true"></div>' +
+      '<div class="au-st-layer">' +
+        '<div class="au-st-sheet" role="dialog" aria-modal="true" aria-labelledby="au-st-title">' +
+          stArt() +
+          '<div class="au-st-head">' +
+            '<span class="au-st-kick au-in" style="--d:.34s">' + PM.esc(hi) + '</span>' +
+            '<h1 class="au-st-title au-in" id="au-st-title" style="--d:.4s">Zanim boty zaczną kupować</h1>' +
+            '<p class="au-st-lead au-in" style="--d:.48s">Teraz zbierzemy i bezpiecznie zapiszemy dane, których użyjemy przy składaniu zamówień. Krok, który Cię nie dotyczy, możesz pominąć.</p>' +
+          '</div>' +
+          steps +
+          '<div class="au-st-foot au-in" style="--d:.8s">' +
+            PM.btn('Zaczynamy', { variant: 'primary', block: true, href: '#/onboarding/1', cls: 'press', iconRight: 'arrow-right-s-line' }) +
+            '<a class="au-st-skip" href="#/portfel/bez-blik" data-st-skip>Pomiń wszystko</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '</section>';
+  }
+
+  PM.route('#/onboarding/start', {
+    title: 'Zanim boty zaczną kupować', group: G, label: 'Onboarding · start (powitanie)', tab: null,
+    render: function () { return startScreen(); },
+    mount: function (root) {
+      var a = auth();
+      a.obDir = null;
+      a.obStill = false;
+      var skip = root.querySelector('[data-st-skip]');
+      if (skip) {
+        skip.addEventListener('click', function () {
+          blik().polaczony = false;
+          finish();
+        });
+      }
+    }
   });
 
 
@@ -642,8 +826,8 @@
         var url = PM.esc(CHECKOUT_URL);
         var body =
           '<div class="au-sh-head">' +
-            '<span class="au-blik-chip"><img src="' + BLIK_LOGO + '" alt="BLIK" draggable="false"></span>' +
-            '<div class="grow"><h2 class="au-sh-title">Podepnij BLIK</h2><p class="meta">Potwierdzisz w aplikacji banku</p></div>' +
+            '<span class="au-blik-chip au-blik-chip--oc"><img src="' + BLIK_LOGO_FULL + '" alt="BLIK" draggable="false"></span>' +
+            '<div class="grow"><h2 class="au-sh-title">Podepnij BLIK OneClick</h2><p class="meta">Potwierdzisz w aplikacji banku</p></div>' +
             '<a class="au-newtab" href="' + url + '" target="_blank" rel="noopener">Otwórz w nowej karcie</a>' +
             '<a class="au-x press" href="' + baseHash + '" aria-label="Zamknij">' + PM.icon('close-line', 18) + '</a>' +
           '</div>' +
@@ -727,11 +911,27 @@
     '<path d="M20 1.09A12 12 0 0 1 20 22.91A12 12 0 0 1 20 1.09Z" fill="#FF5F00"/>' +
     '</svg>';
 
+  /* Pełne, oficjalne logo BLIK (czarne tło + kropka). Używane w przycisku OneClick i w chipie sheetu. */
+  var BLIK_LOGO_FULL = 'assets/logos/blik-logo.svg';
+
+  /* Przycisk w stylu BLIK OneClick. Ma klasy btn / btn--primary i siedzi w .act-row,
+     więc wysokość (48px), max-width (360/400) i układ dziedziczy z dotychczasowego primary. */
+  function blikOneClickBtn(href) {
+    return '<div class="act-row">' +
+      '<a class="btn btn--primary au-blikbtn press" href="' + PM.esc(href) + '" aria-label="Podepnij BLIK OneClick">' +
+        '<span class="au-blikbtn-txt" aria-hidden="true">Podepnij</span>' +
+        '<img class="au-blikbtn-logo" src="' + BLIK_LOGO_FULL + '" alt="" height="24" draggable="false">' +
+        '<span class="au-blikbtn-txt" aria-hidden="true">OneClick</span>' +
+      '</a>' +
+    '</div>';
+  }
+
   function vCta(hash) {
-    return PM.actions({
-      primary: { label: 'Skonfiguruj płatność', href: hash + '/checkout', cls: 'press' },
-      extra: PM.btn('Zrobię to później', { variant: 'ghost', block: true, cls: 'press', attrs: { 'data-ob-later': '' } })
-    });
+    /* Mikrokopii pod przyciskiem nie dodajemy, bo lead mówi już o potwierdzeniu w aplikacji banku. */
+    return blikOneClickBtn(hash + '/checkout') +
+      PM.actions({
+        extra: PM.btn('Zrobię to później', { variant: 'ghost', block: true, cls: 'press', attrs: { 'data-ob-later': '' } })
+      });
   }
   function vMount(root, ctx) {
     if (!obMount(root, ctx)) return;
