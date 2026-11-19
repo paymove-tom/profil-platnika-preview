@@ -1035,8 +1035,8 @@
     '.au-in3-step b{font-weight:500}' +
 
     /* notka i CTA */
-    '.au-in3-note{display:flex;align-items:flex-start;justify-content:center;gap:8px;margin:0;font:400 13px/21px var(--sans);color:var(--ts);text-align:center;text-wrap:balance}' +
-    '.au-in3-note .ico{width:14px;height:14px;margin-top:1px;opacity:.7}' +
+    '.au-in3-note{display:block;margin:0;font:400 13px/21px var(--sans);color:var(--ts);text-align:center;text-wrap:balance}' +
+    '.au-in3-note .ico{display:inline-block;vertical-align:-2px;margin:0 8px 0 0;width:14px;height:14px;opacity:.7}' +
     '.au-in3-cta.act-row{gap:13px}' +
     '.au-in3-cta.act-row .btn{height:50px}' +
     '.au-in3-cta.act-row .btn.au-in3-back{flex:none;padding:0 22px}' +
