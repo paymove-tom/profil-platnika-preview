@@ -733,14 +733,6 @@ html .sheet.au-checkout .au-sh-foot{flex:none;gap:0}
   html .sheet.au-checkout{max-width:560px;max-height:960px;padding:20px 20px 20px}
 }
 
-/* portfel: karta BLIK w proporcji karty płatniczej, metody nie na pełną szerokość */
-html .pf-blik{aspect-ratio:1.586;min-height:0;width:100%;max-width:400px;gap:12px}
-html .stack-8:has(>.pf-blik)>.pf-off,html .stack-8:has(>.pf-add){max-width:400px}
-@media (min-width:1024px){
-  html .stack-8:has(>.pf-blik)>.pf-blik,html .stack-8:has(>.pf-blik)>.pf-off{max-width:380px}
-  html .stack-8:has(>.pf-add){max-width:460px}
-}
-
 /* lockup paymove + Wallet w sidenav: ta sama linia bazowa co na logowaniu */
 html .sidenav-brand{align-items:baseline}
 html .sidenav-brand .sidenav-logo{align-self:auto}
