@@ -15,7 +15,7 @@ window.PM_DATA = {
     przyklad: true,
     dzis: '2026-11-15',
     miesiac: '2026-11',
-    metoda: 'BLIK OneClick',
+    metoda: 'BLIK bez kodu',
     metodaOpis: 'potwierdzone w aplikacji banku'
   },
 
@@ -37,7 +37,7 @@ window.PM_DATA = {
 
   tablice: ['WX 1234A', 'GD 9876B'],
 
-  /* metoda płatności BLIK OneClick (portfel, onboarding krok 4) */
+  /* metoda płatności BLIK bez kodu (portfel, onboarding krok 4) */
   blik: { polaczony: true, bank: 'PKO BP', od: '19.11.2026' },
 
   /* onboarding po social loginie: mail z konta Google, reszta pusta */
@@ -77,21 +77,21 @@ window.PM_DATA = {
       opis: 'Hamlet, 2 bilety, rząd 7', miejsce: 'ul. Bogusławskiego 1, Gdańsk',
       kwota: 128, data: '2026-11-15', godzina: '09:12',
       status: 'w-toku', bot: 'claude', terminZwrotu: '2026-11-29',
-      nrTransakcji: 'PM-2611-1509-12', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2611-1509-12', metoda: 'BLIK bez kodu'
     },
     {
       id: 'z-2611-zoo', typ: 'bilet', nazwa: 'Zoo Gdańsk',
       opis: '2 bilety normalne', miejsce: 'ul. Karwieńska 3, Gdańsk Oliwa',
       kwota: 86, data: '2026-11-12', godzina: '14:32',
       status: 'zaplacono', bot: 'claude', terminZwrotu: '2026-11-26',
-      nrTransakcji: 'PM-2611-1214-32', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2611-1214-32', metoda: 'BLIK bez kodu'
     },
     {
       id: 'z-2611-baltycka', typ: 'parking', nazwa: 'Galeria Bałtycka',
       opis: 'Postój 3 h', tablica: 'GD 9876B', miejsce: 'al. Grunwaldzka 141, Gdańsk',
       kwota: 12, data: '2026-11-10', godzina: '17:05',
       status: 'zaplacono', bot: 'chatgpt', terminZwrotu: '2026-11-24',
-      nrTransakcji: 'PM-2611-1017-05', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2611-1017-05', metoda: 'BLIK bez kodu'
     },
     {
       id: 'z-2611-stolik', typ: 'usluga', ikona: 'restaurant-line', nazwa: 'Rezerwacja stolika',
@@ -99,21 +99,21 @@ window.PM_DATA = {
       kwota: 0, kwotaPierwotna: 120, data: '2026-11-08', godzina: '20:40',
       status: 'anulowano', bot: 'grok', terminZwrotu: null,
       powodAnulowania: 'Restauracja odwołała rezerwację',
-      nrTransakcji: 'PM-2611-0820-40', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2611-0820-40', metoda: 'BLIK bez kodu'
     },
     {
       id: 'z-2611-pralnia', typ: 'usluga', nazwa: 'Pralnia Wrzeszcz',
       opis: 'Odbiór i pranie płaszcza', miejsce: 'ul. Grunwaldzka 76, Gdańsk',
       kwota: 40, data: '2026-11-06', godzina: '11:20',
       status: 'zaplacono', bot: 'perplexity', terminZwrotu: '2026-11-20',
-      nrTransakcji: 'PM-2611-0611-20', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2611-0611-20', metoda: 'BLIK bez kodu'
     },
     {
       id: 'z-2611-oliwa', typ: 'parking', nazwa: 'Parking Gdańsk Oliwa',
       opis: 'Strefa A, 12 h', tablica: 'WX 1234A', miejsce: 'ul. Grunwaldzka 482, Gdańsk',
       kwota: 48, data: '2026-11-05', godzina: '08:02',
       status: 'zaplacono', bot: 'claude', terminZwrotu: '2026-11-19',
-      nrTransakcji: 'PM-2611-0508-02', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2611-0508-02', metoda: 'BLIK bez kodu'
     },
     {
       id: 'z-2611-olivia', typ: 'bilet', nazwa: 'Hala Olivia',
@@ -121,21 +121,21 @@ window.PM_DATA = {
       kwota: 32, data: '2026-11-04', godzina: '18:45',
       status: 'nieudana', bot: 'chatgpt', terminZwrotu: null,
       powodBledu: 'Brak potwierdzenia w aplikacji banku',
-      nrTransakcji: 'PM-2611-0418-45', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2611-0418-45', metoda: 'BLIK bez kodu'
     },
     {
       id: 'z-2611-muzeum', typ: 'bilet', nazwa: 'Muzeum II Wojny Światowej',
       opis: '2 bilety ulgowe', miejsce: 'pl. Władysława Bartoszewskiego 1, Gdańsk',
       kwota: 74, data: '2026-11-02', godzina: '10:15',
       status: 'zaplacono', bot: 'chatgpt', terminZwrotu: '2026-11-16',
-      nrTransakcji: 'PM-2611-0210-15', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2611-0210-15', metoda: 'BLIK bez kodu'
     },
     {
       id: 'z-2611-myjnia', typ: 'usluga', nazwa: 'Myjnia Przymorze',
       opis: 'Mycie ręczne', tablica: 'WX 1234A', miejsce: 'ul. Obrońców Wybrzeża 2, Gdańsk',
       kwota: 80, data: '2026-11-01', godzina: '13:30',
       status: 'zaplacono', bot: 'claude', terminZwrotu: '2026-11-15',
-      nrTransakcji: 'PM-2611-0113-30', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2611-0113-30', metoda: 'BLIK bez kodu'
     },
 
     /* ---------- październik 2026 ---------- */
@@ -145,7 +145,7 @@ window.PM_DATA = {
       kwota: 54, data: '2026-10-28', godzina: '19:50',
       status: 'zwrot-w-toku', bot: 'chatgpt', terminZwrotu: '2026-11-11',
       zwrot: { kwota: 54, czesciowy: false, powod: 'nie-skorzystalem', zgloszono: '2026-11-09', przewidywane: '2026-11-23' },
-      nrTransakcji: 'PM-2610-2819-50', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2610-2819-50', metoda: 'BLIK bez kodu'
     },
     {
       id: 'z-2610-lotnisko', typ: 'parking', nazwa: 'Parking Lotnisko Gdańsk',
@@ -153,21 +153,21 @@ window.PM_DATA = {
       kwota: 96, data: '2026-10-21', godzina: '05:40',
       status: 'zwrocono', bot: 'perplexity', terminZwrotu: '2026-11-04',
       zwrot: { kwota: 96, czesciowy: false, powod: 'bledna-kwota', zgloszono: '2026-10-24', zakonczono: '2026-10-30' },
-      nrTransakcji: 'PM-2610-2105-40', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2610-2105-40', metoda: 'BLIK bez kodu'
     },
     {
       id: 'z-2610-lechia', typ: 'bilet', nazwa: 'Lechia Gdańsk',
       opis: 'Mecz ligowy, 2 bilety', miejsce: 'Polsat Plus Arena, Gdańsk',
       kwota: 120, data: '2026-10-18', godzina: '16:00',
       status: 'zaplacono', bot: 'grok', terminZwrotu: '2026-10-25',
-      nrTransakcji: 'PM-2610-1816-00', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2610-1816-00', metoda: 'BLIK bez kodu'
     },
     {
       id: 'z-2610-rower', typ: 'usluga', nazwa: 'Serwis rowerowy Rowerownia',
       opis: 'Przegląd sezonowy', miejsce: 'ul. Kartuska 18, Gdańsk',
       kwota: 65, data: '2026-10-09', godzina: '12:10',
       status: 'zaplacono', bot: 'claude', terminZwrotu: '2026-10-23',
-      nrTransakcji: 'PM-2610-0912-10', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2610-0912-10', metoda: 'BLIK bez kodu'
     }
   ],
 

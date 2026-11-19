@@ -747,9 +747,9 @@ html .sheet.au-checkout .au-sh-foot{gap:8px}
 @keyframes au-pop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
 html .sheet.au-checkout [data-blik-done]:disabled{opacity:.42;cursor:not-allowed;box-shadow:none}
 
-/* krok 3: przycisk BLIK OneClick */
+/* krok 3: przycisk BLIK bez kodu */
 /* =====================================================================
-   BLIK OneClick: przycisk kroku 3 + chip w nagłówku sheetu checkout
+   BLIK bez kodu: przycisk kroku 3 + chip w nagłówku sheetu checkout
    ===================================================================== */
 html .au-blikbtn.btn.btn--primary {
   position: relative;

@@ -398,7 +398,7 @@
         '<div class="row">' +
           '<div class="thumb">' + PM.icon('smartphone-line', 20) + '</div>' +
           '<div class="grow"><div class="name">Zatwierdź w aplikacji banku</div>' +
-            '<div class="meta pm-inline">' + blikTile() + 'OneClick</div></div>' +
+            '<div class="meta pm-inline">' + blikTile() + 'bez kodu</div></div>' +
           PM.spinner() +
         '</div>' +
       '</div>' +
@@ -436,7 +436,7 @@
       tablica: p.tablica, miejsce: p.miejsce,
       kwota: p.kwota, data: p.data || PM.today, godzina: p.godzina || '10:04',
       status: 'zaplacono', bot: p.bot || 'claude', terminZwrotu: '2026-11-29',
-      nrTransakcji: p.nrTransakcji, metoda: 'BLIK OneClick'
+      nrTransakcji: p.nrTransakcji, metoda: 'BLIK bez kodu'
     };
   }
 
@@ -454,7 +454,7 @@
       '</section>' +
       '<div class="card">' +
         PM.kv([
-          { k: 'Metoda', v: '<span class="pm-inline">' + blikTile() + 'OneClick</span>', html: true },
+          { k: 'Metoda', v: '<span class="pm-inline">' + blikTile() + 'bez kodu</span>', html: true },
           { k: 'Potwierdzenie', v: 'W aplikacji banku' },
           { k: 'Data', v: PM.date(z.data) + ', ' + (z.godzina || '') },
           { k: 'Nr transakcji', v: z.nrTransakcji || '', mono: true }

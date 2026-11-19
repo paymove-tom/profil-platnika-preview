@@ -35,14 +35,14 @@
       opis: 'Gdańsk Główny → Warszawa Centralna', miejsce: 'Wagon 8, miejsce 45',
       kwota: 89, data: '2026-11-14', godzina: '07:15',
       status: 'zaplacono', bot: 'chatgpt', terminZwrotu: '2026-11-28',
-      nrTransakcji: 'PM-2611-1407-15', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2611-1407-15', metoda: 'BLIK bez kodu'
     },
     {
       id: 'zk-ecs', x: true, kat: 'muzeum', typ: 'bilet', nazwa: 'Europejskie Centrum Solidarności',
       opis: 'Wystawa stała, 2 bilety normalne', miejsce: 'pl. Solidarności 1, Gdańsk',
       kwota: 60, data: '2026-11-13', godzina: '12:30',
       status: 'zaplacono', bot: 'perplexity', terminZwrotu: '2026-11-27',
-      nrTransakcji: 'PM-2611-1312-30', metoda: 'BLIK OneClick'
+      nrTransakcji: 'PM-2611-1312-30', metoda: 'BLIK bez kodu'
     }
   ];
 

@@ -132,13 +132,13 @@
   }
 
   function blikCard(bl) {
-    return '<a class="pay-card pay-card--blik pf-blik press pf-press" href="#/portfel/blik" aria-label="BLIK OneClick, aktywny. Zarządzaj">' +
+    return '<a class="pay-card pay-card--blik pf-blik press pf-press" href="#/portfel/blik" aria-label="BLIK bez kodu, aktywny. Zarządzaj">' +
       '<div class="pf-row">' +
         '<img class="pf-blik-logo" src="' + BLIK_LOGO + '" alt="BLIK" draggable="false">' +
         '<span class="pay-badge pf-badge pf-badge--on"><span class="dot"></span>Aktywny</span>' +
       '</div>' +
       '<div>' +
-        '<div class="pf-name">BLIK OneClick</div>' +
+        '<div class="pf-name">BLIK bez kodu</div>' +
         '<div class="pf-sub">Potwierdzasz w aplikacji banku</div>' +
       '</div>' +
       '<div class="pf-row">' +
@@ -250,7 +250,7 @@
     }
 
     return top +
-      '<div class="sheet-head"><h2 class="h-sheet">BLIK OneClick</h2>' +
+      '<div class="sheet-head"><h2 class="h-sheet">BLIK bez kodu</h2>' +
       '<p class="sheet-text">Płacisz bez przepisywania kodu. Każdą płatność potwierdzasz w aplikacji banku.</p></div>' +
       '<div class="card">' + PM.kv([
         { k: 'Status', v: '<span class="pay-badge pf-badge pf-badge--ok"><span class="dot"></span>Aktywny</span>', html: true },
@@ -295,7 +295,7 @@
   });
 
   PM.route('#/portfel/blik', {
-    title: 'BLIK OneClick', group: G, label: 'Zarządzaj BLIK', tab: 'portfel',
+    title: 'BLIK bez kodu', group: G, label: 'Zarządzaj BLIK', tab: 'portfel',
     sheet: true, base: '#/portfel',
     render: function () { return renderManage(); },
     mount: function (root) { mountManage(root); }

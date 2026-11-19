@@ -11,7 +11,7 @@ Stanów: 62. Dane w prototypie to mock.
 
 | Hash | Stan |
 |---|---|
-| `#/portfel` | Portfel (okrojony): powitanie, BLIK OneClick, Twoje konto |
+| `#/portfel` | Portfel (okrojony): powitanie, BLIK bez kodu, Twoje konto |
 | `#/portfel/bez-blik` | Portfel bez BLIK |
 | `#/portfel/blik` | Zarządzaj BLIK (sheet) |
 

@@ -426,7 +426,7 @@
           '<span class="au-mini-st"><i></i>Aktywny</span>' +
         '</div>' +
         '<div class="au-mini-foot">' +
-          '<span class="au-mini-name">BLIK OneClick</span>' +
+          '<span class="au-mini-name">BLIK bez kodu</span>' +
           '<span class="au-mini-bots">' + PM.botLogo('claude', 18) + PM.botLogo('chatgpt', 18) + PM.botLogo('perplexity', 18) + '</span>' +
         '</div>' +
       '</div>' +
@@ -821,7 +821,7 @@
         var body =
           '<div class="au-sh-head">' +
             '<span class="au-blik-chip au-blik-chip--oc"><img src="' + BLIK_LOGO_FULL + '" alt="BLIK" draggable="false"></span>' +
-            '<div class="grow"><h2 class="au-sh-title">Podepnij BLIK OneClick</h2><p class="meta">Potwierdzisz w aplikacji banku</p></div>' +
+            '<div class="grow"><h2 class="au-sh-title">Podepnij BLIK bez kodu</h2><p class="meta">Potwierdzisz w aplikacji banku</p></div>' +
             '<a class="au-newtab" href="' + url + '" target="_blank" rel="noopener">Otwórz w nowej karcie</a>' +
             '<a class="au-x press" href="' + baseHash + '" aria-label="Zamknij">' + PM.icon('close-line', 18) + '</a>' +
           '</div>' +
@@ -905,17 +905,17 @@
     '<path d="M20 1.09A12 12 0 0 1 20 22.91A12 12 0 0 1 20 1.09Z" fill="#FF5F00"/>' +
     '</svg>';
 
-  /* Pełne, oficjalne logo BLIK (czarne tło + kropka). Używane w przycisku OneClick i w chipie sheetu. */
+  /* Pełne, oficjalne logo BLIK (czarne tło + kropka). Używane w przycisku BLIK bez kodu i w chipie sheetu. */
   var BLIK_LOGO_FULL = 'assets/logos/blik-logo.svg';
 
-  /* Przycisk w stylu BLIK OneClick. Ma klasy btn / btn--primary i siedzi w .act-row,
+  /* Przycisk w stylu BLIK bez kodu. Ma klasy btn / btn--primary i siedzi w .act-row,
      więc wysokość (48px), max-width (360/400) i układ dziedziczy z dotychczasowego primary. */
   function blikOneClickBtn(href) {
     return '<div class="act-row">' +
-      '<a class="btn btn--primary au-blikbtn press" href="' + PM.esc(href) + '" aria-label="Podepnij BLIK OneClick">' +
+      '<a class="btn btn--primary au-blikbtn press" href="' + PM.esc(href) + '" aria-label="Podepnij BLIK bez kodu">' +
         '<span class="au-blikbtn-txt" aria-hidden="true">Podepnij</span>' +
         '<img class="au-blikbtn-logo" src="' + BLIK_LOGO_FULL + '" alt="" height="24" draggable="false">' +
-        '<span class="au-blikbtn-txt" aria-hidden="true">OneClick</span>' +
+        '<span class="au-blikbtn-txt" aria-hidden="true">bez kodu</span>' +
       '</a>' +
     '</div>';
   }
@@ -959,7 +959,7 @@
                     '<span class="au-mini-st"><i></i>Do podpięcia</span>' +
                   '</div>' +
                   '<div class="au-mini-foot">' +
-                    '<span><span class="au-mini-name">BLIK OneClick</span><span class="au-bcard-sub">TOMASZ GĘSIOR</span></span>' +
+                    '<span><span class="au-mini-name">BLIK bez kodu</span><span class="au-bcard-sub">TOMASZ GĘSIOR</span></span>' +
                     '<span class="au-mini-bots">' + PM.botLogo('claude', 20) + PM.botLogo('chatgpt', 20) + PM.botLogo('perplexity', 20) + '</span>' +
                   '</div>' +
                 '</div>' +
@@ -1084,7 +1084,7 @@
           '<div class="card">' +
             '<div class="row">' +
               '<span class="tile"><img src="assets/logos/blik-mark-noborder.svg" alt="BLIK" draggable="false"></span>' +
-              '<div class="grow"><div class="name">BLIK OneClick</div><div class="meta">Każdą płatność potwierdzasz w aplikacji banku</div></div>' +
+              '<div class="grow"><div class="name">BLIK bez kodu</div><div class="meta">Każdą płatność potwierdzasz w aplikacji banku</div></div>' +
             '</div>' +
           '</div>',
         cta: PM.actions({
@@ -1196,7 +1196,7 @@
             PM.kv([
               { k: 'Dane', v: dostep },
               { k: 'Limit', v: PM.zlInt(limit) + ' / mies.' },
-              { k: 'Płatność', v: 'BLIK OneClick' }
+              { k: 'Płatność', v: 'BLIK bez kodu' }
             ]) +
           '</div>',
         cta: PM.actions({

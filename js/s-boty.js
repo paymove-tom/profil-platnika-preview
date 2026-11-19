@@ -218,7 +218,7 @@
             { k: 'Na jedną transakcję', v: PM.zlInt(b.limitTrans) },
             { k: 'Zakupy w tym miesiącu', v: String(b.zakupyMies || 0) },
             { k: 'Ostatnio', v: b.ostatnio || 'nigdy' },
-            { k: 'Płatność', html: true, v: '<span class="tile tile--wide"><img src="assets/logos/blik-logo.svg" alt="BLIK"></span>OneClick' },
+            { k: 'Płatność', html: true, v: '<span class="tile tile--wide"><img src="assets/logos/blik-logo.svg" alt="BLIK"></span>bez kodu' },
             { k: 'Potwierdzenie', v: 'w aplikacji banku' }
           ]) +
           '<a class="row divide" href="#/limity/bot-' + PM.esc(b.id) + '">' +

@@ -267,7 +267,7 @@
       banner = PM.banner({
         type: 'warn', icon: 'smartphone-line',
         title: 'Czeka na potwierdzenie',
-        text: 'Zatwierdź płatność BLIK OneClick w aplikacji banku.',
+        text: 'Zatwierdź płatność BLIKIEM bez kodu w aplikacji banku.',
         right: PM.spinner()
       });
     } else if (st === 'nieudana') {
@@ -293,7 +293,7 @@
     var confirmed = st === 'zaplacono' || st === 'zwrot-w-toku' || st === 'zwrocono';
     var method = '<div class="row">' +
       '<span class="tile"><img src="' + BLIK_LOGO + '" alt="BLIK" draggable="false"></span>' +
-      '<div class="grow"><div class="name">BLIK OneClick</div><div class="meta">' + esc(methodMeta(st)) + '</div></div>' +
+      '<div class="grow"><div class="name">BLIK bez kodu</div><div class="meta">' + esc(methodMeta(st)) + '</div></div>' +
       (confirmed ? PM.icon('shield-check-line', 20, 'ico--green') : '') +
       '</div>';
     var pay = '<section class="sec"><div class="sec-h"><span>Płatność</span></div>' +
@@ -462,7 +462,7 @@
       PM.actions({
         back: PM.purchaseHref(p),
         primary: { label: 'Wyślij zgłoszenie', attrs: { 'data-send': '' }, loading: dis },
-        legal: 'Zwrot trafi do weryfikacji. Pieniądze wrócą na konto, z którego płaciłeś BLIK OneClick.'
+        legal: 'Zwrot trafi do weryfikacji. Pieniądze wrócą na konto, z którego płaciłeś BLIKIEM bez kodu.'
       });
 
     return PM.screen({ title: 'Zgłoś zwrot', content: content, cta: cta });
@@ -677,7 +677,7 @@
         { k: 'Powód', v: powodLabel(info.powod) },
         { k: 'Zgłoszono', v: PM.date(info.zgloszono) },
         { k: 'Zakończono', v: PM.date(info.zakonczono || info.przewidywane) },
-        { k: 'Metoda', v: 'BLIK OneClick' }
+        { k: 'Metoda', v: 'BLIK bez kodu' }
       ]) + '</div></section>';
     return PM.screen({
       title: 'Zwrot zakończony', showTitle: false, cls: 'screen--ok', contentCls: 'content--top',
