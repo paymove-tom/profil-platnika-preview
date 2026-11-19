@@ -1011,7 +1011,7 @@
     '@media (min-width:1024px){.sheet.au-in3{max-width:460px;padding:24px 26px 20px}}' +
 
     /* ikona Paymove z plakietką „sklep dodany” */
-    '.au-in3-art{position:relative;flex:none;display:flex;justify-content:center;padding:6px 0 2px}' +
+    '.au-in3-art{position:relative;flex:none;display:flex;justify-content:center;padding:6px 0 12px}' +
     '.au-in3-art::before{content:"";position:absolute;left:50%;top:50%;width:220px;height:130px;margin:-65px 0 0 -110px;border-radius:50%;background:radial-gradient(closest-side,rgba(230,0,126,.18),rgba(230,0,126,0));filter:blur(18px);pointer-events:none}' +
     '.au-in3-mark{position:relative;width:76px;height:76px}' +
     '.au-in3-mark>img.au-in3-sy{display:block;width:76px;height:76px;border-radius:22px;box-shadow:0 14px 28px -12px rgba(31,41,82,.45),0 0 0 1px rgba(26,26,26,.06)}' +
