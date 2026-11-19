@@ -1007,23 +1007,23 @@
   PM.css(
     /* sheet: sprężyna jak na powitaniu, przyciemnione i rozmyte tło kroku 3 */
     '.sheet-layer:has(.au-in3) .scrim{background:rgba(30,32,48,.22)}' +
-    '.sheet.au-in3{max-width:420px;gap:22px;padding:34px 28px 26px;overflow-x:hidden;border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.76);box-shadow:0 8px 24px rgba(31,41,82,.08),0 32px 72px -16px rgba(31,41,82,.32),inset 0 1px 0 rgba(255,255,255,.9);animation:au-st-spring .8s ease-out .04s both}' +
-    '@media (min-width:1024px){.sheet.au-in3{max-width:480px;padding:44px 44px 34px}}' +
+    '.sheet.au-in3{max-width:420px;gap:34px;padding:34px 34px 34px;overflow-x:hidden;border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.76);box-shadow:0 8px 24px rgba(31,41,82,.08),0 32px 72px -16px rgba(31,41,82,.32),inset 0 1px 0 rgba(255,255,255,.9);animation:au-st-spring .8s ease-out .04s both}' +
+    '@media (min-width:1024px){.sheet.au-in3{max-width:500px;gap:34px;padding:55px 55px 34px}}' +
 
     /* ikona Paymove z plakietką „sklep dodany” */
-    '.au-in3-art{position:relative;flex:none;display:flex;justify-content:center;padding:6px 0 18px}' +
-    '.au-in3-art::before{content:"";position:absolute;left:50%;top:50%;width:220px;height:130px;margin:-65px 0 0 -110px;border-radius:50%;background:radial-gradient(closest-side,rgba(230,0,126,.18),rgba(230,0,126,0));filter:blur(18px);pointer-events:none}' +
-    '.au-in3-mark{position:relative;width:76px;height:76px}' +
-    '.au-in3-mark>img.au-in3-sy{display:block;width:76px;height:76px;border-radius:22px;box-shadow:0 14px 28px -12px rgba(31,41,82,.45),0 0 0 1px rgba(26,26,26,.06)}' +
-    '.au-in3-badge{position:absolute;right:-14px;bottom:-12px;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--cta-grad);border:3px solid #fff;box-shadow:0 6px 14px -4px rgba(230,0,126,.55)}' +
+    '.au-in3-art{position:relative;flex:none;display:flex;justify-content:center;padding:0 0 13px}' +
+    '.au-in3-art::before{content:"";position:absolute;left:50%;top:50%;width:260px;height:160px;margin:-90px 0 0 -130px;border-radius:50%;background:radial-gradient(closest-side,rgba(230,0,126,.18),rgba(230,0,126,0));filter:blur(18px);pointer-events:none}' +
+    '.au-in3-mark{position:relative;width:89px;height:89px}' +
+    '.au-in3-mark>img.au-in3-sy{display:block;width:89px;height:89px;border-radius:26px;box-shadow:0 14px 28px -12px rgba(31,41,82,.45),0 0 0 1px rgba(26,26,26,.06)}' +
+    '.au-in3-badge{position:absolute;right:-13px;bottom:-13px;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--cta-grad);border:3px solid #fff;box-shadow:0 6px 14px -4px rgba(230,0,126,.55)}' +
     '.au-in3-badge img{display:block;width:16px;height:16px;filter:brightness(0) invert(1)}' +
 
     /* tekst */
-    '.au-in3-head{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}' +
-    '.au-in3-kick{display:inline-flex;align-items:center;gap:8px;font:500 15px/22px var(--sans);color:var(--ts);margin-bottom:2px}' +
-    '.au-in3-kick img{display:block;height:22px;width:auto;flex:none}.au-in3-kick span{display:block;line-height:22px}' +
-    '.au-in3-title{font:700 26px/32px var(--sans);letter-spacing:-.02em;color:var(--tp);text-wrap:balance}' +
-    '.au-in3-lead{font:400 16px/24px var(--sans);color:var(--ts);max-width:320px;text-wrap:balance}' +
+    '.au-in3-head{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center}' +
+    '.au-in3-kick{display:inline-flex;align-items:center;gap:8px;font:500 16px/21px var(--sans);color:var(--ts)}' +
+    '.au-in3-kick img{display:block;height:21px;width:auto;flex:none}.au-in3-kick span{display:block;line-height:21px}' +
+    '.au-in3-title{font:700 26px/34px var(--sans);letter-spacing:-.02em;color:var(--tp);text-wrap:balance}' +
+    '.au-in3-lead{font:400 16px/26px var(--sans);color:var(--ts);max-width:288px;text-wrap:balance}' +
     '.au-in3-lead b{font-weight:500;color:var(--tp)}' +
 
     /* kroki */
@@ -1035,9 +1035,9 @@
     '.au-in3-step b{font-weight:500}' +
 
     /* notka i CTA */
-    '.au-in3-note{display:flex;align-items:flex-start;justify-content:center;gap:8px;margin:0;font:400 13px/19px var(--sans);color:var(--ts);opacity:.85;text-wrap:balance}' +
+    '.au-in3-note{display:flex;align-items:flex-start;justify-content:center;gap:8px;margin:0;font:400 13px/21px var(--sans);color:var(--ts);text-wrap:balance}' +
     '.au-in3-note .ico{width:14px;height:14px;margin-top:1px;opacity:.7}' +
-    '.au-in3-cta.act-row{gap:10px}' +
+    '.au-in3-cta.act-row{gap:13px}' +
     '.au-in3-cta.act-row .btn{height:50px}' +
     '.au-in3-cta.act-row .btn.au-in3-back{flex:none;padding:0 22px}' +
 
