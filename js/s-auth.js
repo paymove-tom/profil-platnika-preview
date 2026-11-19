@@ -1010,25 +1010,13 @@
     '.sheet.au-in3{max-width:420px;gap:16px;padding:22px 20px 18px;overflow-x:hidden;border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.76);box-shadow:0 8px 24px rgba(31,41,82,.08),0 32px 72px -16px rgba(31,41,82,.32),inset 0 1px 0 rgba(255,255,255,.9);animation:au-st-spring .8s ease-out .04s both}' +
     '@media (min-width:1024px){.sheet.au-in3{max-width:460px;padding:24px 26px 20px}}' +
 
-    /* makieta potwierdzenia w aplikacji banku (bez marki banku) */
-    '.au-in3-art{position:relative;flex:none;display:flex;justify-content:center;padding-top:2px}' +
-    '.au-in3-art::before{content:"";position:absolute;left:50%;top:50%;width:240px;height:150px;margin:-75px 0 0 -120px;border-radius:50%;background:radial-gradient(closest-side,rgba(230,0,126,.2),rgba(230,0,126,0));filter:blur(18px);pointer-events:none}' +
-    '.au-in3-phone{position:relative;width:212px;padding:5px;border-radius:30px;background:#111114;box-shadow:0 18px 36px -14px rgba(31,41,82,.45),inset 0 0 0 1px rgba(255,255,255,.08)}' +
-    '.au-in3-screen{position:relative;display:flex;flex-direction:column;gap:8px;padding:20px 12px 11px;border-radius:25px;background:#fff;text-align:left}' +
-    '.au-in3-notch{position:absolute;top:7px;left:50%;width:44px;height:5px;margin-left:-22px;border-radius:3px;background:#111114}' +
-    '.au-in3-bt{display:flex;align-items:center;gap:6px;font:700 13px/16px var(--sans);letter-spacing:-.005em;color:var(--tp)}' +
-    '.au-in3-bt img{display:block;width:16px;height:16px;flex:none}' +
-    '.au-in3-kv{display:flex;flex-direction:column;gap:3px;padding:6px 8px;border-radius:10px;background:var(--input)}' +
-    '.au-in3-kv div{display:flex;justify-content:space-between;gap:8px;font:400 11px/15px var(--sans);color:var(--ts)}' +
-    '.au-in3-kv b{font:500 11px/15px var(--sans);color:var(--tp);font-variant-numeric:tabular-nums}' +
-    '.au-in3-rem{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 8px 7px 10px;border-radius:11px;background:rgba(230,0,126,.07);box-shadow:inset 0 0 0 1px rgba(230,0,126,.38)}' +
-    '.au-in3-rem::after{content:"";position:absolute;inset:-4px;border-radius:15px;border:2px solid #e6007e;opacity:.35;pointer-events:none;animation:au-in3-ring 1.8s ease-out 1.6s infinite backwards}' +
-    '.au-in3-rem-l{font:500 12px/16px var(--sans);color:var(--tp)}' +
-    '.au-in3-sw{position:relative;width:34px;height:20px;flex:none;border-radius:10px;background:rgba(120,120,128,.22);overflow:hidden}' +
-    '.au-in3-sw::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(100deg,#ff0000,#e6007e);opacity:1;animation:au-in3-on .3s ease 1.15s both}' +
-    '.au-in3-sw i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transform:translateX(14px);animation:au-in3-knob .42s cubic-bezier(.3,1.5,.5,1) 1.15s both}' +
-    '.au-in3-tap{position:absolute;right:11px;top:50%;width:28px;height:28px;margin-top:-14px;border-radius:50%;background:rgba(26,26,26,.16);opacity:0;pointer-events:none;animation:au-in3-tap .6s ease-out .9s both}' +
-    '.au-in3-ok{display:grid;place-items:center;height:28px;border-radius:999px;background:var(--cta-grad);color:#fff;font:500 12px/16px var(--sans)}' +
+    /* ikona Paymove z plakietką „sklep dodany” */
+    '.au-in3-art{position:relative;flex:none;display:flex;justify-content:center;padding:6px 0 2px}' +
+    '.au-in3-art::before{content:"";position:absolute;left:50%;top:50%;width:220px;height:130px;margin:-65px 0 0 -110px;border-radius:50%;background:radial-gradient(closest-side,rgba(230,0,126,.18),rgba(230,0,126,0));filter:blur(18px);pointer-events:none}' +
+    '.au-in3-mark{position:relative;width:76px;height:76px}' +
+    '.au-in3-mark>img.au-in3-sy{display:block;width:76px;height:76px;border-radius:22px;box-shadow:0 14px 28px -12px rgba(31,41,82,.45),0 0 0 1px rgba(26,26,26,.06)}' +
+    '.au-in3-badge{position:absolute;right:-14px;bottom:-12px;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--cta-grad);border:3px solid #fff;box-shadow:0 6px 14px -4px rgba(230,0,126,.55)}' +
+    '.au-in3-badge img{display:block;width:16px;height:16px;filter:brightness(0) invert(1)}' +
 
     /* tekst */
     '.au-in3-head{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}' +
@@ -1036,6 +1024,7 @@
     '.au-in3-kick i{display:block;width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#ff0000,#e6007e)}' +
     '.au-in3-title{font:700 24px/30px var(--sans);letter-spacing:-.02em}' +
     '.au-in3-lead{font:400 15px/21px var(--sans);color:var(--ts);max-width:360px}' +
+    '.au-in3-lead b{font-weight:500;color:var(--tp)}' +
 
     /* kroki */
     '.au-in3-steps{list-style:none;margin:0;padding:0;border-radius:var(--r-card);background:rgba(255,255,255,.62);border:1px solid var(--border);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}' +
@@ -1053,10 +1042,8 @@
     '.au-in3-cta.act-row .btn.au-in3-back{flex:none;padding:0 22px}' +
 
     /* klatki: tylko transform i opacity */
-    '@keyframes au-in3-on{from{opacity:0}to{opacity:1}}' +
-    '@keyframes au-in3-knob{from{transform:translateX(0)}to{transform:translateX(14px)}}' +
-    '@keyframes au-in3-tap{0%{opacity:0;transform:scale(.4)}35%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.5)}}' +
-    '@keyframes au-in3-ring{0%{opacity:0;transform:scale(.98)}20%{opacity:.6}100%{opacity:0;transform:scale(1.05)}}' +
+    '@keyframes au-in3-pop{0%{opacity:0;transform:scale(.4)}100%{opacity:1;transform:scale(1)}}' +
+    '.au-in3-badge{animation:au-in3-pop .45s cubic-bezier(.3,1.5,.5,1) .7s both}' +
 
     /* bez ruchu: przełącznik od razu ON, obwódka statyczna */
     '@media (prefers-reduced-motion:reduce){.sheet.au-in3,.au-in3 *,.au-in3 *::before,.au-in3 *::after{animation:none!important}}' +
@@ -1074,36 +1061,17 @@
     render: function () {
       var body =
         '<div class="au-in3-art au-in" style="--d:.16s" aria-hidden="true">' +
-          '<div class="au-in3-phone">' +
-            '<div class="au-in3-screen">' +
-              '<span class="au-in3-notch"></span>' +
-              '<div class="au-in3-bt"><img src="assets/logos/blik-mark-noborder.svg" alt="" draggable="false">Potwierdź płatność BLIK</div>' +
-              '<div class="au-in3-kv">' +
-                '<div><span>Odbiorca</span><b>Paymove</b></div>' +
-                '<div><span>Kwota</span><b>1,00 zł</b></div>' +
-              '</div>' +
-              '<div class="au-in3-rem">' +
-                '<span class="au-in3-rem-l">Zapamiętaj sklep</span>' +
-                '<span class="au-in3-sw"><i></i></span>' +
-                '<span class="au-in3-tap"></span>' +
-              '</div>' +
-              '<span class="au-in3-ok">Zatwierdź</span>' +
-            '</div>' +
-          '</div>' +
+          '<div class="au-in3-mark"><img class="au-in3-sy" src="' + SYGNET + '" alt="" draggable="false">' +
+          '<span class="au-in3-badge">' + PM.icon('add-line', 16) + '</span></div>' +
         '</div>' +
         '<div class="au-in3-head">' +
           '<span class="au-in3-kick au-in" style="--d:.26s"><i></i>BLIK bez kodu</span>' +
           '<h2 class="au-in3-title au-in" style="--d:.32s">Zapłać i zapamiętaj sklep</h2>' +
-          '<p class="au-in3-lead au-in" style="--d:.38s">Przy pierwszej płatności zapamiętaj też sklep w aplikacji banku, inaczej każda kolejna znów będzie wymagać kodu.</p>' +
+          '<p class="au-in3-lead au-in" style="--d:.38s">Zapłać 1 zł BLIKIEM. W aplikacji banku wybierz <b>„Zapamiętaj sklep”</b>, a nie samo „Zapłać”.</p>' +
         '</div>' +
-        '<ol class="au-in3-steps" aria-label="Jak to zrobić">' +
-          in3Step(1, 'Wpisz kod BLIK i zapłać <b>1 zł</b>.', false, 0.46) +
-          in3Step(2, 'W aplikacji banku zaznacz <b>„Zapamiętaj sklep”</b> i zatwierdź.', true, 0.52) +
-          in3Step(3, 'Następnym razem boty płacą bez kodu, a Ty tylko potwierdzasz w banku.', false, 0.58) +
-        '</ol>' +
-        '<p class="au-in3-note au-in" style="--d:.64s">' + PM.icon('information-line', 14) +
-          '<span>Listę zapamiętanych sklepów masz w aplikacji banku. Możesz z niej usunąć Paymove w każdej chwili.</span></p>' +
-        '<div class="act-row au-in3-cta au-in" style="--d:.7s">' +
+        '<p class="au-in3-note au-in" style="--d:.5s">' + PM.icon('information-line', 14) +
+          '<span>Dzięki temu kolejne płatności botów idą bez kodu.</span></p>' +
+        '<div class="act-row au-in3-cta au-in" style="--d:.58s">' +
           PM.btn('Wróć', { variant: 'secondary', href: '#/onboarding/3', cls: 'press au-in3-back' }) +
           PM.btn('Rozumiem, dalej', { variant: 'primary', href: '#/onboarding/3/checkout', cls: 'press', iconRight: 'arrow-right-s-line' }) +
         '</div>';
