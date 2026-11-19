@@ -6,7 +6,8 @@
                                   rozmytym ekranem logowania, podgląd 3 kroków
      #/onboarding/1               adres
      #/onboarding/2               numer rejestracyjny
-     #/onboarding/3               BLIK (portfel)
+     #/onboarding/3               BLIK (portfel), znacznik „Najszybsza płatność”
+     #/onboarding/3/info          sheet przed bramką: zapłać i zapamiętaj sklep
      #/onboarding/3/checkout      sheet z iframe checkoutu BLIK
    Mail (tomasz.gesior@paymove.io) bierzemy z konta social, bez osobnego kroku.
      #/onboarding/gotowe          sukces
@@ -905,6 +906,29 @@
     '<path d="M20 1.09A12 12 0 0 1 20 22.91A12 12 0 0 1 20 1.09Z" fill="#FF5F00"/>' +
     '</svg>';
 
+  /* Znacznik „Najszybsza płatność” na karcie BLIK (krok 3). Błyskawica w currentColor. */
+  var BOLT_SVG = '<svg class="au-fast-ico" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" focusable="false">' +
+    '<path fill="currentColor" d="M13.2 2.2 4.6 13.4c-.3.4 0 .9.5.9h5.6l-1.3 7.2c-.1.6.6.9 1 .4l8.6-11.2c.3-.4 0-.9-.5-.9h-5.6l1.3-7.2c.1-.6-.6-.9-1-.4z"/>' +
+    '</svg>';
+  function fastBadge() {
+    return '<span class="au-fast">' + BOLT_SVG + '<span>Najszybsza płatność</span></span>';
+  }
+  PM.css(
+    '.au-fast{position:relative;z-index:1;display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 9px 0 7px;border-radius:999px;overflow:hidden;white-space:nowrap;color:#fff;font:500 11px/1 var(--sans);letter-spacing:.01em;' +
+      'background:linear-gradient(100deg,#ff0000 0%,#e6007e 100%);' +
+      'box-shadow:0 6px 16px -6px rgba(255,0,60,.75),inset 0 0 0 1px rgba(255,255,255,.2),inset 0 1px 0 rgba(255,255,255,.35);' +
+      'animation:au-fast-in .5s cubic-bezier(.3,1.5,.5,1) .55s both}' +
+    '.au-fast-ico{position:relative;z-index:1;display:block;width:12px;height:12px;flex:none}' +
+    '.au-fast>span{position:relative;z-index:1}' +
+    '.au-fast::after{content:"";position:absolute;top:0;bottom:0;left:0;width:60%;pointer-events:none;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.45),rgba(255,255,255,0));transform:translateX(-120%) skewX(-18deg);animation:au-fast-shine 4.5s ease-in-out 1.4s infinite}' +
+    '@keyframes au-fast-in{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}' +
+    '@keyframes au-fast-shine{0%{transform:translateX(-120%) skewX(-18deg)}30%,100%{transform:translateX(260%) skewX(-18deg)}}' +
+    '@media (min-width:1024px){.au-fast{height:20px;padding:0 8px 0 6px;font-size:10px}.au-fast-ico{width:11px;height:11px}}' +
+    '.ob-step.au-still .au-fast{animation:none}' +
+    '@media (prefers-reduced-motion:reduce){.au-fast,.au-fast::after{animation:none!important}}' +
+    '.is-shot .au-fast,.is-shot .au-fast::after{animation:none!important}'
+  );
+
   /* Pełne, oficjalne logo BLIK (czarne tło + kropka). Używane w przycisku BLIK bez kodu i w chipie sheetu. */
   var BLIK_LOGO_FULL = 'assets/logos/blik-logo.svg';
 
@@ -922,7 +946,8 @@
 
   function vCta(hash) {
     /* Mikrokopii pod przyciskiem nie dodajemy, bo lead mówi już o potwierdzeniu w aplikacji banku. */
-    return blikOneClickBtn(hash + '/checkout') +
+    /* Najpierw objaśnienie (zapłać i zapamiętaj sklep), dopiero z niego wchodzimy do bramki. */
+    return blikOneClickBtn(hash + '/info') +
       PM.actions({
         extra: PM.btn('Zrobię to później', { variant: 'ghost', block: true, cls: 'press', attrs: { 'data-ob-later': '' } })
       });
@@ -951,12 +976,13 @@
             '<div class="au-vc-stack">' +
               '<div class="au-vc-card au-vc-card--visa">' + VISA_SVG + '<span class="au-vc-soon">Wkrótce</span></div>' +
               '<div class="au-vc-card au-vc-card--mc">' + MC_SVG + '<span class="au-vc-soon">Wkrótce</span></div>' +
+              '<span class="sr-only">BLIK bez kodu: najszybsza płatność w portfelu</span>' +
               '<div class="au-vc-front" aria-hidden="true">' +
                 '<span class="au-bglow"></span>' +
                 '<div class="au-bcard">' +
                   '<div class="au-mini-top">' +
                     '<img class="au-mini-blik" src="' + BLIK_LOGO + '" alt="" draggable="false">' +
-                    '<span class="au-mini-st"><i></i>Do podpięcia</span>' +
+                    fastBadge() +
                   '</div>' +
                   '<div class="au-mini-foot">' +
                     '<span><span class="au-mini-name">BLIK bez kodu</span><span class="au-bcard-sub">TOMASZ GĘSIOR</span></span>' +
@@ -975,6 +1001,118 @@
     },
     mount: vMount
   });
+  /* ---------- krok 3: objaśnienie przed bramką (zapłać i zapamiętaj sklep) ---------- */
+  PM.css(
+    /* sheet: sprężyna jak na powitaniu, przyciemnione i rozmyte tło kroku 3 */
+    '.sheet-layer:has(.au-in3) .scrim{background:rgba(30,32,48,.22)}' +
+    '.sheet.au-in3{max-width:420px;gap:16px;padding:22px 20px 18px;overflow-x:hidden;border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.76);box-shadow:0 8px 24px rgba(31,41,82,.08),0 32px 72px -16px rgba(31,41,82,.32),inset 0 1px 0 rgba(255,255,255,.9);animation:au-st-spring .8s ease-out .04s both}' +
+    '@media (min-width:1024px){.sheet.au-in3{max-width:460px;padding:24px 26px 20px}}' +
+
+    /* makieta potwierdzenia w aplikacji banku (bez marki banku) */
+    '.au-in3-art{position:relative;flex:none;display:flex;justify-content:center;padding-top:2px}' +
+    '.au-in3-art::before{content:"";position:absolute;left:50%;top:50%;width:240px;height:150px;margin:-75px 0 0 -120px;border-radius:50%;background:radial-gradient(closest-side,rgba(230,0,126,.2),rgba(230,0,126,0));filter:blur(18px);pointer-events:none}' +
+    '.au-in3-phone{position:relative;width:212px;padding:5px;border-radius:30px;background:#111114;box-shadow:0 18px 36px -14px rgba(31,41,82,.45),inset 0 0 0 1px rgba(255,255,255,.08)}' +
+    '.au-in3-screen{position:relative;display:flex;flex-direction:column;gap:8px;padding:20px 12px 11px;border-radius:25px;background:#fff;text-align:left}' +
+    '.au-in3-notch{position:absolute;top:7px;left:50%;width:44px;height:5px;margin-left:-22px;border-radius:3px;background:#111114}' +
+    '.au-in3-bt{display:flex;align-items:center;gap:6px;font:700 13px/16px var(--sans);letter-spacing:-.005em;color:var(--tp)}' +
+    '.au-in3-bt img{display:block;width:16px;height:16px;flex:none}' +
+    '.au-in3-kv{display:flex;flex-direction:column;gap:3px;padding:6px 8px;border-radius:10px;background:var(--input)}' +
+    '.au-in3-kv div{display:flex;justify-content:space-between;gap:8px;font:400 11px/15px var(--sans);color:var(--ts)}' +
+    '.au-in3-kv b{font:500 11px/15px var(--sans);color:var(--tp);font-variant-numeric:tabular-nums}' +
+    '.au-in3-rem{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 8px 7px 10px;border-radius:11px;background:rgba(230,0,126,.07);box-shadow:inset 0 0 0 1px rgba(230,0,126,.38)}' +
+    '.au-in3-rem::after{content:"";position:absolute;inset:-4px;border-radius:15px;border:2px solid #e6007e;opacity:.35;pointer-events:none;animation:au-in3-ring 1.8s ease-out 1.6s infinite backwards}' +
+    '.au-in3-rem-l{font:500 12px/16px var(--sans);color:var(--tp)}' +
+    '.au-in3-sw{position:relative;width:34px;height:20px;flex:none;border-radius:10px;background:rgba(120,120,128,.22);overflow:hidden}' +
+    '.au-in3-sw::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(100deg,#ff0000,#e6007e);opacity:1;animation:au-in3-on .3s ease 1.15s both}' +
+    '.au-in3-sw i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transform:translateX(14px);animation:au-in3-knob .42s cubic-bezier(.3,1.5,.5,1) 1.15s both}' +
+    '.au-in3-tap{position:absolute;right:11px;top:50%;width:28px;height:28px;margin-top:-14px;border-radius:50%;background:rgba(26,26,26,.16);opacity:0;pointer-events:none;animation:au-in3-tap .6s ease-out .9s both}' +
+    '.au-in3-ok{display:grid;place-items:center;height:28px;border-radius:999px;background:var(--cta-grad);color:#fff;font:500 12px/16px var(--sans)}' +
+
+    /* tekst */
+    '.au-in3-head{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}' +
+    '.au-in3-kick{display:inline-flex;align-items:center;gap:6px;font:500 12px/16px var(--mono);letter-spacing:.04em;color:var(--ts)}' +
+    '.au-in3-kick i{display:block;width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#ff0000,#e6007e)}' +
+    '.au-in3-title{font:700 24px/30px var(--sans);letter-spacing:-.02em}' +
+    '.au-in3-lead{font:400 15px/21px var(--sans);color:var(--ts);max-width:360px}' +
+
+    /* kroki */
+    '.au-in3-steps{list-style:none;margin:0;padding:0;border-radius:var(--r-card);background:rgba(255,255,255,.62);border:1px solid var(--border);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}' +
+    '.au-in3-step{display:flex;align-items:flex-start;gap:12px;padding:9px 14px;font:400 14px/19px var(--sans);color:var(--tp)}' +
+    '.au-in3-step+.au-in3-step{border-top:1px solid var(--divider)}' +
+    '.au-in3-n{width:22px;height:22px;flex:none;margin-top:-1px;border-radius:50%;display:grid;place-items:center;background:var(--chip);font:600 12px/16px var(--mono);color:var(--tp)}' +
+    '.au-in3-step.is-key .au-in3-n{background:linear-gradient(135deg,#ff0000,#e6007e);color:#fff;box-shadow:0 4px 10px -4px rgba(230,0,126,.6)}' +
+    '.au-in3-step b{font-weight:500}' +
+
+    /* notka i CTA */
+    '.au-in3-note{display:flex;align-items:flex-start;gap:8px;margin:0;font:400 12px/17px var(--sans);color:var(--ts)}' +
+    '.au-in3-note .ico{width:14px;height:14px;margin-top:1px;opacity:.7}' +
+    '.au-in3-cta.act-row{gap:10px}' +
+    '.au-in3-cta.act-row .btn{height:50px}' +
+    '.au-in3-cta.act-row .btn.au-in3-back{flex:none;padding:0 22px}' +
+
+    /* klatki: tylko transform i opacity */
+    '@keyframes au-in3-on{from{opacity:0}to{opacity:1}}' +
+    '@keyframes au-in3-knob{from{transform:translateX(0)}to{transform:translateX(14px)}}' +
+    '@keyframes au-in3-tap{0%{opacity:0;transform:scale(.4)}35%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.5)}}' +
+    '@keyframes au-in3-ring{0%{opacity:0;transform:scale(.98)}20%{opacity:.6}100%{opacity:0;transform:scale(1.05)}}' +
+
+    /* bez ruchu: przełącznik od razu ON, obwódka statyczna */
+    '@media (prefers-reduced-motion:reduce){.sheet.au-in3,.au-in3 *,.au-in3 *::before,.au-in3 *::after{animation:none!important}}' +
+    '.is-shot .sheet.au-in3,.is-shot .au-in3 *,.is-shot .au-in3 *::before,.is-shot .au-in3 *::after{animation:none!important}'
+  );
+
+  function in3Step(n, html, key, d) {
+    return '<li class="au-in3-step au-in' + (key ? ' is-key' : '') + '" style="--d:' + d + 's">' +
+      '<span class="au-in3-n" aria-hidden="true">' + n + '</span><span>' + html + '</span></li>';
+  }
+
+  PM.route('#/onboarding/3/info', {
+    title: 'Zapłać i zapamiętaj sklep', group: G, label: 'Krok 3 · jak zapamiętać sklep (modal)', tab: null,
+    sheet: true, base: '#/onboarding/3',
+    render: function () {
+      var body =
+        '<div class="au-in3-art au-in" style="--d:.16s" aria-hidden="true">' +
+          '<div class="au-in3-phone">' +
+            '<div class="au-in3-screen">' +
+              '<span class="au-in3-notch"></span>' +
+              '<div class="au-in3-bt"><img src="assets/logos/blik-mark-noborder.svg" alt="" draggable="false">Potwierdź płatność BLIK</div>' +
+              '<div class="au-in3-kv">' +
+                '<div><span>Odbiorca</span><b>Paymove</b></div>' +
+                '<div><span>Kwota</span><b>1,00 zł</b></div>' +
+              '</div>' +
+              '<div class="au-in3-rem">' +
+                '<span class="au-in3-rem-l">Zapamiętaj sklep</span>' +
+                '<span class="au-in3-sw"><i></i></span>' +
+                '<span class="au-in3-tap"></span>' +
+              '</div>' +
+              '<span class="au-in3-ok">Zatwierdź</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="au-in3-head">' +
+          '<span class="au-in3-kick au-in" style="--d:.26s"><i></i>BLIK bez kodu</span>' +
+          '<h2 class="au-in3-title au-in" style="--d:.32s">Zapłać i zapamiętaj sklep</h2>' +
+          '<p class="au-in3-lead au-in" style="--d:.38s">Przy pierwszej płatności zapamiętaj też sklep w aplikacji banku, inaczej każda kolejna znów będzie wymagać kodu.</p>' +
+        '</div>' +
+        '<ol class="au-in3-steps" aria-label="Jak to zrobić">' +
+          in3Step(1, 'Wpisz kod BLIK i zapłać <b>1 zł</b>.', false, 0.46) +
+          in3Step(2, 'W aplikacji banku zaznacz <b>„Zapamiętaj sklep”</b> i zatwierdź.', true, 0.52) +
+          in3Step(3, 'Następnym razem boty płacą bez kodu, a Ty tylko potwierdzasz w banku.', false, 0.58) +
+        '</ol>' +
+        '<p class="au-in3-note au-in" style="--d:.64s">' + PM.icon('information-line', 14) +
+          '<span>Listę zapamiętanych sklepów masz w aplikacji banku. Możesz z niej usunąć Paymove w każdej chwili.</span></p>' +
+        '<div class="act-row au-in3-cta au-in" style="--d:.7s">' +
+          PM.btn('Wróć', { variant: 'secondary', href: '#/onboarding/3', cls: 'press au-in3-back' }) +
+          PM.btn('Rozumiem, dalej', { variant: 'primary', href: '#/onboarding/3/checkout', cls: 'press', iconRight: 'arrow-right-s-line' }) +
+        '</div>';
+      return PM.sheet({ body: body, cls: 'au-in3', label: 'Zapłać i zapamiętaj sklep' });
+    },
+    mount: function () {
+      /* powrót na krok 3 (Wróć, scrim, Esc) bez ponownej animacji wejścia */
+      auth().obStill = true;
+    }
+  });
+
   registerCheckout('#/onboarding/3', 'Checkout BLIK (sheet)');
 
   /* =====================================================================

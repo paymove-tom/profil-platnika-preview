@@ -24,6 +24,7 @@ Stanów: 62. Dane w prototypie to mock.
 | `#/onboarding/1` | Krok 1 · Adres |
 | `#/onboarding/2` | Krok 2 · Numer auta |
 | `#/onboarding/3` | Krok 3 · BLIK (portfel) |
+| `#/onboarding/3/info` | Jak zapamiętać sklep w aplikacji banku (modal przed bramką) |
 | `#/onboarding/3/checkout` | Checkout BLIK (sheet) |
 | `#/onboarding/gotowe` | Gotowe |
 | `#/zgoda` | Zgoda dla Claude |

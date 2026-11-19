@@ -843,3 +843,10 @@ html .au-blik-chip.au-blik-chip--oc img {
 }
 html.is-shot .au-blikbtn.btn.btn--primary { transition: none; }
 html.is-shot .au-blikbtn.btn.btn--primary:active { transform: none; }
+
+/* krok 3 info: modal na pełny viewport na desktopie, żeby nie przewijać */
+html .sheet-layer:has(.au-in3){position:fixed;inset:0;z-index:60}
+@media (min-width:1024px){
+  html .sheet-layer:has(.au-in3){align-items:center;justify-content:center;padding:24px}
+  html .sheet.au-in3{max-height:calc(100dvh - 48px)}
+}
