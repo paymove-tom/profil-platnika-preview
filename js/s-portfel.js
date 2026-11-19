@@ -181,7 +181,6 @@
       '<div class="sec-h"><span>Metody płatności</span></div>' +
       '<div class="stack-8">' +
         (on ? blikCard(bl) : addBlikTile()) +
-        offCards() +
       '</div>' +
       '</section>';
   }
@@ -228,7 +227,7 @@
       title: 'Portfel',
       showTitle: false,
       header: hdr(),
-      content: heroBlock(st) + methodsBlock(on, bl) + lastBlock(st) + shortcutsBlock(st)
+      content: heroBlock(st) + methodsBlock(on, bl) + shortcutsBlock(st)
     });
   }
 

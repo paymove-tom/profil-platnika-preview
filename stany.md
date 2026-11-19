@@ -11,7 +11,7 @@ Stanów: 62. Dane w prototypie to mock.
 
 | Hash | Stan |
 |---|---|
-| `#/portfel` | Portfel, BLIK podpięty |
+| `#/portfel` | Portfel (okrojony): powitanie, BLIK OneClick, Twoje konto |
 | `#/portfel/bez-blik` | Portfel bez BLIK |
 | `#/portfel/blik` | Zarządzaj BLIK (sheet) |
 
@@ -56,6 +56,9 @@ Stanów: 62. Dane w prototypie to mock.
 | `#/historia/uslugi` | Filtr: usługi |
 | `#/historia/bot-claude` | Filtr: Claude |
 | `#/historia/pusta` | Pusta historia |
+| `#/historia-a` | Historia · wariant A (ikony kategorii) |
+| `#/historia-b` | Historia · wariant B (monogramy i dni) |
+| `#/historia-c` | Historia · wariant C (bilety i tablice) |
 | `#/zakup/zaplacono` | Zakup: zapłacono |
 | `#/zakup/w-toku` | Zakup: w toku |
 | `#/zakup/nieudana` | Zakup: nieudana |
