@@ -1,100 +1,106 @@
-# Profil płatnika Paymove · lista stanów
+# Paymove Wallet · lista stanów
 
-Prototyp: `index.html` (statyczny, bez build stepu). Każdy stan otwiera się hashem, np. `index.html#/limity`. Dodaj `?shot=1`, żeby ukryć panel Stany i animacje (tryb zrzutów). Panel Stany: okrągły przycisk w prawym dolnym rogu.
+Prototyp: `index.html` (statyczny, bez build stepu). Każdy stan otwiera się hashem, np. `index.html#/portfel`. Dodaj `?shot=1`, żeby ukryć panel Stany i animacje (tryb zrzutów). Panel Stany: okrągły przycisk w prawym dolnym rogu.
 
-Stanów: 62. Kwoty i dane: przykład.
+Pusty hash prowadzi do `#/login`, nieznany do `#/portfel`. Na desktopie (od 1024 px) ekrany z nawigacją stoją w karcie ~720 px obok bocznego menu, logowanie i onboarding w węższej karcie ~600 px na środku.
+
+Stanów: 62. Dane w prototypie to mock.
 
 
-## Logowanie
+## Portfel
 
-| Hash | Stan | PNG |
-|---|---|---|
-| `#/login` | Mail pusty | `png/login.png` |
-| `#/login/blad-mail` | Zły format maila | `png/login__blad-mail.png` |
-| `#/login/wyslano` | Wysłano kod i link | `png/login__wyslano.png` |
-| `#/login/kod` | Kod pusty | `png/login__kod.png` |
-| `#/login/kod-czesciowy` | Kod częściowy | `png/login__kod-czesciowy.png` |
-| `#/login/kod-bledny` | Kod błędny | `png/login__kod-bledny.png` |
-| `#/login/kod-wygasl` | Kod wygasł | `png/login__kod-wygasl.png` |
-| `#/login/link` | Potwierdzanie linku | `png/login__link.png` |
-| `#/login/link-ok` | Zalogowano | `png/login__link-ok.png` |
-| `#/onboarding` | Imię (pierwszy login) | `png/onboarding.png` |
-| `#/zgoda` | Zgoda dla Claude | `png/zgoda.png` |
-| `#/zgoda/ok` | Claude połączony | `png/zgoda__ok.png` |
-| `#/zgoda/odmowa` | Odmowa | `png/zgoda__odmowa.png` |
+| Hash | Stan |
+|---|---|
+| `#/portfel` | Portfel, BLIK podpięty |
+| `#/portfel/bez-blik` | Portfel bez BLIK |
+| `#/portfel/blik` | Zarządzaj BLIK (sheet) |
+
+## Logowanie i onboarding
+
+| Hash | Stan |
+|---|---|
+| `#/login` | Logowanie: Google, Apple, Facebook |
+| `#/onboarding/1` | Krok 1 · Mail |
+| `#/onboarding/2` | Krok 2 · Adres |
+| `#/onboarding/3` | Krok 3 · Numer auta |
+| `#/onboarding/4` | Krok 4 · BLIK |
+| `#/onboarding/4/checkout` | Checkout BLIK (sheet) |
+| `#/onboarding/gotowe` | Gotowe |
+| `#/zgoda` | Zgoda dla Claude |
+| `#/zgoda/ok` | Claude połączony |
+| `#/zgoda/odmowa` | Odmowa |
 
 ## Moje dane
 
-| Hash | Stan | PNG |
-|---|---|---|
-| `#/dane` | Domyślny | `png/dane.png` |
-| `#/dane/niepotwierdzony` | Mail niepotwierdzony | `png/dane__niepotwierdzony.png` |
-| `#/dane/adres` | Edycja adresu | `png/dane__adres.png` |
-| `#/dane/adres-blad` | Adres, zły kod | `png/dane__adres-blad.png` |
-| `#/dane/numer-dodaj` | Dodaj numer | `png/dane__numer-dodaj.png` |
-| `#/dane/numer-blad` | Numer, zły format | `png/dane__numer-blad.png` |
-| `#/dane/numer-duplikat` | Numer, duplikat | `png/dane__numer-duplikat.png` |
-| `#/dane/numer-usun` | Usuń numer (sheet) | `png/dane__numer-usun.png` |
-| `#/dane/bez-numerow` | Bez numerów | `png/dane__bez-numerow.png` |
-| `#/dane/mail-zmien` | Zmiana maila | `png/dane__mail-zmien.png` |
-| `#/dane/mail-kod` | Kod z maila | `png/dane__mail-kod.png` |
-| `#/dane/zapisano` | Zapisano | `png/dane__zapisano.png` |
+| Hash | Stan |
+|---|---|
+| `#/dane` | Domyślny |
+| `#/dane/niepotwierdzony` | Mail niepotwierdzony |
+| `#/dane/adres` | Edycja adresu |
+| `#/dane/adres-blad` | Adres, zły kod |
+| `#/dane/numer-dodaj` | Dodaj numer |
+| `#/dane/numer-blad` | Numer, zły format |
+| `#/dane/numer-duplikat` | Numer, duplikat |
+| `#/dane/numer-usun` | Usuń numer (sheet) |
+| `#/dane/bez-numerow` | Bez numerów |
+| `#/dane/mail-zmien` | Zmiana maila |
+| `#/dane/mail-kod` | Kod z maila |
+| `#/dane/zapisano` | Zapisano |
 
 ## Historia
 
-| Hash | Stan | PNG |
-|---|---|---|
-| `#/historia` | Wszystkie zakupy | `png/historia.png` |
-| `#/historia/bilety` | Filtr: bilety | `png/historia__bilety.png` |
-| `#/historia/parking` | Filtr: parking | `png/historia__parking.png` |
-| `#/historia/uslugi` | Filtr: usługi | `png/historia__uslugi.png` |
-| `#/historia/bot-claude` | Filtr: Claude | `png/historia__bot-claude.png` |
-| `#/historia/pusta` | Pusta historia | `png/historia__pusta.png` |
-| `#/zakup/zaplacono` | Zakup: zapłacono | `png/zakup__zaplacono.png` |
-| `#/zakup/w-toku` | Zakup: w toku | `png/zakup__w-toku.png` |
-| `#/zakup/nieudana` | Zakup: nieudana | `png/zakup__nieudana.png` |
-| `#/zakup/anulowano` | Zakup: anulowano | `png/zakup__anulowano.png` |
-| `#/zakup/zwrot-w-toku` | Zakup: zwrot w toku | `png/zakup__zwrot-w-toku.png` |
-| `#/zakup/zwrocono` | Zakup: zwrócono | `png/zakup__zwrocono.png` |
+| Hash | Stan |
+|---|---|
+| `#/historia` | Wszystkie zakupy |
+| `#/historia/bilety` | Filtr: bilety |
+| `#/historia/parking` | Filtr: parking |
+| `#/historia/uslugi` | Filtr: usługi |
+| `#/historia/bot-claude` | Filtr: Claude |
+| `#/historia/pusta` | Pusta historia |
+| `#/zakup/zaplacono` | Zakup: zapłacono |
+| `#/zakup/w-toku` | Zakup: w toku |
+| `#/zakup/nieudana` | Zakup: nieudana |
+| `#/zakup/anulowano` | Zakup: anulowano |
+| `#/zakup/zwrot-w-toku` | Zakup: zwrot w toku |
+| `#/zakup/zwrocono` | Zakup: zwrócono |
 
 ## Zwrot
 
-| Hash | Stan | PNG |
-|---|---|---|
-| `#/zwrot` | Zgłoszenie | `png/zwrot.png` |
-| `#/zwrot/blad` | Brak powodu | `png/zwrot__blad.png` |
-| `#/zwrot/czesciowy` | Kwota częściowa | `png/zwrot__czesciowy.png` |
-| `#/zwrot/wysylanie` | Wysyłanie | `png/zwrot__wysylanie.png` |
-| `#/zwrot/wyslano` | Wysłano | `png/zwrot__wyslano.png` |
-| `#/zwrot/niedostepny` | Po terminie | `png/zwrot__niedostepny.png` |
-| `#/zwrot/zwrocono` | Zwrócono | `png/zwrot__zwrocono.png` |
+| Hash | Stan |
+|---|---|
+| `#/zwrot` | Zgłoszenie |
+| `#/zwrot/blad` | Brak powodu |
+| `#/zwrot/czesciowy` | Kwota częściowa |
+| `#/zwrot/wysylanie` | Wysyłanie |
+| `#/zwrot/wyslano` | Wysłano |
+| `#/zwrot/niedostepny` | Po terminie |
+| `#/zwrot/zwrocono` | Zwrócono |
 
 ## Boty
 
-| Hash | Stan | PNG |
-|---|---|---|
-| `#/boty` | Lista botów | `png/boty.png` |
-| `#/boty/limit-przekroczony` | Limit przekroczony | `png/boty__limit-przekroczony.png` |
-| `#/boty/pusta` | Brak botów | `png/boty__pusta.png` |
-| `#/bot/claude` | Szczegół · Claude | `png/bot__claude.png` |
-| `#/bot/chatgpt` | Szczegół · ChatGPT | `png/bot__chatgpt.png` |
-| `#/bot/grok` | Szczegół · Grok | `png/bot__grok.png` |
-| `#/bot/perplexity` | Szczegół · Perplexity | `png/bot__perplexity.png` |
-| `#/bot/claude/odlacz` | Odłącz Claude (sheet) | `png/bot__claude__odlacz.png` |
-| `#/bot/claude/odlaczono` | Claude odłączony | `png/bot__claude__odlaczono.png` |
+| Hash | Stan |
+|---|---|
+| `#/boty` | Lista botów |
+| `#/boty/limit-przekroczony` | Limit przekroczony |
+| `#/boty/pusta` | Brak botów |
+| `#/bot/claude` | Szczegół · Claude |
+| `#/bot/chatgpt` | Szczegół · ChatGPT |
+| `#/bot/grok` | Szczegół · Grok |
+| `#/bot/perplexity` | Szczegół · Perplexity |
+| `#/bot/claude/odlacz` | Odłącz Claude (sheet) |
+| `#/bot/claude/odlaczono` | Claude odłączony |
 
 ## Limity
 
-| Hash | Stan | PNG |
-|---|---|---|
-| `#/limity` | Ogólne, okres miesięczny | `png/limity.png` |
-| `#/limity/dzienny` | Okres dzienny | `png/limity__dzienny.png` |
-| `#/limity/potwierdzenie-wyl` | Potwierdzenie wyłączone | `png/limity__potwierdzenie-wyl.png` |
-| `#/limity/bot-claude` | Limity Claude | `png/limity__bot-claude.png` |
-| `#/limity/blad-bot` | Błąd: limit bota | `png/limity__blad-bot.png` |
-| `#/limity/blad-transakcja` | Błąd: limit transakcji | `png/limity__blad-transakcja.png` |
-| `#/limity/zapisano` | Zapisano | `png/limity__zapisano.png` |
-| `#/potwierdzenie` | Prośba o potwierdzenie | `png/potwierdzenie.png` |
-| `#/potwierdzenie/zatwierdzono` | Zatwierdzono | `png/potwierdzenie__zatwierdzono.png` |
+| Hash | Stan |
+|---|---|
+| `#/limity` | Ogólne, okres miesięczny |
+| `#/limity/dzienny` | Okres dzienny |
+| `#/limity/potwierdzenie-wyl` | Potwierdzenie wyłączone |
+| `#/limity/bot-claude` | Limity Claude |
+| `#/limity/blad-bot` | Błąd: limit bota |
+| `#/limity/blad-transakcja` | Błąd: limit transakcji |
+| `#/limity/zapisano` | Zapisano |
+| `#/potwierdzenie` | Prośba o potwierdzenie |
+| `#/potwierdzenie/zatwierdzono` | Zatwierdzono |
 
-Desktop: `png/_desktop-historia.png`, `png/_desktop-limity.png`. Siatka wszystkich: `png/_przeglad.png`.

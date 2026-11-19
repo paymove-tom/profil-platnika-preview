@@ -20,12 +20,12 @@ window.PM_DATA = {
   },
 
   user: {
-    imie: 'Anna',
-    nazwisko: 'Kowalska',
-    inicjaly: 'AK',
-    mail: 'anna.kowalska@example.com',
+    imie: 'Tomasz',
+    nazwisko: 'Gęsior',
+    inicjaly: 'TG',
+    mail: 'tomasz.gesior@paymove.io',
     mailPotwierdzony: true,
-    nowyMail: 'anna.k@example.com',
+    nowyMail: 'tomasz@gesior.pl',
     pierwszeLogowanie: false
   },
 
@@ -37,10 +37,20 @@ window.PM_DATA = {
 
   tablice: ['WX 1234A', 'GD 9876B'],
 
+  /* metoda płatności BLIK OneClick (portfel, onboarding krok 4) */
+  blik: { polaczony: true, bank: 'PKO BP', od: '19.11.2026' },
+
+  /* onboarding po social loginie: mail z konta Google, reszta pusta */
+  onboarding: {
+    mail: 'tomasz.gesior@paymove.io',
+    adres: { ulica: '', kod: '', miasto: '' },
+    rejestracja: ''
+  },
+
   /* pola danych, do których bot może mieć dostęp (zgoda i uprawnienia) */
   pola: [
-    { id: 'imie', label: 'Imię', ikona: 'user-3-line', wartosc: 'Anna Kowalska' },
-    { id: 'mail', label: 'Mail', ikona: 'mail-line', wartosc: 'anna.kowalska@example.com' },
+    { id: 'imie', label: 'Imię', ikona: 'user-3-line', wartosc: 'Tomasz Gęsior' },
+    { id: 'mail', label: 'Mail', ikona: 'mail-line', wartosc: 'tomasz.gesior@paymove.io' },
     { id: 'adres', label: 'Adres', ikona: 'map-pin-line', wartosc: 'ul. Długa 12/4, 80-831 Gdańsk' },
     { id: 'tablice', label: 'Numery rejestracyjne', ikona: 'car-line', wartosc: 'WX 1234A, GD 9876B' }
   ],
@@ -247,8 +257,8 @@ window.PM_DATA = {
   },
 
   login: {
-    mail: 'anna.kowalska@example.com',
-    mailBledny: 'anna.kowalska@example',
+    mail: 'tomasz.gesior@paymove.io',
+    mailBledny: 'tomasz.gesior@paymove',
     kodPoprawny: '123456',
     kodCzesciowy: '482',
     kodBledny: '482915',

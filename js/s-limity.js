@@ -150,7 +150,7 @@
 
     var content =
       '<section class="sec">' +
-        '<div class="sec-h"><span>Ogólne</span><span class="tag">Przykład</span></div>' +
+        '<div class="sec-h"><span>Ogólne</span></div>' +
         '<div class="card">' +
           PM.amountField({
             id: 'l-trans', label: 'Na jedną transakcję', value: v.trans,
@@ -304,7 +304,7 @@
         progressHtml(b.wydal || 0, v.mies) +
       '</div>' +
       '<section class="sec">' +
-        '<div class="sec-h"><span>Limity</span><span class="tag">Przykład</span></div>' +
+        '<div class="sec-h"><span>Limity</span></div>' +
         '<div class="card">' +
           PM.amountField({ id: 'b-mies', label: 'Na miesiąc', value: v.mies, min: r.min, max: r.max, step: r.step, error: e.mies, hint: hint }) +
           PM.amountField({ id: 'b-trans', label: 'Na jedną transakcję', value: v.trans, min: r.min, max: r.max, step: r.step, error: e.trans, divide: true }) +
@@ -378,7 +378,7 @@
     var name = PM.botName(bot);
     var meta = [p.miejsce, p.tablica].filter(Boolean).join(' · ');
     return '' +
-      '<div class="pm-sheet-top"><span class="eyebrow eyebrow--s">Prośba o płatność</span><span class="ex-tag">Przykład</span></div>' +
+      '<div class="pm-sheet-top"><span class="eyebrow eyebrow--s">Prośba o płatność</span></div>' +
       '<div class="sheet-head">' +
         '<div class="duo">' + PM.botLogo(bot, 44) +
           '<span class="duo-dots"><i></i><i></i><i></i></span>' +
@@ -449,7 +449,7 @@
         '<p class="lead-text">Płatność zatwierdzona w aplikacji banku.</p>' +
       '</div>' +
       '<section class="sec">' +
-        '<div class="sec-h"><span>Zakup</span><span class="tag">Przykład</span></div>' +
+        '<div class="sec-h"><span>Zakup</span></div>' +
         PM.purchaseRow(z) +
       '</section>' +
       '<div class="card">' +

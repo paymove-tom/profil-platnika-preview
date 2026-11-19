@@ -136,10 +136,11 @@
   if (SHOT) html.classList.add('is-shot');
   if (/[?&]statusbar=1(&|$)/.test(location.search || '')) html.classList.add('show-statusbar');
   PM.shot = SHOT;
-  PM.version = '1.0';
+  PM.version = '2.0';
 
   var LOGO_INK = 'assets/logos/logo_paymove_ink.svg';
   var TABS = [
+    { id: 'portfel', label: 'Portfel', icon: 'bold-card-1', href: '#/portfel' },
     { id: 'dane', label: 'Dane', icon: 'user-3-line', href: '#/dane' },
     { id: 'historia', label: 'Historia', icon: 'history-line', href: '#/historia' },
     { id: 'boty', label: 'Boty', icon: 'robot-2-line', href: '#/boty' },
@@ -189,6 +190,23 @@
   function qsa(root, sel) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
   function clamp(v, a, b) { return Math.min(Math.max(v, a), b); }
   function uid(p) { return (p || 'pm') + '-' + Math.random().toString(36).slice(2, 8); }
+
+  /* usuwa z UI dopiski meta typu „Przykład”, które zostały w starszych modułach */
+  var META_RE = /^\s*Przykład\.?\s*$/i;
+  function stripMeta(root) {
+    if (!root || !document.createTreeWalker) return;
+    var walker = document.createTreeWalker(root, 4, null, false);
+    var hits = [], n;
+    while ((n = walker.nextNode())) if (META_RE.test(n.nodeValue || '')) hits.push(n);
+    hits.forEach(function (t) {
+      var p = t.parentNode;
+      if (!p) return;
+      var single = p.nodeType === 1 && p !== root && p.childNodes.length === 1 &&
+        /^(SPAN|SMALL|CODE|EM|I|B|STRONG)$/.test(p.tagName);
+      if (single && p.parentNode) p.parentNode.removeChild(p);
+      else p.removeChild(t);
+    });
+  }
 
   PM.esc = esc;
   PM.attrs = attrs;
@@ -338,7 +356,7 @@
         ? '<a class="hdr-back" href="' + esc(href) + '" aria-label="Wstecz">' + PM.icon('arrow-left-s-line', 20) + '</a>'
         : '<a class="hdr-back" href="#" data-back aria-label="Wstecz">' + PM.icon('arrow-left-s-line', 20) + '</a>';
     }
-    var tag = o.tag === false ? '' : '<span class="ex-tag">' + esc(o.tag || 'Przykład') + '</span>';
+    var tag = o.tag ? '<span class="ex-tag">' + esc(o.tag) + '</span>' : '';
     return '<header class="hdr"' + (o.title ? ' aria-label="' + esc(o.title) + '"' : '') + '>' +
       back + '<img class="hdr-logo" src="' + LOGO_INK + '" alt="Paymove" width="103" height="18">' + tag +
       '</header>';
@@ -789,6 +807,7 @@
     layer.setAttribute('data-dynamic-sheet', '');
     els.device.insertBefore(layer, els.toasts);
     if (o && typeof o.mount === 'function') o.mount(layer);
+    stripMeta(layer);
     return layer;
   };
   PM.closeSheet = function (silent) {
@@ -952,12 +971,16 @@
         icon: 'error-warning-line',
         title: err ? 'Błąd ekranu' : 'Brak ekranu',
         text: path || 'Ten stan nie jest jeszcze gotowy.',
-        cta: routes['#/dane'] ? { label: 'Przejdź do danych', href: '#/dane' } : null
+        cta: homeHash() ? { label: routes['#/portfel'] ? 'Wróć do portfela' : 'Wróć', href: homeHash() } : null
       })
     });
   }
 
   function firstStateHash() { return STATES.length ? STATES[0].hash : ''; }
+  function homeHash() {
+    return routes['#/portfel'] ? '#/portfel' : routes['#/dane'] ? '#/dane' : firstStateHash();
+  }
+  PM.home = homeHash;
 
   function render() {
     if (!started) return;
@@ -965,16 +988,17 @@
 
     var h = normHash(location.hash);
     if (!h || h === '#/') {
-      var target = routes['#/login'] ? '#/login' : routes['#/dane'] ? '#/dane' : firstStateHash();
+      var target = routes['#/login'] ? '#/login' : homeHash();
       if (target) { setHashSilently(target); h = target; }
     }
     var sp = splitHash(h || '');
     var def = routes[sp.path];
     if (!def && sp.path) {
-      if (routes['#/dane']) {
-        setHashSilently('#/dane');
-        sp = splitHash('#/dane');
-        def = routes['#/dane'];
+      var home = homeHash();
+      if (home && routes[home]) {
+        setHashSilently(home);
+        sp = splitHash(home);
+        def = routes[home];
       }
     }
 
@@ -1024,7 +1048,7 @@
     updateNav(tab);
     updateMockbar(def);
     updateStatesActive();
-    document.title = (def ? (def.title || def.label) : 'Prototyp') + ' · Profil płatnika Paymove';
+    document.title = (def ? (def.title || def.label) + ' · ' : '') + 'Paymove Wallet';
 
     /* scroll top */
     qsa(els.device, '.content, .sheet').forEach(function (c) { c.scrollTop = 0; });
@@ -1039,6 +1063,8 @@
         console.error('[PM] mount', sp.path, e2);
       }
     }
+
+    stripMeta(els.device);
 
     var af = els.device.querySelector('.sheet [data-autofocus]') || els.device.querySelector('[data-autofocus]');
     if (af && !af.disabled) { try { af.focus({ preventScroll: true }); } catch (e3) {} }
@@ -1070,12 +1096,15 @@
 
     app.innerHTML =
       '<nav class="sidenav" aria-label="Sekcje profilu">' +
-        '<img class="sidenav-logo" src="' + LOGO_INK + '" alt="Paymove" width="114" height="20">' +
+        '<a class="sidenav-brand" href="#/portfel" aria-label="Paymove Wallet">' +
+          '<img class="sidenav-logo" src="' + LOGO_INK + '" alt="Paymove" width="114" height="20">' +
+          '<span class="wallet-word">Wallet</span>' +
+        '</a>' +
         '<div class="sidenav-links">' + sideHtml + '</div>' +
-        '<div class="sidenav-foot"><span>Profil płatnika · prototyp</span><span>Przykład</span></div>' +
+
       '</nav>' +
       '<main class="stage">' +
-        '<div class="mockbar"><span class="mockbar-title" data-mock-title></span><span class="ex-tag">Przykład</span></div>' +
+
         '<div class="device">' +
           '<div class="statusbar"><span class="sb-time">9:41</span><span class="sb-icons">' + SB_ICONS + '</span></div>' +
           '<div class="view" data-view></div>' +
@@ -1225,7 +1254,7 @@
       var bh = back.getAttribute('data-back');
       if (bh) PM.go(bh);
       else if (history.length > 1) history.back();
-      else PM.go('#/dane');
+      else PM.go(homeHash());
       return;
     }
 

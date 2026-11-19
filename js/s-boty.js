@@ -118,7 +118,7 @@
 
     out +=
       '<div class="card pad bsum">' +
-        '<div class="bsum-top"><span class="eyebrow eyebrow--s">' + PM.esc(monthLabel()) + '</span><span class="ex-tag">Przykład</span></div>' +
+        '<div class="bsum-top"><span class="eyebrow eyebrow--s">' + PM.esc(monthLabel()) + '</span></div>' +
         '<div class="big-amount">' + PM.zl(sum) + '</div>' +
         '<div class="meta">Wydały połączone boty</div>' +
       '</div>';
@@ -208,7 +208,7 @@
 
     var spend =
       '<section class="sec">' +
-        '<div class="sec-h"><span>W tym miesiącu</span><span class="tag">Przykład</span></div>' +
+        '<div class="sec-h"><span>W tym miesiącu</span></div>' +
         '<div class="card pad bspend">' +
           '<div class="bspend-amt"><span class="big-amount">' + PM.zl(b.wydal) + '</span><span class="meta">z ' + PM.zlInt(b.limitMies) + '</span></div>' +
           progressHtml(b.wydal || 0, b.limitMies || 0, b.nazwa) +

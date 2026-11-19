@@ -181,7 +181,7 @@
       body = PM.groupByMonth(list).map(function (g, i) {
         return '<section class="sec">' +
           '<div class="sec-h"><span>' + esc(g.label) + '</span>' +
-            (i === 0 ? '<span class="tag">Przykład</span>' : '<span class="count">' + g.items.length + '</span>') +
+            (i === 0 ? '' : '<span class="count">' + g.items.length + '</span>') +
           '</div>' +
           g.items.map(function (p) { return PM.purchaseRow(p, { refund: true }); }).join('') +
           '</section>';
@@ -258,7 +258,7 @@
         '<div class="meta">' + esc(PM.typeLabel(p.typ)) + ' · ' + esc(PM.dateLong(p.data)) + '</div></div>' +
       '</div>' +
       '<div class="hs-amt"><span class="big-amount' + amtCls + '">' + PM.zl(p.kwota) + '</span>' + PM.statusBadge(st) + '</div>' +
-      '<div class="hs-amt"><span class="meta">' + esc(sub) + '</span><span class="ex-tag">Przykład</span></div>' +
+      '<div class="hs-amt"><span class="meta">' + esc(sub) + '</span></div>' +
       '</div>';
 
     /* banner tylko tam, gdzie jest akcja lub problem */
@@ -444,7 +444,7 @@
       { value: 'czesciowa', label: 'Częściowa', attrs: dis ? { disabled: true } : null }
     ];
     var kwotaSec = '<section class="sec">' +
-      '<div class="sec-h"><span>Kwota zwrotu</span><span class="tag">Przykład</span></div>' +
+      '<div class="sec-h"><span>Kwota zwrotu</span></div>' +
       PM.seg(segItems, preset.tryb, { 'data-seg': 'tryb', 'aria-label': 'Kwota zwrotu' }) +
       '<div class="field" data-partial' + (part ? '' : ' hidden') + '>' +
         '<label class="sr-only" for="zw-kwota">Kwota zwrotu w złotych</label>' +
@@ -618,7 +618,7 @@
     var next = '<section class="sec"><div class="sec-h"><span>Co dalej</span></div>' +
       '<div class="card pad"><ol class="steps">' + steps + '</ol></div></section>';
 
-    var kv = '<section class="sec"><div class="sec-h"><span>Zgłoszenie</span><span class="tag">Przykład</span></div>' +
+    var kv = '<section class="sec"><div class="sec-h"><span>Zgłoszenie</span></div>' +
       '<div class="card">' + PM.kv([
         { k: 'Do zwrotu', v: PM.zl(info.kwota) + (info.czesciowy ? ', częściowy' : '') },
         { k: 'Powód', v: powodLabel(info.powod) },
@@ -667,7 +667,7 @@
     var hero = '<div class="status-hero">' +
       '<div class="status-ico status-ico--ok">' + PM.icon('check-line', 28) + '</div>' +
       '<h1 class="display">Zwrot zakończony</h1>' +
-      '<div class="zw-sent-amt"><span class="big-amount">' + PM.zl(info.kwota) + '</span><span class="ex-tag">Przykład</span></div>' +
+      '<div class="zw-sent-amt"><span class="big-amount">' + PM.zl(info.kwota) + '</span></div>' +
       '<p class="lead-text">Wróciło na konto, z którego płaciłeś.</p>' +
       '</div>';
     var status = '<section class="sec"><div class="sec-h"><span>Status</span></div>' +

@@ -1,3 +1,3 @@
-# Profil płatnika Paymove · klikalna makieta
+# Paymove Wallet · klikalna makieta
 
-Wszystkie stany: panel „Stany” w prawym dolnym rogu. Lista hashy: [stany.md](stany.md). Kwoty i dane: przykład.
+Start: logowanie, onboarding w 4 krokach, portfel z BLIK OneClick. Wszystkie stany: panel „Stany” w prawym dolnym rogu, lista w [stany.md](stany.md). Dane w prototypie to mock.
