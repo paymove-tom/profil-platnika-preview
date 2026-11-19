@@ -536,8 +536,8 @@
     /* ilustracja: stos kart, wachlarz, kłódka */
     '.au-st-art{position:relative;flex:none;height:128px}' +
     '.au-st-card{position:absolute;top:6px;left:50%;width:88px;height:104px;margin-left:-44px;border-radius:16px;padding:10px;display:flex;flex-direction:column;justify-content:space-between;background:rgba(255,255,255,.94);border:1px solid var(--border);box-shadow:0 12px 24px -12px rgba(31,41,82,.3),inset 0 1px 0 #fff;transform-origin:50% 90%;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1);animation:au-st-pop .35s ease .24s both,au-st-fan .75s cubic-bezier(.3,1.5,.5,1) .6s both}' +
-    '.au-st-card--a{--x:-66px;--y:8px;--r:-11deg;--sy:-10px;--ss:.9;z-index:1}' +
-    '.au-st-card--b{--x:0px;--y:0px;--r:0deg;--sy:0px;--ss:1;z-index:3}' +
+    '.au-st-card--a{--x:-38px;--y:6px;--r:-9deg;--sy:-8px;--ss:.94;z-index:1}' +
+    '.au-st-card--b{--x:38px;--y:0px;--r:6deg;--sy:0px;--ss:1;z-index:3}' +
     '.au-st-card--c{--x:66px;--y:8px;--r:11deg;--sy:-5px;--ss:.95;z-index:2;color:#fff;border-color:rgba(255,255,255,.08);background:radial-gradient(120% 90% at 100% 0%,rgba(230,0,126,.46) 0%,rgba(230,0,126,0) 60%),#000;box-shadow:0 14px 28px -12px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.14)}' +
     '.au-st-ci{width:28px;height:28px;border-radius:8px;background:var(--input-strong);display:grid;place-items:center}' +
     '.au-st-ci .ico{width:16px;height:16px}' +
@@ -607,11 +607,6 @@
         '<span class="au-st-cl"><i></i><i></i></span>' +
         '<span class="au-st-cn">Adres</span>' +
       '</div>' +
-      '<div class="au-st-card au-st-card--c">' +
-        '<img class="au-st-blik" src="' + BLIK_LOGO + '" alt="" draggable="false">' +
-        '<span class="au-st-cl"><i></i><i></i></span>' +
-        '<span class="au-st-cn">OneClick</span>' +
-      '</div>' +
       '<div class="au-st-card au-st-card--b">' +
         '<span class="au-st-ci">' + PM.icon('car-line', 16) + '</span>' +
         '<span class="au-st-cl"><i></i><i></i></span>' +
@@ -651,7 +646,6 @@
       '<ul class="au-st-steps" aria-label="Kroki">' +
         stStep({ icon: 'map-pin-line', name: 'Adres', meta: 'Bot wpisze go, gdy zakup tego wymaga', opt: true }, 0.58) +
         stStep({ icon: 'car-line', name: 'Nr rejestracyjny', meta: 'Parking bez wpisywania numeru', opt: true }, 0.64) +
-        stStep({ blik: true, name: 'BLIK', meta: 'Płacisz jednym OK w banku' }, 0.7) +
       '</ul>';
     return '<section class="screen au-st">' +
       ghost + blobs +
@@ -662,7 +656,7 @@
           '<div class="au-st-head">' +
             '<span class="au-st-kick au-in" style="--d:.34s">' + PM.esc(hi) + '</span>' +
             '<h1 class="au-st-title au-in" id="au-st-title" style="--d:.4s">Zanim boty zaczną kupować</h1>' +
-            '<p class="au-st-lead au-in" style="--d:.48s">Teraz zbierzemy i bezpiecznie zapiszemy dane, których użyjemy przy składaniu zamówień. Krok, który Cię nie dotyczy, możesz pominąć.</p>' +
+            '<p class="au-st-lead au-in" style="--d:.48s">Bezpiecznie zapiszemy dane do zamówień. Co Cię nie dotyczy, pomiń.</p>' +
           '</div>' +
           steps +
           '<div class="au-st-foot au-in" style="--d:.8s">' +
