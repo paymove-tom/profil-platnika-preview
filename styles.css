@@ -724,6 +724,9 @@ html .sheet.au-checkout .au-blik-chip img{height:20px}
 html .sheet.au-checkout .au-x{width:32px;height:32px}
 .au-newtab{flex:none;font:500 12px/16px var(--sans);color:var(--ts);text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
 .au-newtab:hover{color:var(--tp)}
+.au-newtab--foot{align-self:center;margin:0 0 8px;padding:2px 0}
+html .sheet.au-checkout .au-sh-title{min-width:0;overflow:hidden;text-overflow:ellipsis}
+html .sheet.au-checkout .au-sh-head .grow{min-width:0}
 html .sheet.au-checkout .au-frame{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;padding:12px 0 16px}
 html .sheet.au-checkout .checkout-frame{flex:1 1 auto;height:auto;min-height:0}
 html .sheet.au-checkout .au-sh-foot{flex:none;gap:0}

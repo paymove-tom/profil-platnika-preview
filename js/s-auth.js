@@ -825,7 +825,6 @@
           '<div class="au-sh-head">' +
             '<span class="au-blik-chip au-blik-chip--oc"><img src="' + BLIK_LOGO_FULL + '" alt="BLIK" draggable="false"></span>' +
             '<div class="grow"><h2 class="au-sh-title">Podepnij BLIK bez kodu</h2><p class="meta">Potwierdzisz w aplikacji banku</p></div>' +
-            '<a class="au-newtab" href="' + url + '" target="_blank" rel="noopener">Otwórz w nowej karcie</a>' +
             '<a class="au-x press" href="' + baseHash + '" aria-label="Zamknij">' + PM.icon('close-line', 18) + '</a>' +
           '</div>' +
           '<div class="au-frame" data-frame>' +
@@ -834,6 +833,7 @@
           '</div>' +
           '<div class="au-sh-foot">' +
             '<p class="au-pay-st" data-pay-st role="status" aria-live="polite">' + PM.icon('time-line', 14) + '<span>Aktywuje się po potwierdzeniu płatności</span></p>' +
+            '<a class="au-newtab au-newtab--foot" href="' + url + '" target="_blank" rel="noopener">Otwórz w nowej karcie</a>' +
             PM.btn('Gotowe, BLIK podpięty', { variant: 'primary', block: true, cls: 'press', disabled: true, attrs: { 'data-blik-done': '' } }) +
           '</div>';
         return PM.sheet({ body: body, cls: 'au-checkout', label: 'Konfiguracja BLIK' });
