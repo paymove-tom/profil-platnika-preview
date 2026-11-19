@@ -88,6 +88,46 @@
     '.au-mini-name{font:500 15px/20px var(--sans);color:#fff}' +
     '.au-mini-bots{display:flex;gap:4px}' +
     '.au-mini-bots .tile{border-color:transparent}' +
+    /* krok 4: BLIK, karta z tiltem 3D i połyskiem */
+    '.au-b4{display:flex;flex-direction:column;gap:16px}' +
+    '.au-bstage{position:relative;width:100%;max-width:340px;margin:0 auto 4px;perspective:1000px;animation:au-bin .7s cubic-bezier(.2,.8,.2,1) both}' +
+    '@keyframes au-bin{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}' +
+    '.au-bglow{position:absolute;left:14%;right:14%;bottom:-10px;height:46%;border-radius:50%;background:radial-gradient(closest-side,rgba(230,0,126,.5),rgba(230,0,126,0));filter:blur(20px);opacity:.55;z-index:0;pointer-events:none;animation:au-glow 4s ease-in-out infinite alternate}' +
+    '@keyframes au-glow{from{opacity:.4;transform:scaleX(.92)}to{opacity:.7;transform:scaleX(1.04)}}' +
+    '.au-bcard{position:relative;z-index:1;width:100%;aspect-ratio:1.586;border-radius:22px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;color:#fff;border:1px solid rgba(255,255,255,.08);background:radial-gradient(120% 90% at 100% 0%,rgba(230,0,126,.46) 0%,rgba(230,0,126,0) 58%),radial-gradient(70% 60% at 0% 100%,rgba(230,0,126,.12) 0%,rgba(230,0,126,0) 70%),#000;box-shadow:0 24px 48px -16px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.14);transform-origin:50% 60%;will-change:transform;animation:au-tilt 9s ease-in-out .7s infinite}' +
+    '@keyframes au-tilt{0%,100%{transform:rotateX(0) rotateY(0)}25%{transform:rotateX(4deg) rotateY(-6deg)}75%{transform:rotateX(-2deg) rotateY(5deg)}}' +
+    '.au-bcard::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(110deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.18) 48%,rgba(255,255,255,.05) 53%,rgba(255,255,255,0) 60%);background-size:260% 100%;background-repeat:no-repeat;background-position:100% 0;animation:au-shine 6s ease-in-out 1.4s infinite}' +
+    '@keyframes au-shine{0%{background-position:100% 0}32%,100%{background-position:0% 0}}' +
+    '.au-bcard .au-mini-foot{align-items:flex-end}' +
+    '.au-bcard .au-mini-blik{height:32px}' +
+    '.au-bcard .au-mini-st{color:rgba(255,255,255,.75)}' +
+    '.au-bcard .au-mini-st i{background:#e6007e;box-shadow:0 0 0 0 rgba(230,0,126,.6);animation:au-dot 2.4s ease-out infinite}' +
+    '@keyframes au-dot{0%{box-shadow:0 0 0 0 rgba(230,0,126,.6)}70%,100%{box-shadow:0 0 0 6px rgba(230,0,126,0)}}' +
+    '.au-bcard .au-mini-name{font-size:18px;line-height:24px}' +
+    '.au-bcard-sub{display:block;font:500 11px/14px var(--mono);color:rgba(255,255,255,.55);margin-top:4px;letter-spacing:.06em}' +
+    '.au-bcard .au-mini-bots .tile{box-shadow:0 2px 6px rgba(0,0,0,.35)}' +
+    '.au-perks .check-row{padding:12px 14px;gap:12px;align-items:center}' +
+    '.au-perks .name{font:500 15px/20px var(--sans)}' +
+    '.au-perks .meta{font-size:13px;line-height:18px;margin-top:2px}' +
+    '.au-trust{display:flex;align-items:center;justify-content:center;gap:6px;margin:0;font:500 12px/16px var(--sans);color:var(--ts);text-align:center}' +
+    '.au-trust .ico{width:14px;height:14px;opacity:.7;flex:none}' +
+    '@media (max-width:1023px){.au-b4{gap:12px}.au-bstage{max-width:290px}.au-perks .check-row{padding:10px 14px}}' +
+    '@media (min-width:1024px){' +
+      '.au-b4{display:grid;grid-template-columns:240px minmax(0,1fr);gap:14px 20px;align-items:center}' +
+      '.au-b4 .au-trust{grid-column:1/-1}' +
+      '.au-bstage{max-width:240px;margin:0}' +
+      '.au-bcard{border-radius:16px;padding:14px}' +
+      '.au-bcard .au-mini-blik{height:22px}' +
+      '.au-bcard .au-mini-st{font-size:10px}' +
+      '.au-bcard .au-mini-name{font-size:15px;line-height:20px}' +
+      '.au-bcard-sub{font-size:10px;line-height:12px;margin-top:2px}' +
+      '.au-perks .check-row{padding:10px 12px}' +
+    '}' +
+    '.ob-step.au-still .au-bstage,.ob-step.au-still .au-b4 .au-in{animation:none}' +
+    '@media (prefers-reduced-motion:reduce){.au-bstage,.au-bcard,.au-bcard::after,.au-bglow,.au-bcard .au-mini-st i,.au-b4 .au-in{animation:none}.au-bcard{transform:none}.au-bcard::after{opacity:0}}' +
+    '.is-shot .au-bstage,.is-shot .au-bcard,.is-shot .au-bcard::after,.is-shot .au-bglow,.is-shot .au-bcard .au-mini-st i,.is-shot .au-b4 .au-in{animation:none}' +
+    '.is-shot .au-bcard{transform:none}' +
+    '.is-shot .au-bcard::after{opacity:0}' +
     '.au-claim{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}' +
     '.au-claim .title{font-size:28px;line-height:34px;letter-spacing:-.02em}' +
     '.au-claim .lead-text{max-width:320px}' +
@@ -556,18 +596,37 @@
   PM.route('#/onboarding/4', {
     title: 'Podepnij BLIK', group: G, label: 'Krok 4 BLIK', tab: null,
     render: function (ctx) {
-      var points = [
-        { icon: 'time-line', t: 'Płacisz bez przepisywania kodu' },
-        { icon: 'bank-line', t: 'Każdą płatność potwierdzasz w aplikacji banku' },
-        { icon: 'link', t: 'Odłączysz BLIK, kiedy chcesz' }
+      var perks = [
+        { icon: 'time-line', t: 'Bez kodów', m: 'Nic nie przepisujesz z aplikacji' },
+        { icon: 'bank-line', t: 'Potwierdzasz w banku', m: 'Każda płatność czeka na Twoje OK' },
+        { icon: 'shield-check-line', t: 'Pełna kontrola', m: 'Limity ustawiasz sam, odłączysz kiedy chcesz' }
       ].map(function (p) {
-        return '<div class="check-row"><div class="thumb thumb--sm">' + PM.icon(p.icon, 18) + '</div><div class="grow name">' + PM.esc(p.t) + '</div></div>';
+        return '<div class="check-row">' +
+          '<div class="thumb thumb--sm">' + PM.icon(p.icon, 18) + '</div>' +
+          '<div class="grow"><div class="name">' + PM.esc(p.t) + '</div><div class="meta">' + PM.esc(p.m) + '</div></div>' +
+          '</div>';
       }).join('');
       return obScreen(4, ctx, {
-        title: 'Podepnij BLIK',
-        lead: 'Tym zapłacą boty, którym dasz dostęp.',
-        top: '<span class="au-blik-mark"><img src="' + BLIK_LOGO + '" alt="BLIK" draggable="false"></span>',
-        body: '<div class="card checks au-points">' + points + '</div>',
+        title: 'Płać jednym kliknięciem',
+        lead: 'Bot płaci bez kodu, a Ty potwierdzasz w aplikacji banku.',
+        body:
+          '<div class="au-b4">' +
+            '<div class="au-bstage" aria-hidden="true">' +
+              '<span class="au-bglow"></span>' +
+              '<div class="au-bcard">' +
+                '<div class="au-mini-top">' +
+                  '<img class="au-mini-blik" src="' + BLIK_LOGO + '" alt="" draggable="false">' +
+                  '<span class="au-mini-st"><i></i>Do podpięcia</span>' +
+                '</div>' +
+                '<div class="au-mini-foot">' +
+                  '<span><span class="au-mini-name">BLIK OneClick</span><span class="au-bcard-sub">TOMASZ GĘSIOR</span></span>' +
+                  '<span class="au-mini-bots">' + PM.botLogo('claude', 20) + PM.botLogo('chatgpt', 20) + PM.botLogo('perplexity', 20) + '</span>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="card checks au-perks au-in" style="--d:.12s">' + perks + '</div>' +
+            '<p class="au-trust au-in" style="--d:.2s">' + PM.icon('lock-line', 14) + '<span>Bezpieczne połączenie przez BLIK. Nie widzimy danych Twojego konta.</span></p>' +
+          '</div>',
         cta: PM.actions({
           primary: { label: 'Skonfiguruj płatność', href: '#/onboarding/4/checkout', cls: 'press' },
           extra: PM.btn('Zrobię to później', { variant: 'ghost', block: true, cls: 'press', attrs: { 'data-ob-later': '' } })
