@@ -196,77 +196,7 @@
     '.zg-chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 16px}' +
     '.zg-chips .chip{height:32px}' +
 
-    /* ---------- krok 4, wariant A: przepływ bez karty ---------- */
-    '.au-va-step .auth-head .title{font-size:32px;line-height:36px;letter-spacing:-.03em}' +
-    '.au-va{display:flex;flex-direction:column;gap:12px}' +
-    '.au-va-phone{position:relative;width:100%;max-width:340px;margin:0 auto;display:flex;flex-direction:column;gap:8px;padding:10px 12px 12px;border-radius:24px;overflow:hidden;color:#fff;border:1px solid rgba(255,255,255,.08);background:radial-gradient(120% 80% at 100% 0%,rgba(230,0,126,.42) 0%,rgba(230,0,126,0) 60%),radial-gradient(80% 60% at 0% 100%,rgba(230,0,126,.14) 0%,rgba(230,0,126,0) 70%),#000;box-shadow:0 24px 48px -18px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12)}' +
-    '.au-va-sb{display:flex;justify-content:space-between;padding:0 6px;font:500 11px/14px var(--mono);color:rgba(255,255,255,.6)}' +
-    '.au-va-push{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:16px;background:rgba(255,255,255,.95);color:var(--tp);box-shadow:0 10px 24px -10px rgba(0,0,0,.6)}' +
-    '.au-va-bl{width:34px;height:34px;border-radius:9px;background:#000;display:grid;place-items:center;flex:none}' +
-    '.au-va-bl img{width:26px;height:auto;display:block}' +
-    '.au-va-pt,.au-va-pm,.au-va-pn,.au-va-pd{display:block}' +
-    '.au-va-pt{font:500 11px/14px var(--mono);color:var(--ts)}' +
-    '.au-va-pm{font:600 14px/18px var(--sans);letter-spacing:-.01em}' +
-    '.au-va-prop{display:flex;align-items:center;gap:10px;padding:9px 12px 9px 9px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)}' +
-    '.au-va-pn{font:500 14px/18px var(--sans);color:#fff}' +
-    '.au-va-pd{font:400 12px/16px var(--sans);color:rgba(255,255,255,.6)}' +
-    '.au-va-pr{font:600 13px/16px var(--mono);color:#fff;white-space:nowrap}' +
-    '.au-va-paid{align-self:center;display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px 0 5px;border-radius:14px;background:rgba(255,255,255,.12);font:500 12px/16px var(--sans);color:#fff}' +
-    '.au-okc{display:block;flex:none}' +
-    '.au-okc circle{fill:var(--ok)}' +
-    '.au-va-steps .check-row{padding:10px 14px;gap:12px;align-items:center}' +
-    '.au-va-steps .name{font:500 15px/20px var(--sans)}' +
-    '.au-va-steps .meta{font-size:13px;line-height:18px;margin-top:1px}' +
-    '.au-va-n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:none;font:600 12px/1 var(--mono);background:#000;color:#fff}' +
-    /* pętla 9 s: propozycja bota, push z banku, zapłacone; wiersze podświetlają się po kolei */
-    '.au-va-prop{animation:au-va-prop 9s ease infinite}' +
-    '.au-va-push{animation:au-va-push 9s cubic-bezier(.2,.8,.2,1) infinite}' +
-    '.au-va-paid{animation:au-va-paid 9s cubic-bezier(.2,.9,.3,1.3) infinite}' +
-    '@keyframes au-va-prop{0%{opacity:0;transform:translateY(8px)}5%,92%{opacity:1;transform:none}98%,100%{opacity:0;transform:none}}' +
-    '@keyframes au-va-push{0%,31%{opacity:0;transform:translateY(-16px) scale(.96)}37%,92%{opacity:1;transform:none}98%,100%{opacity:0;transform:none}}' +
-    '@keyframes au-va-paid{0%,64%{opacity:0;transform:scale(.7)}70%,92%{opacity:1;transform:none}98%,100%{opacity:0;transform:none}}' +
-    '.au-va-s{animation:au-va-row 9s ease infinite}' +
-    '.au-va-s .au-va-n{animation:au-va-num 9s ease infinite}' +
-    '.au-va-s .name{animation:au-va-txt 9s ease infinite}' +
-    '.au-va-s2,.au-va-s2 .au-va-n,.au-va-s2 .name{animation-delay:-6s}' +
-    '.au-va-s3,.au-va-s3 .au-va-n,.au-va-s3 .name{animation-delay:-3s}' +
-    '@keyframes au-va-row{0%{background:rgba(255,255,255,0)}3%,30%{background:rgba(255,255,255,.95)}33.4%,100%{background:rgba(255,255,255,0)}}' +
-    '@keyframes au-va-num{0%{background:var(--chip);color:var(--ts);box-shadow:0 0 0 0 rgba(230,0,126,0)}3%,30%{background:#000;color:#fff;box-shadow:0 0 0 4px rgba(230,0,126,.18)}33.4%,100%{background:var(--chip);color:var(--ts);box-shadow:0 0 0 0 rgba(230,0,126,0)}}' +
-    '@keyframes au-va-txt{0%{color:var(--ts)}3%,30%{color:var(--tp)}33.4%,100%{color:var(--ts)}}' +
-    '@media (min-width:1024px){' +
-      '.au-va-step .auth-head .title{font-size:36px;line-height:40px}' +
-      '.au-va{display:grid;grid-template-columns:236px minmax(0,1fr);gap:20px;align-items:center}' +
-      '.au-va-phone{max-width:none;margin:0;min-height:264px;padding:12px}' +
-      '.au-va-pm{font-size:13px;line-height:17px}' +
-      '.au-va-paid{margin-top:auto}' +
-    '}' +
-
-    /* ---------- krok 4, wariant B: rozmowa ---------- */
-    '.au-vb{display:flex;flex-direction:column;gap:12px;width:100%;max-width:440px;margin:0 auto}' +
-    '.au-vb-chat{display:flex;flex-direction:column;gap:8px;padding:12px 14px 14px;border-radius:var(--r-card);background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-card);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}' +
-    '.au-vb-head{display:flex;align-items:center;gap:8px;padding-bottom:10px;margin-bottom:2px;border-bottom:1px solid var(--border)}' +
-    '.au-vb-hn{flex:1;font:600 14px/18px var(--sans)}' +
-    '.au-vb-hs{font:500 11px/14px var(--mono);color:var(--ts)}' +
-    '.au-vb-msg{max-width:86%;padding:9px 12px;border-radius:18px;font:400 14px/19px var(--sans)}' +
-    '.au-vb-me{align-self:flex-end;background:#000;color:#fff;border-bottom-right-radius:6px}' +
-    '.au-vb-bot{align-self:flex-start;display:flex;flex-direction:column;gap:8px;background:#fff;color:var(--tp);border:1px solid var(--border);border-bottom-left-radius:6px}' +
-    '.au-vb-item{display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:12px;background:var(--chip)}' +
-    '.au-vb-itn,.au-vb-itm{display:block}' +
-    '.au-vb-itn{font:500 14px/18px var(--sans)}' +
-    '.au-vb-itm{font:400 12px/16px var(--sans);color:var(--ts)}' +
-    '.au-vb-price{font:600 14px/18px var(--mono);white-space:nowrap}' +
-    '.au-vb-pay{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px 0 6px;border-radius:17px;background:#000;color:#fff;font:500 13px/16px var(--sans);box-shadow:0 0 0 3px rgba(230,0,126,.16),0 8px 18px -8px rgba(0,0,0,.5)}' +
-    '.au-vb-pay img{height:22px;width:auto;display:block}' +
-    '.au-vb-toast{align-self:center;display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:6px 14px 6px 6px;border-radius:999px;background:#fff;border:1px solid var(--border);box-shadow:0 10px 24px -12px rgba(0,0,0,.35);font:500 13px/16px var(--sans);color:var(--tp)}' +
-    '.au-vb-facts{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;margin:0;padding:0;list-style:none;font:500 12px/16px var(--sans);color:var(--ts)}' +
-    '.au-vb-facts li{display:inline-flex;align-items:center;gap:6px}' +
-    '.au-vb-facts .ico{width:14px;height:14px;opacity:.7}' +
-    '.au-vb-in{animation:au-vb-in .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d,0s)}' +
-    '@keyframes au-vb-in{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}' +
-    '.au-vb-me.au-vb-in{transform-origin:100% 100%}' +
-    '.au-vb-bot.au-vb-in,.au-vb-pay.au-vb-in{transform-origin:0 100%}' +
-
-    /* ---------- krok 4, wariant C: portfel ---------- */
+    /* ---------- krok 4: portfel ---------- */
     '.au-vc{display:flex;flex-direction:column;align-items:center;gap:16px}' +
     '.au-vc-stack{position:relative;width:100%;max-width:290px;padding-top:80px}' +
     '.au-vc-card{position:absolute;top:0;left:0;right:0;aspect-ratio:1.586;display:flex;align-items:flex-start;justify-content:space-between;padding:12px 16px;border-radius:22px;border:1px solid var(--border);box-shadow:0 10px 24px -14px rgba(0,0,0,.3);animation:au-vc-back .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d,0s)}' +
@@ -684,59 +614,6 @@
   /* =====================================================================
      5. Onboarding krok 4: BLIK
      ===================================================================== */
-  PM.route('#/onboarding/4', {
-    title: 'Podepnij BLIK', group: G, label: 'Krok 4 BLIK', tab: null,
-    render: function (ctx) {
-      var perks = [
-        { icon: 'time-line', t: 'Bez kodów', m: 'Nic nie przepisujesz z aplikacji' },
-        { icon: 'bank-line', t: 'Potwierdzasz w banku', m: 'Każda płatność czeka na Twoje OK' },
-        { icon: 'shield-check-line', t: 'Pełna kontrola', m: 'Limity ustawiasz sam, odłączysz kiedy chcesz' }
-      ].map(function (p) {
-        return '<div class="check-row">' +
-          '<div class="thumb thumb--sm">' + PM.icon(p.icon, 18) + '</div>' +
-          '<div class="grow"><div class="name">' + PM.esc(p.t) + '</div><div class="meta">' + PM.esc(p.m) + '</div></div>' +
-          '</div>';
-      }).join('');
-      return obScreen(4, ctx, {
-        title: 'Płać jednym kliknięciem',
-        lead: 'Bot płaci bez kodu, a Ty potwierdzasz w aplikacji banku.',
-        body:
-          '<div class="au-b4">' +
-            '<div class="au-bstage" aria-hidden="true">' +
-              '<span class="au-bglow"></span>' +
-              '<div class="au-bcard">' +
-                '<div class="au-mini-top">' +
-                  '<img class="au-mini-blik" src="' + BLIK_LOGO + '" alt="" draggable="false">' +
-                  '<span class="au-mini-st"><i></i>Do podpięcia</span>' +
-                '</div>' +
-                '<div class="au-mini-foot">' +
-                  '<span><span class="au-mini-name">BLIK OneClick</span><span class="au-bcard-sub">TOMASZ GĘSIOR</span></span>' +
-                  '<span class="au-mini-bots">' + PM.botLogo('claude', 20) + PM.botLogo('chatgpt', 20) + PM.botLogo('perplexity', 20) + '</span>' +
-                '</div>' +
-              '</div>' +
-            '</div>' +
-            '<div class="card checks au-perks au-in" style="--d:.12s">' + perks + '</div>' +
-            '<p class="au-trust au-in" style="--d:.2s">' + PM.icon('lock-line', 14) + '<span>Bezpieczne połączenie przez BLIK. Nie widzimy danych Twojego konta.</span></p>' +
-          '</div>',
-        cta: PM.actions({
-          primary: { label: 'Skonfiguruj płatność', href: '#/onboarding/4/checkout', cls: 'press' },
-          extra: PM.btn('Zrobię to później', { variant: 'ghost', block: true, cls: 'press', attrs: { 'data-ob-later': '' } })
-        })
-      });
-    },
-    mount: function (root, ctx) {
-      if (!obMount(root, ctx)) return;
-      var later = root.querySelector('[data-ob-later]');
-      if (later) {
-        later.addEventListener('click', function () {
-          blik().polaczony = false;
-          finish();
-          PM.go('#/portfel/bez-blik');
-        });
-      }
-    }
-  });
-
   /* ---------- checkout BLIK jako sheet nad dowolnym wariantem kroku 4 ---------- */
   function registerCheckout(baseHash, label) {
     PM.route(baseHash + '/checkout', {
@@ -789,7 +666,6 @@
     });
   }
 
-  registerCheckout('#/onboarding/4', 'Checkout BLIK (sheet)');
 
   /* ---------- wspólne dla wariantów kroku 4 ---------- */
   var OKC = '<svg class="au-okc" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">' +
@@ -823,91 +699,9 @@
     }
   }
 
-  /* ---------- wariant A: przepływ bez karty ---------- */
-  PM.route('#/onboarding/4a', {
-    title: 'Podepnij BLIK', group: G, label: 'Krok 4 wariant A (przepływ)', tab: null,
-    render: function (ctx) {
-      var steps = [
-        { t: 'Bot proponuje zakup', m: 'Widzisz, co kupuje i za ile' },
-        { t: 'Potwierdzasz w banku', m: 'Bez przepisywania kodu' },
-        { t: 'Zapłacone', m: 'Potwierdzenie przyjdzie na mail' }
-      ].map(function (s, i) {
-        return '<div class="check-row au-va-s au-va-s' + (i + 1) + '">' +
-          '<span class="au-va-n" aria-hidden="true">' + (i + 1) + '</span>' +
-          '<div class="grow"><div class="name">' + PM.esc(s.t) + '</div><div class="meta">' + PM.esc(s.m) + '</div></div>' +
-          '</div>';
-      }).join('');
-      return obScreen(4, ctx, {
-        title: 'Płacisz jednym OK w banku',
-        lead: 'Bot przygotowuje zakup, a o płatności decydujesz w aplikacji banku.',
-        stepCls: 'au-va-step',
-        body:
-          '<div class="au-va">' +
-            '<div class="au-va-phone" aria-hidden="true">' +
-              '<div class="au-va-sb"><span>9:41</span><span>5G</span></div>' +
-              '<div class="au-va-push">' +
-                '<span class="au-va-bl"><img src="' + BLIK_LOGO + '" alt="" draggable="false"></span>' +
-                '<span class="grow"><span class="au-va-pt">Aplikacja banku, teraz</span><span class="au-va-pm">Potwierdź płatność 24,00 zł</span></span>' +
-              '</div>' +
-              '<div class="au-va-prop">' +
-                PM.botLogo('claude', 28) +
-                '<span class="grow"><span class="au-va-pn ellipsis">Bilet do Zoo</span><span class="au-va-pd ellipsis">Claude proponuje, sobota</span></span>' +
-                '<span class="au-va-pr">24,00 zł</span>' +
-              '</div>' +
-              '<span class="au-va-paid">' + OKC + 'Zapłacone</span>' +
-            '</div>' +
-            '<div class="card checks au-va-steps">' + steps + '</div>' +
-          '</div>',
-        cta: vCta('#/onboarding/4a')
-      });
-    },
-    mount: vMount
-  });
-  registerCheckout('#/onboarding/4a', 'Checkout BLIK wariant A (sheet)');
-
-  /* ---------- wariant B: rozmowa ---------- */
-  PM.route('#/onboarding/4b', {
-    title: 'Podepnij BLIK', group: G, label: 'Krok 4 wariant B (rozmowa)', tab: null,
-    render: function (ctx) {
-      var facts = [
-        { icon: 'time-line', t: 'Bez przepisywania kodu' },
-        { icon: 'shield-check-line', t: 'Limity ustawiasz sam' },
-        { icon: 'check-line', t: 'Odłączysz kiedy chcesz' }
-      ].map(function (f) {
-        return '<li>' + PM.icon(f.icon, 14) + '<span>' + PM.esc(f.t) + '</span></li>';
-      }).join('');
-      return obScreen(4, ctx, {
-        title: 'Kupuj w rozmowie z AI',
-        lead: 'Piszesz, czego potrzebujesz. Bot płaci BLIKiem, gdy potwierdzisz w banku.',
-        body:
-          '<div class="au-vb">' +
-            '<div class="au-vb-chat">' +
-              '<div class="au-vb-head">' + PM.botLogo('claude', 24) +
-                '<span class="au-vb-hn">Claude</span><span class="au-vb-hs">przez Paymove</span>' +
-              '</div>' +
-              '<div class="au-vb-msg au-vb-me au-vb-in" style="--d:.15s">Kup mi bilet do Zoo na sobotę</div>' +
-              '<div class="au-vb-msg au-vb-bot au-vb-in" style="--d:.7s">' +
-                '<span>Mam bilet normalny na sobotę.</span>' +
-                '<span class="au-vb-item">' +
-                  '<span class="grow"><span class="au-vb-itn">Zoo, bilet normalny</span><span class="au-vb-itm">Sobota, 1 osoba</span></span>' +
-                  '<span class="au-vb-price">24,00 zł</span>' +
-                '</span>' +
-              '</div>' +
-              '<span class="au-vb-pay au-vb-in" style="--d:1.2s"><img src="' + BLIK_LOGO + '" alt="BLIK" draggable="false">Płacę BLIK OneClick</span>' +
-              '<div class="au-vb-toast au-vb-in" role="status" style="--d:1.9s">' + OKC + 'Potwierdzone w aplikacji banku</div>' +
-            '</div>' +
-            '<ul class="au-vb-facts au-in" style="--d:2.2s">' + facts + '</ul>' +
-          '</div>',
-        cta: vCta('#/onboarding/4b')
-      });
-    },
-    mount: vMount
-  });
-  registerCheckout('#/onboarding/4b', 'Checkout BLIK wariant B (sheet)');
-
-  /* ---------- wariant C: portfel ---------- */
-  PM.route('#/onboarding/4c', {
-    title: 'Podepnij BLIK', group: G, label: 'Krok 4 wariant C (portfel)', tab: null,
+  /* ---------- krok 4: portfel ---------- */
+  PM.route('#/onboarding/4', {
+    title: 'Podepnij BLIK', group: G, label: 'Krok 4 BLIK', tab: null,
     render: function (ctx) {
       return obScreen(4, ctx, {
         title: 'Dodaj BLIK do portfela',
@@ -936,12 +730,12 @@
               '<span class="au-vc-pt">' + PM.icon('check-line', 14) + 'Odłączysz kiedy chcesz</span>' +
             '</div>' +
           '</div>',
-        cta: vCta('#/onboarding/4c')
+        cta: vCta('#/onboarding/4')
       });
     },
     mount: vMount
   });
-  registerCheckout('#/onboarding/4c', 'Checkout BLIK wariant C (sheet)');
+  registerCheckout('#/onboarding/4', 'Checkout BLIK (sheet)');
 
   /* =====================================================================
      6. Gotowe
