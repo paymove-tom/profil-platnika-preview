@@ -1023,7 +1023,7 @@
     '.au-in3-kick{display:inline-flex;align-items:center;gap:8px;font:500 16px/21px var(--sans);color:var(--ts)}' +
     '.au-in3-kick img{display:block;height:21px;width:auto;flex:none}.au-in3-kick span{display:block;line-height:21px}' +
     '.au-in3-title{font:700 26px/34px var(--sans);letter-spacing:-.02em;color:var(--tp);text-wrap:balance}' +
-    '.au-in3-lead{font:400 16px/26px var(--sans);color:var(--ts);max-width:288px;text-wrap:balance}' +
+    '.au-in3-lead{font:400 16px/26px var(--sans);color:var(--ts);max-width:377px;text-wrap:balance}' +
     '.au-in3-lead b{font-weight:500;color:var(--tp)}' +
 
     /* kroki */
@@ -1035,7 +1035,7 @@
     '.au-in3-step b{font-weight:500}' +
 
     /* notka i CTA */
-    '.au-in3-note{display:flex;align-items:flex-start;justify-content:center;gap:8px;margin:0;font:400 13px/21px var(--sans);color:var(--ts);text-wrap:balance}' +
+    '.au-in3-note{display:flex;align-items:flex-start;justify-content:center;gap:8px;margin:0;font:400 13px/21px var(--sans);color:var(--ts);text-align:center;text-wrap:balance}' +
     '.au-in3-note .ico{width:14px;height:14px;margin-top:1px;opacity:.7}' +
     '.au-in3-cta.act-row{gap:13px}' +
     '.au-in3-cta.act-row .btn{height:50px}' +
