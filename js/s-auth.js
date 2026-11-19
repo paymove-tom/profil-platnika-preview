@@ -1019,9 +1019,9 @@
     '.au-in3-badge img{display:block;width:16px;height:16px;filter:brightness(0) invert(1)}' +
 
     /* tekst */
-    '.au-in3-head{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}' +
-    '.au-in3-kick{display:inline-flex;align-items:center;gap:6px;font:500 12px/16px var(--mono);letter-spacing:.04em;color:var(--ts)}' +
-    '.au-in3-kick i{display:block;width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#ff0000,#e6007e)}' +
+    '.au-in3-head{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}' +
+    '.au-in3-kick{display:inline-flex;align-items:center;gap:8px;font:500 15px/22px var(--sans);color:var(--tp)}' +
+    '.au-in3-kick img{display:block;height:22px;width:auto;flex:none}' +
     '.au-in3-title{font:700 24px/30px var(--sans);letter-spacing:-.02em}' +
     '.au-in3-lead{font:400 15px/21px var(--sans);color:var(--ts);max-width:360px}' +
     '.au-in3-lead b{font-weight:500;color:var(--tp)}' +
@@ -1035,7 +1035,7 @@
     '.au-in3-step b{font-weight:500}' +
 
     /* notka i CTA */
-    '.au-in3-note{display:flex;align-items:flex-start;gap:8px;margin:0;font:400 12px/17px var(--sans);color:var(--ts)}' +
+    '.au-in3-note{display:flex;align-items:flex-start;justify-content:center;gap:8px;margin:0;font:400 13px/18px var(--sans);color:var(--ts)}' +
     '.au-in3-note .ico{width:14px;height:14px;margin-top:1px;opacity:.7}' +
     '.au-in3-cta.act-row{gap:10px}' +
     '.au-in3-cta.act-row .btn{height:50px}' +
@@ -1065,9 +1065,9 @@
           '<span class="au-in3-badge">' + PM.icon('add-line', 16) + '</span></div>' +
         '</div>' +
         '<div class="au-in3-head">' +
-          '<span class="au-in3-kick au-in" style="--d:.26s"><i></i>BLIK bez kodu</span>' +
+          '<span class="au-in3-kick au-in" style="--d:.26s"><img src="' + BLIK_LOGO_FULL + '" alt="BLIK" height="22" draggable="false"><span>bez kodu</span></span>' +
           '<h2 class="au-in3-title au-in" style="--d:.32s">Zapłać i zapamiętaj sklep</h2>' +
-          '<p class="au-in3-lead au-in" style="--d:.38s">Zapłać 1 zł BLIKIEM. W aplikacji banku wybierz <b>„Zapamiętaj sklep”</b>, a nie samo „Zapłać”.</p>' +
+          '<p class="au-in3-lead au-in" style="--d:.38s">Zapłać 1 zł BLIKIEM. W aplikacji banku wybierz <b>„Zapamiętaj sklep”</b>.</p>' +
         '</div>' +
         '<p class="au-in3-note au-in" style="--d:.5s">' + PM.icon('information-line', 14) +
           '<span>Dzięki temu kolejne płatności botów idą bez kodu.</span></p>' +
