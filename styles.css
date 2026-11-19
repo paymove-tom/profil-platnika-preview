@@ -713,16 +713,24 @@ a.row:hover,button.row:hover{background:rgba(255,255,255,.45)}
   .spinner,.btn.is-loading::after{animation:pm-spin 1.6s linear infinite!important}
 }
 
-/* checkout BLIK: pełna wysokość bramki, przewijanie w iframe */
-html .sheet-layer:has(.au-checkout){position:fixed;inset:0;z-index:60}
-html .sheet.au-checkout{height:min(92dvh,880px);max-height:92dvh;overflow:hidden}
-html .sheet.au-checkout .au-frame{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+/* checkout BLIK: pełna wysokość bramki, marginesy, przycisk bramki widoczny bez przewijania */
+html .sheet-layer:has(.au-checkout){position:fixed;inset:0;z-index:60;align-items:center;padding:max(12px,env(safe-area-inset-top)) 10px max(12px,env(safe-area-inset-bottom))}
+html .sheet.au-checkout{height:100%;max-height:none;overflow:hidden;gap:12px;padding:16px 14px 16px}
+html .sheet.au-checkout .au-sh-head{flex:none;gap:10px}
+html .sheet.au-checkout .au-sh-title{font-size:16px;line-height:20px}
+html .sheet.au-checkout .au-sh-head .meta{font-size:12px;line-height:16px}
+html .sheet.au-checkout .au-blik-chip{height:32px}
+html .sheet.au-checkout .au-blik-chip img{height:20px}
+html .sheet.au-checkout .au-x{width:32px;height:32px}
+.au-newtab{flex:none;font:500 12px/16px var(--sans);color:var(--ts);text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+.au-newtab:hover{color:var(--tp)}
+html .sheet.au-checkout .au-frame{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;padding:12px 0 16px}
 html .sheet.au-checkout .checkout-frame{flex:1 1 auto;height:auto;min-height:0}
-html .sheet.au-checkout .au-sh-head,html .sheet.au-checkout .au-sh-foot{flex:none}
+html .sheet.au-checkout .au-sh-foot{flex:none;gap:0}
+@media (max-width:420px){html .sheet.au-checkout .au-sh-head .meta{display:none}html .sheet.au-checkout .au-sh-title{white-space:nowrap}html .sheet.au-checkout .au-sh-head{gap:8px}html .sheet.au-checkout .au-blik-chip{padding:0 6px}.au-newtab{font-size:11px}}
 @media (min-width:1024px){
-  html .sheet-layer:has(.au-checkout){align-items:center;padding:4vh 24px}
-  html .sheet.au-checkout{max-width:560px}
-  html .sheet.au-checkout .checkout-frame{min-height:min(640px,calc(92dvh - 200px))}
+  html .sheet-layer:has(.au-checkout){padding:24px}
+  html .sheet.au-checkout{max-width:560px;max-height:960px;padding:20px 20px 20px}
 }
 
 /* portfel: karta BLIK w proporcji karty płatniczej, metody nie na pełną szerokość */

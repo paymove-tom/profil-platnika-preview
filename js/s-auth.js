@@ -2,7 +2,6 @@
    Paymove Wallet · prototyp · js/s-auth.js
    Sekcja „1 Logowanie i onboarding” (tab null):
      #/login                      social login (Google, Apple, Facebook)
-     #/login-b                    wariant B: jak #/login + rząd botów „Działa z”
      #/onboarding/1               adres
      #/onboarding/2               numer rejestracyjny
      #/onboarding/3               BLIK (portfel)
@@ -499,11 +498,6 @@
     mount: loginMount
   });
 
-  PM.route('#/login-b', {
-    title: 'Zaloguj się', group: G, label: 'Logowanie wariant B (boty)', tab: null,
-    render: function () { return loginScreen({ bots: true }); },
-    mount: loginMount
-  });
 
   /* =====================================================================
      2. Onboarding krok 1: adres
@@ -641,6 +635,7 @@
           '<div class="au-sh-head">' +
             '<span class="au-blik-chip"><img src="' + BLIK_LOGO + '" alt="BLIK" draggable="false"></span>' +
             '<div class="grow"><h2 class="au-sh-title">Podepnij BLIK</h2><p class="meta">Potwierdzisz w aplikacji banku</p></div>' +
+            '<a class="au-newtab" href="' + url + '" target="_blank" rel="noopener">Otwórz w nowej karcie</a>' +
             '<a class="au-x press" href="' + baseHash + '" aria-label="Zamknij">' + PM.icon('close-line', 18) + '</a>' +
           '</div>' +
           '<div class="au-frame" data-frame>' +
@@ -648,7 +643,6 @@
             '<iframe class="checkout-frame" scrolling="yes" data-src="' + url + '" title="Konfiguracja BLIK" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>' +
           '</div>' +
           '<div class="au-sh-foot">' +
-            '<a class="textbtn" href="' + url + '" target="_blank" rel="noopener">Otwórz w nowej karcie</a>' +
             PM.btn('Gotowe, BLIK podpięty', { variant: 'primary', block: true, cls: 'press', attrs: { 'data-blik-done': '' } }) +
           '</div>';
         return PM.sheet({ body: body, cls: 'au-checkout', label: 'Konfiguracja BLIK' });
