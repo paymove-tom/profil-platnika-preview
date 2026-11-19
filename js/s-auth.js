@@ -26,7 +26,9 @@
   var LOGO_INK = 'assets/logos/logo_paymove_ink.svg';
   var SYGNET = 'assets/logos/sygnet.svg';
   var BLIK_LOGO = 'assets/logos/blik-logo.svg';
-  var CHECKOUT_URL = 'https://checkout.paymove.io/f1a142f1-1f17-4a6b-8f89-6a0a7d529790?externalId=jQEEsNYhdc';
+  var CHECKOUT_URL = 'https://checkout.paymove.io/411718ba-b114-427f-8bc9-bbf18a798936?externalId=PgxIa97EVu';
+  /* stan "zapłacono" kluczowany externalId: nowy link = przycisk Gotowe znów nieaktywny */
+  var CHECKOUT_EXT = 'PgxIa97EVu';
   var CHECKOUT_ORIGIN = 'https://checkout.paymove.io';
   /* tryb embed bramki: wysyła do rodzica paymove:ready/resize/success/error/closed (postMessage na podany origin) */
   function embedUrl() {
@@ -863,20 +865,20 @@
           done.classList.remove('is-disabled');
           setSt('ok', 'Płatność potwierdzona');
         }
-        if (auth().blikPaid) enable();
+        if (auth().blikPaid === CHECKOUT_EXT) enable();
         function onMsg(e) {
           if (!isGatewayMsg(e) || (ifr && e.source !== ifr.contentWindow)) return;
           var t = e.data.type;
           if (t === 'paymove:ready') loaded();
-          else if (t === 'paymove:success') { auth().blikPaid = true; enable(); }
-          else if (t === 'paymove:error') { if (!auth().blikPaid) setSt('err', 'Płatność nie przeszła. Spróbuj jeszcze raz w bramce.'); }
-          else if (t === 'paymove:closed') { if (!auth().blikPaid) PM.go(baseHash); }
+          else if (t === 'paymove:success') { auth().blikPaid = CHECKOUT_EXT; enable(); }
+          else if (t === 'paymove:error') { if (auth().blikPaid !== CHECKOUT_EXT) setSt('err', 'Płatność nie przeszła. Spróbuj jeszcze raz w bramce.'); }
+          else if (t === 'paymove:closed') { if (auth().blikPaid !== CHECKOUT_EXT) PM.go(baseHash); }
         }
         window.addEventListener('message', onMsg);
         PM.onLeave(function () { window.removeEventListener('message', onMsg); });
         if (done) {
           done.addEventListener('click', function () {
-            if (done.disabled || !auth().blikPaid) return;
+            if (done.disabled || auth().blikPaid !== CHECKOUT_EXT) return;
             if (done.classList.contains('is-loading')) return;
             var b = blik();
             b.polaczony = true;
