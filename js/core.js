@@ -231,7 +231,11 @@
     'a.card{text-decoration:none;color:inherit;display:block}' +
     'a.card.bot{display:flex}' +
     'a.card:hover{background:var(--card-hover)}' +
-    '.row .by{margin-top:2px}'
+    '.row .by{margin-top:2px}' +
+    /* lockup marki w sidenav: logo 20px, linia bazowa wordmarku ok. 4.9px nad dołem obrazka */
+    '.sidenav-brand{display:flex;align-items:baseline;gap:6px}' +
+    '.sidenav-brand .sidenav-logo{display:block;height:20px;width:auto;flex:none}' +
+    '.sidenav-brand .wallet-word{margin:0;font:500 15px/1 var(--sans);letter-spacing:-.01em;color:var(--ts);transform:translateY(-4.9px)}'
   );
 
   /* ---------- formatowanie ---------- */

@@ -154,7 +154,7 @@
       title: 'Brak metody płatności',
       text: 'Boty nie zapłacą, dopóki nie podepniesz BLIK.'
     }) +
-    '<a class="card pf-add press pf-press" href="#/onboarding/4">' +
+    '<a class="card pf-add press pf-press" href="#/onboarding/3">' +
       '<span class="pf-add-logo"><img src="' + BLIK_LOGO + '" alt="BLIK" draggable="false"></span>' +
       '<div class="grow"><div class="name">Podepnij BLIK</div>' +
       '<div class="meta">Płacisz bez przepisywania kodu</div></div>' +
@@ -245,7 +245,7 @@
         '<div class="sheet-head"><h2 class="h-sheet">BLIK nie jest podpięty</h2>' +
         '<p class="sheet-text">Podepnij go, żeby boty mogły płacić. Każdą płatność potwierdzasz w aplikacji banku.</p></div>' +
         '<div class="sheet-actions">' +
-          PM.btn('Podepnij BLIK', { variant: 'primary', href: '#/onboarding/4', block: true, cls: 'press' }) +
+          PM.btn('Podepnij BLIK', { variant: 'primary', href: '#/onboarding/3', block: true, cls: 'press' }) +
           PM.btn('Zamknij', { variant: 'ghost', href: '#/portfel', block: true }) +
         '</div>';
     }

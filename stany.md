@@ -20,11 +20,11 @@ Stanów: 62. Dane w prototypie to mock.
 | Hash | Stan |
 |---|---|
 | `#/login` | Logowanie: Google, Apple, Facebook |
-| `#/onboarding/1` | Krok 1 · Mail |
-| `#/onboarding/2` | Krok 2 · Adres |
-| `#/onboarding/3` | Krok 3 · Numer auta |
-| `#/onboarding/4` | Krok 4 · BLIK |
-| `#/onboarding/4/checkout` | Checkout BLIK (sheet) |
+| `#/login-b` | Logowanie, wariant B z logotypami botów |
+| `#/onboarding/1` | Krok 1 · Adres |
+| `#/onboarding/2` | Krok 2 · Numer auta |
+| `#/onboarding/3` | Krok 3 · BLIK (portfel) |
+| `#/onboarding/3/checkout` | Checkout BLIK (sheet) |
 | `#/onboarding/gotowe` | Gotowe |
 | `#/zgoda` | Zgoda dla Claude |
 | `#/zgoda/ok` | Claude połączony |

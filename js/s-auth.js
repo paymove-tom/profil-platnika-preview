@@ -2,11 +2,12 @@
    Paymove Wallet · prototyp · js/s-auth.js
    Sekcja „1 Logowanie i onboarding” (tab null):
      #/login                      social login (Google, Apple, Facebook)
-     #/onboarding/1               mail z konta
-     #/onboarding/2               adres
-     #/onboarding/3               numer rejestracyjny
-     #/onboarding/4               BLIK
-     #/onboarding/4/checkout      sheet z iframe checkoutu BLIK
+     #/login-b                    wariant B: jak #/login + rząd botów „Działa z”
+     #/onboarding/1               adres
+     #/onboarding/2               numer rejestracyjny
+     #/onboarding/3               BLIK (portfel)
+     #/onboarding/3/checkout      sheet z iframe checkoutu BLIK
+   Mail (tomasz.gesior@paymove.io) bierzemy z konta social, bez osobnego kroku.
      #/onboarding/gotowe          sukces
      #/zgoda, #/zgoda/ok, #/zgoda/odmowa
 
@@ -25,10 +26,17 @@
   var BLIK_LOGO = 'assets/logos/blik-logo.svg';
   var CHECKOUT_URL = 'https://checkout.paymove.io/f1a142f1-1f17-4a6b-8f89-6a0a7d529790?externalId=jQEEsNYhdc';
   var DEFAULT_MAIL = 'tomasz.gesior@paymove.io';
-  var MAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   var KOD_RE = /^\d{2}-\d{3}$/;
   var PLATE_RE = /^[A-Z0-9]{4,8}$/;
-  var STEPS = 4;
+  var STEPS = 3;
+  var TERMS_URL = 'https://www.paymove.io/regulamin';
+  var PRIVACY_URL = 'https://www.paymove.io/polityka-prywatnosci';
+  var LOGIN_BOTS = [
+    { id: 'claude', name: 'Claude', src: 'assets/logos/claude-color.svg' },
+    { id: 'chatgpt', name: 'ChatGPT', src: 'assets/logos/openai.svg' },
+    { id: 'perplexity', name: 'Perplexity', src: 'assets/logos/perplexity-color.svg' },
+    { id: 'grok', name: 'Grok', src: 'assets/logos/grok.svg' }
+  ];
   var SHORT = { imie: 'imię', mail: 'mail', adres: 'adres', tablice: 'numery rejestracyjne' };
 
   /* ---------- oficjalne logotypy (inline SVG) ---------- */
@@ -69,10 +77,26 @@
 
     /* login */
     '.au-hdr{height:auto;padding:28px 20px 0}' +
-    '.au-brand{display:flex;align-items:center;gap:8px}' +
-    '.au-brand img{height:22px;width:auto}' +
-    '.au-wallet{font:500 22px/24px var(--sans);letter-spacing:-.02em;color:var(--ts);transform:translateY(1px)}' +
+    /* lockup: img 22px, linia bazowa wordmarku ok. 16.6px od góry (5.4px nad dołem obrazka);
+       flex baseline wyrównuje tekst do dołu img, translateY podnosi go na linię wordmarku */
+    '.au-brand{display:flex;align-items:baseline;gap:6px}' +
+    '.au-brand img{display:block;height:22px;width:auto;flex:none}' +
+    '.au-wallet{font:500 17px/1 var(--sans);letter-spacing:-.01em;color:var(--ts);transform:translateY(-5.4px)}' +
     '.au-login .content{gap:32px;padding-left:20px;padding-right:20px}' +
+    '@media (min-width:1024px){.au-login .content{gap:24px}}' +
+    '.au-login--b .content{gap:20px}' +
+    '.au-login--b .au-cards{height:160px;transform:scale(.88)}' +
+    /* wariant B: rząd botów */
+    '.au-bots{display:flex;align-items:center;justify-content:center;gap:12px}' +
+    '.au-bots-lbl{font:500 11px/14px var(--mono);color:var(--ts);letter-spacing:.02em;white-space:nowrap}' +
+    '.au-bots-list{display:flex;gap:8px;margin:0;padding:0;list-style:none}' +
+    '.au-bot{width:40px;height:40px;flex:none;border-radius:12px;background:#fff;border:1px solid var(--tile-border,var(--border));box-shadow:0 1px 2px rgba(0,0,0,.04);display:grid;place-items:center}' +
+    '.au-bot img{display:block;width:22px;height:22px;object-fit:contain;filter:grayscale(.4);opacity:.85;transition:filter .2s ease,opacity .2s ease}' +
+    '.au-bot:hover img{filter:none;opacity:1}' +
+    /* linia prawna z linkami */
+    '.au-legal{text-align:center}' +
+    '.au-legal a{color:inherit;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px;transition:color .15s ease}' +
+    '.au-legal a:hover{color:var(--tp)}' +
     '.au-cards{position:relative;height:184px;width:100%;max-width:320px;margin:0 auto}' +
     '.au-mini{position:absolute;left:50%;top:50%;width:232px;height:144px;margin:-72px 0 0 -116px;border-radius:20px;border:1px solid var(--border);background:var(--card);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);box-shadow:var(--shadow-card);transform:var(--t);animation:au-card .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d,0s)}' +
     '@keyframes au-card{from{opacity:0;transform:var(--t) translateY(18px)}to{opacity:1;transform:var(--t)}}' +
@@ -131,8 +155,11 @@
     '.au-claim{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}' +
     '.au-claim .title{font-size:28px;line-height:34px;letter-spacing:-.02em}' +
     '.au-claim .lead-text{max-width:320px}' +
-    '.au-social{display:flex;flex-direction:column;gap:10px}' +
-    '.au-social .social-btn{gap:10px}' +
+    '.au-social{display:flex;flex-direction:column;gap:8px;width:100%;max-width:400px;margin:0 auto}' +
+    '@media (min-width:1024px){.au-social{max-width:360px}}' +
+    '.au-social .social-btn{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:48px;min-height:48px;padding:0 20px}' +
+    '.au-social .social-btn .au-logo{position:static;left:auto;right:auto;top:auto;transform:none;margin:0}' +
+    '.au-social .social-btn>span{flex:none;text-align:left}' +
     '.social-btn .au-logo{width:20px;height:20px;flex:none}' +
     '.social-btn.is-loading .au-logo{visibility:hidden}' +
     '.au-social.is-busy .social-btn:not(.is-loading){opacity:.5;pointer-events:none}' +
@@ -256,11 +283,6 @@
   }
 
   /* ---------- pola i błędy ---------- */
-  function mailError(v) {
-    if (!v) return 'Wpisz mail';
-    if (!MAIL_RE.test(v)) return 'Sprawdź format, np. jan@example.com';
-    return null;
-  }
   function showFieldError(root, id, msg) {
     var w = root.querySelector('[data-field="' + id + '"]');
     if (!w) return;
@@ -401,102 +423,96 @@
       '</div>';
   }
 
+  function botsRow() {
+    return '<div class="au-bots au-in" style="--d:.2s">' +
+      '<span class="au-bots-lbl">Działa z</span>' +
+      '<ul class="au-bots-list">' +
+        LOGIN_BOTS.map(function (b) {
+          return '<li class="au-bot" title="' + PM.esc(b.name) + '">' +
+            '<img src="' + b.src + '" alt="' + PM.esc(b.name) + '" width="22" height="22" draggable="false"></li>';
+        }).join('') +
+      '</ul>' +
+      '</div>';
+  }
+
+  function loginScreen(o) {
+    o = o || {};
+    var btns = PROVIDERS.map(function (p) {
+      return '<button class="btn btn--secondary btn--block social-btn press" type="button" data-provider="' + p.id + '">' +
+        SVG[p.id](20) + '<span>' + PM.esc(p.cta) + '</span></button>';
+    }).join('');
+    return PM.screen({
+      title: 'Paymove Wallet',
+      showTitle: false,
+      cls: 'au-login' + (o.bots ? ' au-login--b' : ''),
+      header: brandHeader(),
+      contentCls: 'content--center',
+      content:
+        '<div class="wallet-hero">' + heroCards() + '</div>' +
+        '<div class="au-claim au-in" style="--d:.16s">' +
+          '<h1 class="title">Portfel zakupowy AI</h1>' +
+          '<p class="lead-text">Zakupy robi AI. Kontrola nad pieniędzmi zostaje u Ciebie.</p>' +
+        '</div>' +
+        (o.bots ? botsRow() : ''),
+      cta:
+        '<div class="cta-bar">' +
+          '<div class="au-social au-in" style="--d:.24s">' + btns + '</div>' +
+          '<p class="legal au-legal">Kontynuując, akceptujesz ' +
+            '<a href="' + TERMS_URL + '" target="_blank" rel="noopener">regulamin</a> i ' +
+            '<a href="' + PRIVACY_URL + '" target="_blank" rel="noopener">politykę prywatności</a>.</p>' +
+        '</div>'
+    });
+  }
+
+  /* mail z konta social trafia do stanu bez osobnego kroku */
+  function prefillMail() {
+    var o = ob();
+    if (PM.state.user && !PM.state.user.mail) PM.state.user.mail = o.mail;
+    var p = poleById('mail');
+    if (p && !p.wartosc) p.wartosc = o.mail;
+  }
+
+  function loginMount(root) {
+    var a = auth();
+    a.obDir = null;
+    a.obStill = false;
+    var wrap = root.querySelector('.au-social');
+    PM.qsa(root, '.au-legal a').forEach(function (l) {
+      l.addEventListener('click', function (e) { e.stopPropagation(); });
+    });
+    PM.qsa(root, '[data-provider]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (!wrap || wrap.classList.contains('is-busy')) return;
+        wrap.classList.add('is-busy');
+        b.classList.add('is-loading');
+        b.setAttribute('aria-busy', 'true');
+        auth().provider = b.getAttribute('data-provider');
+        prefillMail();
+        goSoon('#/onboarding/1', 900);
+      });
+    });
+  }
+
   PM.route('#/login', {
     title: 'Zaloguj się', group: G, label: 'Logowanie (social)', tab: null,
-    render: function () {
-      var btns = PROVIDERS.map(function (p) {
-        return '<button class="btn btn--secondary btn--block social-btn press" type="button" data-provider="' + p.id + '">' +
-          SVG[p.id](20) + '<span>' + PM.esc(p.cta) + '</span></button>';
-      }).join('');
-      return PM.screen({
-        title: 'Paymove Wallet',
-        showTitle: false,
-        cls: 'au-login',
-        header: brandHeader(),
-        contentCls: 'content--center',
-        content:
-          '<div class="wallet-hero">' + heroCards() + '</div>' +
-          '<div class="au-claim au-in" style="--d:.16s">' +
-            '<h1 class="title">Portfel do zakupów przez AI</h1>' +
-            '<p class="lead-text">Bot kupuje w Twoim imieniu. Ty ustawiasz limity i potwierdzasz płatność w banku.</p>' +
-          '</div>',
-        cta:
-          '<div class="cta-bar">' +
-            '<div class="au-social au-in" style="--d:.24s">' + btns + '</div>' +
-            '<p class="legal">Kontynuując, akceptujesz regulamin i politykę prywatności.</p>' +
-          '</div>'
-      });
-    },
-    mount: function (root) {
-      var a = auth();
-      a.obDir = null;
-      a.obStill = false;
-      var wrap = root.querySelector('.au-social');
-      PM.qsa(root, '[data-provider]').forEach(function (b) {
-        b.addEventListener('click', function () {
-          if (!wrap || wrap.classList.contains('is-busy')) return;
-          wrap.classList.add('is-busy');
-          b.classList.add('is-loading');
-          b.setAttribute('aria-busy', 'true');
-          auth().provider = b.getAttribute('data-provider');
-          goSoon('#/onboarding/1', 900);
-        });
-      });
-    }
+    render: function () { return loginScreen({ bots: false }); },
+    mount: loginMount
+  });
+
+  PM.route('#/login-b', {
+    title: 'Zaloguj się', group: G, label: 'Logowanie wariant B (boty)', tab: null,
+    render: function () { return loginScreen({ bots: true }); },
+    mount: loginMount
   });
 
   /* =====================================================================
-     2. Onboarding krok 1: mail
+     2. Onboarding krok 1: adres
      ===================================================================== */
   PM.route('#/onboarding/1', {
-    title: 'Twój mail', group: G, label: 'Krok 1 Mail', tab: null,
-    render: function (ctx) {
-      var o = ob();
-      var prov = PROV[auth().provider] || PROV.google;
-      return obScreen(1, ctx, {
-        title: 'Twój mail',
-        lead: 'Mamy go z konta ' + PM.esc(prov.label) + '. Jeśli wolisz inny, zmień go tutaj.',
-        body: PM.field({
-          id: 'ob-mail', label: 'Mail', type: 'email', value: o.mail || DEFAULT_MAIL,
-          inputmode: 'email', autocomplete: 'email',
-          labelRight: '<span class="au-src">' + SVG[prov.id](14) + PM.esc(prov.label) + '</span>',
-          hint: 'Tu wyślemy potwierdzenia zakupów.'
-        }),
-        cta: PM.actions({ primary: { label: 'Dalej', cls: 'press', attrs: { 'data-ob-next': '' } } })
-      });
-    },
-    mount: function (root, ctx) {
-      if (!obMount(root, ctx)) return;
-      var inp = root.querySelector('#ob-mail');
-      var btn = root.querySelector('[data-ob-next]');
-      if (!inp || !btn) return;
-      function submit() {
-        var v = String(inp.value || '').trim();
-        var err = mailError(v);
-        if (err) {
-          showFieldError(root, 'ob-mail', err);
-          inp.focus();
-          return;
-        }
-        ob().mail = v;
-        if (PM.state.user) PM.state.user.mail = v;
-        setPole('mail', v);
-        PM.go('#/onboarding/2');
-      }
-      btn.addEventListener('click', submit);
-      onEnter(inp, submit);
-      bindClear(root, 'ob-mail');
-    }
-  });
-
-  /* =====================================================================
-     3. Onboarding krok 2: adres
-     ===================================================================== */
-  PM.route('#/onboarding/2', {
-    title: 'Adres', group: G, label: 'Krok 2 Adres', tab: null,
+    title: 'Adres', group: G, label: 'Krok 1 Adres', tab: null,
     render: function (ctx) {
       var a = ob().adres;
-      return obScreen(2, ctx, {
+      return obScreen(1, ctx, {
         title: 'Adres',
         lead: 'Bot wpisze go za Ciebie, gdy zakup tego wymaga.',
         body:
@@ -509,7 +525,7 @@
           '</div>',
         cta: PM.actions({
           primary: { label: 'Zapisz i dalej', cls: 'press', attrs: { 'data-ob-next': '' } },
-          extra: PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/3', cls: 'press' })
+          extra: PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/2', cls: 'press' })
         })
       });
     },
@@ -539,7 +555,7 @@
         ob().adres = { ulica: u, kod: k, miasto: m };
         PM.state.adres = { ulica: u, kod: k, miasto: m };
         setPole('adres', u + ', ' + k + ' ' + m);
-        PM.go('#/onboarding/3');
+        PM.go('#/onboarding/2');
       }
       btn.addEventListener('click', submit);
       [ulica, kod, miasto].forEach(function (i) { onEnter(i, submit); });
@@ -548,17 +564,17 @@
   });
 
   /* =====================================================================
-     4. Onboarding krok 3: numer rejestracyjny
+     3. Onboarding krok 2: numer rejestracyjny
      ===================================================================== */
   function normPlate(v) {
     return String(v || '').toUpperCase().replace(/[^A-Z0-9 ]/g, '').replace(/\s+/g, ' ').replace(/^\s+/, '');
   }
 
-  PM.route('#/onboarding/3', {
-    title: 'Twoje auto', group: G, label: 'Krok 3 Rejestracja', tab: null,
+  PM.route('#/onboarding/2', {
+    title: 'Twoje auto', group: G, label: 'Krok 2 Rejestracja', tab: null,
     render: function (ctx) {
       var v = ob().rejestracja || '';
-      return obScreen(3, ctx, {
+      return obScreen(2, ctx, {
         title: 'Twoje auto',
         lead: 'Parking zapłacisz bez wpisywania numeru. Bot weźmie go z profilu.',
         body:
@@ -574,7 +590,7 @@
           }),
         cta: PM.actions({
           primary: { label: 'Dalej', cls: 'press', attrs: { 'data-ob-next': '' } },
-          extra: PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/4', cls: 'press' })
+          extra: PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/3', cls: 'press' })
         })
       });
     },
@@ -604,7 +620,7 @@
         var t = PM.state.tablice = PM.state.tablice || [];
         if (t.indexOf(v) === -1) t.unshift(v);
         setPole('tablice', t.join(', '));
-        PM.go('#/onboarding/4');
+        PM.go('#/onboarding/3');
       }
       btn.addEventListener('click', submit);
       onEnter(inp, submit);
@@ -612,7 +628,7 @@
   });
 
   /* =====================================================================
-     5. Onboarding krok 4: BLIK
+     4. Onboarding krok 3: BLIK
      ===================================================================== */
   /* ---------- checkout BLIK jako sheet nad dowolnym wariantem kroku 4 ---------- */
   function registerCheckout(baseHash, label) {
@@ -629,7 +645,7 @@
           '</div>' +
           '<div class="au-frame" data-frame>' +
             '<div class="au-frame-load">' + PM.spinner('spinner--lg') + '<span class="meta">Ładujemy płatność</span></div>' +
-            '<iframe class="checkout-frame" data-src="' + url + '" title="Konfiguracja BLIK" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>' +
+            '<iframe class="checkout-frame" scrolling="yes" data-src="' + url + '" title="Konfiguracja BLIK" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>' +
           '</div>' +
           '<div class="au-sh-foot">' +
             '<a class="textbtn" href="' + url + '" target="_blank" rel="noopener">Otwórz w nowej karcie</a>' +
@@ -699,11 +715,11 @@
     }
   }
 
-  /* ---------- krok 4: portfel ---------- */
-  PM.route('#/onboarding/4', {
-    title: 'Podepnij BLIK', group: G, label: 'Krok 4 BLIK', tab: null,
+  /* ---------- krok 3: portfel ---------- */
+  PM.route('#/onboarding/3', {
+    title: 'Podepnij BLIK', group: G, label: 'Krok 3 BLIK', tab: null,
     render: function (ctx) {
-      return obScreen(4, ctx, {
+      return obScreen(3, ctx, {
         title: 'Dodaj BLIK do portfela',
         lead: 'Bot zapłaci bez przepisywania kodu, a Ty potwierdzisz w aplikacji banku.',
         body:
@@ -730,15 +746,15 @@
               '<span class="au-vc-pt">' + PM.icon('check-line', 14) + 'Odłączysz kiedy chcesz</span>' +
             '</div>' +
           '</div>',
-        cta: vCta('#/onboarding/4')
+        cta: vCta('#/onboarding/3')
       });
     },
     mount: vMount
   });
-  registerCheckout('#/onboarding/4', 'Checkout BLIK (sheet)');
+  registerCheckout('#/onboarding/3', 'Checkout BLIK (sheet)');
 
   /* =====================================================================
-     6. Gotowe
+     5. Gotowe
      ===================================================================== */
   PM.route('#/onboarding/gotowe', {
     title: 'Wszystko gotowe', group: G, label: 'Gotowe', tab: null,
@@ -777,7 +793,7 @@
   });
 
   /* =====================================================================
-     7. Zgoda z linku w czacie (zachowana z poprzedniej wersji)
+     6. Zgoda z linku w czacie (zachowana z poprzedniej wersji)
      ===================================================================== */
   function zgodaData() {
     return PM.state.zgoda || (window.PM_DATA && window.PM_DATA.zgoda) || {};
