@@ -745,3 +745,12 @@ html .stack-8:has(>.pf-blik)>.pf-off,html .stack-8:has(>.pf-add){max-width:400px
 html .sidenav-brand{align-items:baseline}
 html .sidenav-brand .sidenav-logo{align-self:auto}
 html .sidenav-brand .wallet-word{font-size:15px;line-height:1}
+/* checkout: status płatności nad przyciskiem Gotowe */
+html .sheet.au-checkout .au-sh-foot{gap:8px}
+.au-pay-st{display:flex;align-items:center;justify-content:center;gap:6px;margin:0;font:500 12px/16px var(--sans);color:var(--ts);text-align:center}
+.au-pay-st .ico{width:14px;height:14px;opacity:.7;flex:none}
+.au-pay-st.is-ok{color:var(--tp)}
+.au-pay-st.is-err{color:var(--err,#d92d20)}
+.au-pay-ok{width:16px;height:16px;border-radius:50%;flex:none;background:var(--ok,#16a34a) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.3l2.2 2.2L11.5 5.7' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;animation:au-pop .32s cubic-bezier(.2,.8,.2,1) both}
+@keyframes au-pop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+html .sheet.au-checkout [data-blik-done]:disabled{opacity:.42;cursor:not-allowed;box-shadow:none}

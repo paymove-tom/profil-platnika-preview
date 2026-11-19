@@ -24,6 +24,15 @@
   var SYGNET = 'assets/logos/sygnet.svg';
   var BLIK_LOGO = 'assets/logos/blik-logo.svg';
   var CHECKOUT_URL = 'https://checkout.paymove.io/f1a142f1-1f17-4a6b-8f89-6a0a7d529790?externalId=jQEEsNYhdc';
+  var CHECKOUT_ORIGIN = 'https://checkout.paymove.io';
+  /* tryb embed bramki: wysyła do rodzica paymove:ready/resize/success/error/closed (postMessage na podany origin) */
+  function embedUrl() {
+    return CHECKOUT_URL + '&embed=1&origin=' + encodeURIComponent(window.location.origin);
+  }
+  function isGatewayMsg(e) {
+    var d = e && e.data;
+    return e.origin === CHECKOUT_ORIGIN && d && typeof d === 'object' && d.paymove === true && typeof d.type === 'string';
+  }
   var DEFAULT_MAIL = 'tomasz.gesior@paymove.io';
   var KOD_RE = /^\d{2}-\d{3}$/;
   var PLATE_RE = /^[A-Z0-9]{4,8}$/;
@@ -640,10 +649,11 @@
           '</div>' +
           '<div class="au-frame" data-frame>' +
             '<div class="au-frame-load">' + PM.spinner('spinner--lg') + '<span class="meta">Ładujemy płatność</span></div>' +
-            '<iframe class="checkout-frame" scrolling="yes" data-src="' + url + '" title="Konfiguracja BLIK" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>' +
+            '<iframe class="checkout-frame" scrolling="yes" data-src="' + PM.esc(embedUrl()) + '" title="Konfiguracja BLIK" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>' +
           '</div>' +
           '<div class="au-sh-foot">' +
-            PM.btn('Gotowe, BLIK podpięty', { variant: 'primary', block: true, cls: 'press', attrs: { 'data-blik-done': '' } }) +
+            '<p class="au-pay-st" data-pay-st role="status" aria-live="polite">' + PM.icon('time-line', 14) + '<span>Aktywuje się po potwierdzeniu płatności</span></p>' +
+            PM.btn('Gotowe, BLIK podpięty', { variant: 'primary', block: true, cls: 'press', disabled: true, attrs: { 'data-blik-done': '' } }) +
           '</div>';
         return PM.sheet({ body: body, cls: 'au-checkout', label: 'Konfiguracja BLIK' });
       },
@@ -660,8 +670,34 @@
         PM.later(loaded, 8000);
 
         var done = root.querySelector('.sheet [data-blik-done]');
+        var st = root.querySelector('.sheet [data-pay-st]');
+        function setSt(kind, text) {
+          if (!st) return;
+          st.className = 'au-pay-st' + (kind ? ' is-' + kind : '');
+          st.innerHTML = (kind === 'ok' ? '<i class="au-pay-ok" aria-hidden="true"></i>' : PM.icon(kind === 'err' ? 'error-warning-line' : 'time-line', 14)) + '<span>' + PM.esc(text) + '</span>';
+        }
+        function enable() {
+          if (!done) return;
+          done.disabled = false;
+          done.removeAttribute('disabled');
+          done.removeAttribute('aria-disabled');
+          done.classList.remove('is-disabled');
+          setSt('ok', 'Płatność potwierdzona');
+        }
+        if (auth().blikPaid) enable();
+        function onMsg(e) {
+          if (!isGatewayMsg(e) || (ifr && e.source !== ifr.contentWindow)) return;
+          var t = e.data.type;
+          if (t === 'paymove:ready') loaded();
+          else if (t === 'paymove:success') { auth().blikPaid = true; enable(); }
+          else if (t === 'paymove:error') { if (!auth().blikPaid) setSt('err', 'Płatność nie przeszła. Spróbuj jeszcze raz w bramce.'); }
+          else if (t === 'paymove:closed') { if (!auth().blikPaid) PM.go(baseHash); }
+        }
+        window.addEventListener('message', onMsg);
+        PM.onLeave(function () { window.removeEventListener('message', onMsg); });
         if (done) {
           done.addEventListener('click', function () {
+            if (done.disabled || !auth().blikPaid) return;
             if (done.classList.contains('is-loading')) return;
             var b = blik();
             b.polaczony = true;
