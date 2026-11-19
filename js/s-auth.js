@@ -194,7 +194,98 @@
     '.check-row[aria-pressed="false"] .zg-mark .ico{visibility:hidden}' +
     '.check-row[aria-pressed="false"] .name{color:var(--ts)}' +
     '.zg-chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 16px}' +
-    '.zg-chips .chip{height:32px}'
+    '.zg-chips .chip{height:32px}' +
+
+    /* ---------- krok 4, wariant A: przepływ bez karty ---------- */
+    '.au-va-step .auth-head .title{font-size:32px;line-height:36px;letter-spacing:-.03em}' +
+    '.au-va{display:flex;flex-direction:column;gap:12px}' +
+    '.au-va-phone{position:relative;width:100%;max-width:340px;margin:0 auto;display:flex;flex-direction:column;gap:8px;padding:10px 12px 12px;border-radius:24px;overflow:hidden;color:#fff;border:1px solid rgba(255,255,255,.08);background:radial-gradient(120% 80% at 100% 0%,rgba(230,0,126,.42) 0%,rgba(230,0,126,0) 60%),radial-gradient(80% 60% at 0% 100%,rgba(230,0,126,.14) 0%,rgba(230,0,126,0) 70%),#000;box-shadow:0 24px 48px -18px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12)}' +
+    '.au-va-sb{display:flex;justify-content:space-between;padding:0 6px;font:500 11px/14px var(--mono);color:rgba(255,255,255,.6)}' +
+    '.au-va-push{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:16px;background:rgba(255,255,255,.95);color:var(--tp);box-shadow:0 10px 24px -10px rgba(0,0,0,.6)}' +
+    '.au-va-bl{width:34px;height:34px;border-radius:9px;background:#000;display:grid;place-items:center;flex:none}' +
+    '.au-va-bl img{width:26px;height:auto;display:block}' +
+    '.au-va-pt,.au-va-pm,.au-va-pn,.au-va-pd{display:block}' +
+    '.au-va-pt{font:500 11px/14px var(--mono);color:var(--ts)}' +
+    '.au-va-pm{font:600 14px/18px var(--sans);letter-spacing:-.01em}' +
+    '.au-va-prop{display:flex;align-items:center;gap:10px;padding:9px 12px 9px 9px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)}' +
+    '.au-va-pn{font:500 14px/18px var(--sans);color:#fff}' +
+    '.au-va-pd{font:400 12px/16px var(--sans);color:rgba(255,255,255,.6)}' +
+    '.au-va-pr{font:600 13px/16px var(--mono);color:#fff;white-space:nowrap}' +
+    '.au-va-paid{align-self:center;display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px 0 5px;border-radius:14px;background:rgba(255,255,255,.12);font:500 12px/16px var(--sans);color:#fff}' +
+    '.au-okc{display:block;flex:none}' +
+    '.au-okc circle{fill:var(--ok)}' +
+    '.au-va-steps .check-row{padding:10px 14px;gap:12px;align-items:center}' +
+    '.au-va-steps .name{font:500 15px/20px var(--sans)}' +
+    '.au-va-steps .meta{font-size:13px;line-height:18px;margin-top:1px}' +
+    '.au-va-n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:none;font:600 12px/1 var(--mono);background:#000;color:#fff}' +
+    /* pętla 9 s: propozycja bota, push z banku, zapłacone; wiersze podświetlają się po kolei */
+    '.au-va-prop{animation:au-va-prop 9s ease infinite}' +
+    '.au-va-push{animation:au-va-push 9s cubic-bezier(.2,.8,.2,1) infinite}' +
+    '.au-va-paid{animation:au-va-paid 9s cubic-bezier(.2,.9,.3,1.3) infinite}' +
+    '@keyframes au-va-prop{0%{opacity:0;transform:translateY(8px)}5%,92%{opacity:1;transform:none}98%,100%{opacity:0;transform:none}}' +
+    '@keyframes au-va-push{0%,31%{opacity:0;transform:translateY(-16px) scale(.96)}37%,92%{opacity:1;transform:none}98%,100%{opacity:0;transform:none}}' +
+    '@keyframes au-va-paid{0%,64%{opacity:0;transform:scale(.7)}70%,92%{opacity:1;transform:none}98%,100%{opacity:0;transform:none}}' +
+    '.au-va-s{animation:au-va-row 9s ease infinite}' +
+    '.au-va-s .au-va-n{animation:au-va-num 9s ease infinite}' +
+    '.au-va-s .name{animation:au-va-txt 9s ease infinite}' +
+    '.au-va-s2,.au-va-s2 .au-va-n,.au-va-s2 .name{animation-delay:-6s}' +
+    '.au-va-s3,.au-va-s3 .au-va-n,.au-va-s3 .name{animation-delay:-3s}' +
+    '@keyframes au-va-row{0%{background:rgba(255,255,255,0)}3%,30%{background:rgba(255,255,255,.95)}33.4%,100%{background:rgba(255,255,255,0)}}' +
+    '@keyframes au-va-num{0%{background:var(--chip);color:var(--ts);box-shadow:0 0 0 0 rgba(230,0,126,0)}3%,30%{background:#000;color:#fff;box-shadow:0 0 0 4px rgba(230,0,126,.18)}33.4%,100%{background:var(--chip);color:var(--ts);box-shadow:0 0 0 0 rgba(230,0,126,0)}}' +
+    '@keyframes au-va-txt{0%{color:var(--ts)}3%,30%{color:var(--tp)}33.4%,100%{color:var(--ts)}}' +
+    '@media (min-width:1024px){' +
+      '.au-va-step .auth-head .title{font-size:36px;line-height:40px}' +
+      '.au-va{display:grid;grid-template-columns:236px minmax(0,1fr);gap:20px;align-items:center}' +
+      '.au-va-phone{max-width:none;margin:0;min-height:264px;padding:12px}' +
+      '.au-va-pm{font-size:13px;line-height:17px}' +
+      '.au-va-paid{margin-top:auto}' +
+    '}' +
+
+    /* ---------- krok 4, wariant B: rozmowa ---------- */
+    '.au-vb{display:flex;flex-direction:column;gap:12px;width:100%;max-width:440px;margin:0 auto}' +
+    '.au-vb-chat{display:flex;flex-direction:column;gap:8px;padding:12px 14px 14px;border-radius:var(--r-card);background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-card);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}' +
+    '.au-vb-head{display:flex;align-items:center;gap:8px;padding-bottom:10px;margin-bottom:2px;border-bottom:1px solid var(--border)}' +
+    '.au-vb-hn{flex:1;font:600 14px/18px var(--sans)}' +
+    '.au-vb-hs{font:500 11px/14px var(--mono);color:var(--ts)}' +
+    '.au-vb-msg{max-width:86%;padding:9px 12px;border-radius:18px;font:400 14px/19px var(--sans)}' +
+    '.au-vb-me{align-self:flex-end;background:#000;color:#fff;border-bottom-right-radius:6px}' +
+    '.au-vb-bot{align-self:flex-start;display:flex;flex-direction:column;gap:8px;background:#fff;color:var(--tp);border:1px solid var(--border);border-bottom-left-radius:6px}' +
+    '.au-vb-item{display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:12px;background:var(--chip)}' +
+    '.au-vb-itn,.au-vb-itm{display:block}' +
+    '.au-vb-itn{font:500 14px/18px var(--sans)}' +
+    '.au-vb-itm{font:400 12px/16px var(--sans);color:var(--ts)}' +
+    '.au-vb-price{font:600 14px/18px var(--mono);white-space:nowrap}' +
+    '.au-vb-pay{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px 0 6px;border-radius:17px;background:#000;color:#fff;font:500 13px/16px var(--sans);box-shadow:0 0 0 3px rgba(230,0,126,.16),0 8px 18px -8px rgba(0,0,0,.5)}' +
+    '.au-vb-pay img{height:22px;width:auto;display:block}' +
+    '.au-vb-toast{align-self:center;display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:6px 14px 6px 6px;border-radius:999px;background:#fff;border:1px solid var(--border);box-shadow:0 10px 24px -12px rgba(0,0,0,.35);font:500 13px/16px var(--sans);color:var(--tp)}' +
+    '.au-vb-facts{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;margin:0;padding:0;list-style:none;font:500 12px/16px var(--sans);color:var(--ts)}' +
+    '.au-vb-facts li{display:inline-flex;align-items:center;gap:6px}' +
+    '.au-vb-facts .ico{width:14px;height:14px;opacity:.7}' +
+    '.au-vb-in{animation:au-vb-in .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d,0s)}' +
+    '@keyframes au-vb-in{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}' +
+    '.au-vb-me.au-vb-in{transform-origin:100% 100%}' +
+    '.au-vb-bot.au-vb-in,.au-vb-pay.au-vb-in{transform-origin:0 100%}' +
+
+    /* ---------- krok 4, wariant C: portfel ---------- */
+    '.au-vc{display:flex;flex-direction:column;align-items:center;gap:16px}' +
+    '.au-vc-stack{position:relative;width:100%;max-width:290px;padding-top:80px}' +
+    '.au-vc-card{position:absolute;top:0;left:0;right:0;aspect-ratio:1.586;display:flex;align-items:flex-start;justify-content:space-between;padding:12px 16px;border-radius:22px;border:1px solid var(--border);box-shadow:0 10px 24px -14px rgba(0,0,0,.3);animation:au-vc-back .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d,0s)}' +
+    '.au-vc-card--visa{left:8%;right:8%;z-index:1;background:linear-gradient(160deg,#f3f4f7,#e2e4ea);--d:0s}' +
+    '.au-vc-card--mc{top:40px;left:4%;right:4%;z-index:2;background:linear-gradient(160deg,#e9ebef,#d6d9df);--d:.08s}' +
+    '.au-vc-card svg{display:block;filter:grayscale(1);opacity:.5}' +
+    '.au-vc-soon{font:500 11px/14px var(--mono);color:var(--ts);padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.7)}' +
+    '.au-vc-front{position:relative;z-index:3;animation:au-vc-in .8s cubic-bezier(.2,.8,.2,1) .25s both}' +
+    '@keyframes au-vc-back{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}' +
+    '@keyframes au-vc-in{from{opacity:0;transform:translateY(64px) scale(.97)}to{opacity:1;transform:none}}' +
+    '.au-vc-pts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}' +
+    '.au-vc-pt{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px 0 10px;border-radius:16px;background:var(--card);border:1px solid var(--border);font:500 13px/16px var(--sans);color:var(--tp)}' +
+    '.au-vc-pt .ico{width:14px;height:14px;opacity:.75}' +
+    '@media (min-width:1024px){.au-vc-stack{max-width:256px;padding-top:68px}.au-vc-card{border-radius:16px;padding:10px 14px}.au-vc-card--mc{top:34px}}' +
+
+    /* warianty: stan statyczny (pod sheetem, reduced motion, zrzut) */
+    '.ob-step.au-still .au-vb-in,.ob-step.au-still .au-vc-front,.ob-step.au-still .au-vc-card{animation:none}' +
+    '@media (prefers-reduced-motion:reduce){.au-va-prop,.au-va-push,.au-va-paid,.au-va-s,.au-va-s .au-va-n,.au-va-s .name,.au-vb-in,.au-vc-front,.au-vc-card{animation:none}}' +
+    '.is-shot .au-va-prop,.is-shot .au-va-push,.is-shot .au-va-paid,.is-shot .au-va-s,.is-shot .au-va-s .au-va-n,.is-shot .au-va-s .name,.is-shot .au-vb-in,.is-shot .au-vc-front,.is-shot .au-vc-card{animation:none}'
   );
 
   /* ---------- stan ---------- */
@@ -333,7 +424,7 @@
       header: header,
       contentCls: 'content--top',
       content:
-        '<div class="ob-step' + anim + '">' +
+        '<div class="ob-step' + anim + (o.stepCls ? ' ' + o.stepCls : '') + '">' +
           '<div class="stack-24">' +
             (o.top || '') +
             '<div class="auth-head">' +
@@ -646,54 +737,211 @@
     }
   });
 
-  PM.route('#/onboarding/4/checkout', {
-    title: 'Konfiguracja BLIK', group: G, label: 'Checkout BLIK (sheet)', tab: null,
-    sheet: true, base: '#/onboarding/4',
-    render: function () {
-      var url = PM.esc(CHECKOUT_URL);
-      var body =
-        '<div class="au-sh-head">' +
-          '<span class="au-blik-chip"><img src="' + BLIK_LOGO + '" alt="BLIK" draggable="false"></span>' +
-          '<div class="grow"><h2 class="au-sh-title">Podepnij BLIK</h2><p class="meta">Potwierdzisz w aplikacji banku</p></div>' +
-          '<a class="au-x press" href="#/onboarding/4" aria-label="Zamknij">' + PM.icon('close-line', 18) + '</a>' +
-        '</div>' +
-        '<div class="au-frame" data-frame>' +
-          '<div class="au-frame-load">' + PM.spinner('spinner--lg') + '<span class="meta">Ładujemy płatność</span></div>' +
-          '<iframe class="checkout-frame" data-src="' + url + '" title="Konfiguracja BLIK" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>' +
-        '</div>' +
-        '<div class="au-sh-foot">' +
-          '<a class="textbtn" href="' + url + '" target="_blank" rel="noopener">Otwórz w nowej karcie</a>' +
-          PM.btn('Gotowe, BLIK podpięty', { variant: 'primary', block: true, cls: 'press', attrs: { 'data-blik-done': '' } }) +
-        '</div>';
-      return PM.sheet({ body: body, cls: 'au-checkout', label: 'Konfiguracja BLIK' });
-    },
-    mount: function (root) {
-      auth().obStill = true;
-      var fr = root.querySelector('.sheet [data-frame]');
-      var ifr = fr && fr.querySelector('iframe');
-      function loaded() { if (fr) fr.classList.add('is-loaded'); }
-      if (ifr) {
-        ifr.addEventListener('load', function () { if (ifr.getAttribute('src')) loaded(); });
-        /* src dopiero po ułożeniu sheetu: checkout mierzy szerokość przy starcie */
-        setTimeout(function () { ifr.src = ifr.getAttribute('data-src'); }, PM.shot ? 50 : 380);
-      }
-      PM.later(loaded, 8000);
+  /* ---------- checkout BLIK jako sheet nad dowolnym wariantem kroku 4 ---------- */
+  function registerCheckout(baseHash, label) {
+    PM.route(baseHash + '/checkout', {
+      title: 'Konfiguracja BLIK', group: G, label: label || 'Checkout BLIK (sheet)', tab: null,
+      sheet: true, base: baseHash,
+      render: function () {
+        var url = PM.esc(CHECKOUT_URL);
+        var body =
+          '<div class="au-sh-head">' +
+            '<span class="au-blik-chip"><img src="' + BLIK_LOGO + '" alt="BLIK" draggable="false"></span>' +
+            '<div class="grow"><h2 class="au-sh-title">Podepnij BLIK</h2><p class="meta">Potwierdzisz w aplikacji banku</p></div>' +
+            '<a class="au-x press" href="' + baseHash + '" aria-label="Zamknij">' + PM.icon('close-line', 18) + '</a>' +
+          '</div>' +
+          '<div class="au-frame" data-frame>' +
+            '<div class="au-frame-load">' + PM.spinner('spinner--lg') + '<span class="meta">Ładujemy płatność</span></div>' +
+            '<iframe class="checkout-frame" data-src="' + url + '" title="Konfiguracja BLIK" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>' +
+          '</div>' +
+          '<div class="au-sh-foot">' +
+            '<a class="textbtn" href="' + url + '" target="_blank" rel="noopener">Otwórz w nowej karcie</a>' +
+            PM.btn('Gotowe, BLIK podpięty', { variant: 'primary', block: true, cls: 'press', attrs: { 'data-blik-done': '' } }) +
+          '</div>';
+        return PM.sheet({ body: body, cls: 'au-checkout', label: 'Konfiguracja BLIK' });
+      },
+      mount: function (root) {
+        auth().obStill = true;
+        var fr = root.querySelector('.sheet [data-frame]');
+        var ifr = fr && fr.querySelector('iframe');
+        function loaded() { if (fr) fr.classList.add('is-loaded'); }
+        if (ifr) {
+          ifr.addEventListener('load', function () { if (ifr.getAttribute('src')) loaded(); });
+          /* src dopiero po ułożeniu sheetu: checkout mierzy szerokość przy starcie */
+          setTimeout(function () { ifr.src = ifr.getAttribute('data-src'); }, PM.shot ? 50 : 380);
+        }
+        PM.later(loaded, 8000);
 
-      var done = root.querySelector('.sheet [data-blik-done]');
-      if (done) {
-        done.addEventListener('click', function () {
-          if (done.classList.contains('is-loading')) return;
-          var b = blik();
-          b.polaczony = true;
-          if (!b.od) b.od = PM.date(PM.today);
-          done.classList.add('is-loading');
-          done.setAttribute('aria-busy', 'true');
-          auth().obStill = false;
-          goSoon('#/onboarding/gotowe', 600);
-        });
+        var done = root.querySelector('.sheet [data-blik-done]');
+        if (done) {
+          done.addEventListener('click', function () {
+            if (done.classList.contains('is-loading')) return;
+            var b = blik();
+            b.polaczony = true;
+            if (!b.od) b.od = PM.date(PM.today);
+            done.classList.add('is-loading');
+            done.setAttribute('aria-busy', 'true');
+            auth().obStill = false;
+            goSoon('#/onboarding/gotowe', 600);
+          });
+        }
       }
+    });
+  }
+
+  registerCheckout('#/onboarding/4', 'Checkout BLIK (sheet)');
+
+  /* ---------- wspólne dla wariantów kroku 4 ---------- */
+  var OKC = '<svg class="au-okc" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">' +
+    '<circle cx="10" cy="10" r="10"/>' +
+    '<path d="M6 10.4l2.6 2.6L14 7.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '</svg>';
+  var VISA_SVG = '<svg viewBox="0 0 64 22" width="56" height="19" role="img" aria-label="Visa">' +
+    '<text x="0" y="19" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="900" font-style="italic" letter-spacing="-.5" fill="#1A1F71">VISA</text>' +
+    '</svg>';
+  var MC_SVG = '<svg viewBox="0 0 40 24" width="40" height="24" role="img" aria-label="Mastercard">' +
+    '<circle cx="15" cy="12" r="12" fill="#EB001B"/>' +
+    '<circle cx="25" cy="12" r="12" fill="#F79E1B"/>' +
+    '<path d="M20 1.09A12 12 0 0 1 20 22.91A12 12 0 0 1 20 1.09Z" fill="#FF5F00"/>' +
+    '</svg>';
+
+  function vCta(hash) {
+    return PM.actions({
+      primary: { label: 'Skonfiguruj płatność', href: hash + '/checkout', cls: 'press' },
+      extra: PM.btn('Zrobię to później', { variant: 'ghost', block: true, cls: 'press', attrs: { 'data-ob-later': '' } })
+    });
+  }
+  function vMount(root, ctx) {
+    if (!obMount(root, ctx)) return;
+    var later = root.querySelector('[data-ob-later]');
+    if (later) {
+      later.addEventListener('click', function () {
+        blik().polaczony = false;
+        finish();
+        PM.go('#/portfel/bez-blik');
+      });
     }
+  }
+
+  /* ---------- wariant A: przepływ bez karty ---------- */
+  PM.route('#/onboarding/4a', {
+    title: 'Podepnij BLIK', group: G, label: 'Krok 4 wariant A (przepływ)', tab: null,
+    render: function (ctx) {
+      var steps = [
+        { t: 'Bot proponuje zakup', m: 'Widzisz, co kupuje i za ile' },
+        { t: 'Potwierdzasz w banku', m: 'Bez przepisywania kodu' },
+        { t: 'Zapłacone', m: 'Potwierdzenie przyjdzie na mail' }
+      ].map(function (s, i) {
+        return '<div class="check-row au-va-s au-va-s' + (i + 1) + '">' +
+          '<span class="au-va-n" aria-hidden="true">' + (i + 1) + '</span>' +
+          '<div class="grow"><div class="name">' + PM.esc(s.t) + '</div><div class="meta">' + PM.esc(s.m) + '</div></div>' +
+          '</div>';
+      }).join('');
+      return obScreen(4, ctx, {
+        title: 'Płacisz jednym OK w banku',
+        lead: 'Bot przygotowuje zakup, a o płatności decydujesz w aplikacji banku.',
+        stepCls: 'au-va-step',
+        body:
+          '<div class="au-va">' +
+            '<div class="au-va-phone" aria-hidden="true">' +
+              '<div class="au-va-sb"><span>9:41</span><span>5G</span></div>' +
+              '<div class="au-va-push">' +
+                '<span class="au-va-bl"><img src="' + BLIK_LOGO + '" alt="" draggable="false"></span>' +
+                '<span class="grow"><span class="au-va-pt">Aplikacja banku, teraz</span><span class="au-va-pm">Potwierdź płatność 24,00 zł</span></span>' +
+              '</div>' +
+              '<div class="au-va-prop">' +
+                PM.botLogo('claude', 28) +
+                '<span class="grow"><span class="au-va-pn ellipsis">Bilet do Zoo</span><span class="au-va-pd ellipsis">Claude proponuje, sobota</span></span>' +
+                '<span class="au-va-pr">24,00 zł</span>' +
+              '</div>' +
+              '<span class="au-va-paid">' + OKC + 'Zapłacone</span>' +
+            '</div>' +
+            '<div class="card checks au-va-steps">' + steps + '</div>' +
+          '</div>',
+        cta: vCta('#/onboarding/4a')
+      });
+    },
+    mount: vMount
   });
+  registerCheckout('#/onboarding/4a', 'Checkout BLIK wariant A (sheet)');
+
+  /* ---------- wariant B: rozmowa ---------- */
+  PM.route('#/onboarding/4b', {
+    title: 'Podepnij BLIK', group: G, label: 'Krok 4 wariant B (rozmowa)', tab: null,
+    render: function (ctx) {
+      var facts = [
+        { icon: 'time-line', t: 'Bez przepisywania kodu' },
+        { icon: 'shield-check-line', t: 'Limity ustawiasz sam' },
+        { icon: 'check-line', t: 'Odłączysz kiedy chcesz' }
+      ].map(function (f) {
+        return '<li>' + PM.icon(f.icon, 14) + '<span>' + PM.esc(f.t) + '</span></li>';
+      }).join('');
+      return obScreen(4, ctx, {
+        title: 'Kupuj w rozmowie z AI',
+        lead: 'Piszesz, czego potrzebujesz. Bot płaci BLIKiem, gdy potwierdzisz w banku.',
+        body:
+          '<div class="au-vb">' +
+            '<div class="au-vb-chat">' +
+              '<div class="au-vb-head">' + PM.botLogo('claude', 24) +
+                '<span class="au-vb-hn">Claude</span><span class="au-vb-hs">przez Paymove</span>' +
+              '</div>' +
+              '<div class="au-vb-msg au-vb-me au-vb-in" style="--d:.15s">Kup mi bilet do Zoo na sobotę</div>' +
+              '<div class="au-vb-msg au-vb-bot au-vb-in" style="--d:.7s">' +
+                '<span>Mam bilet normalny na sobotę.</span>' +
+                '<span class="au-vb-item">' +
+                  '<span class="grow"><span class="au-vb-itn">Zoo, bilet normalny</span><span class="au-vb-itm">Sobota, 1 osoba</span></span>' +
+                  '<span class="au-vb-price">24,00 zł</span>' +
+                '</span>' +
+              '</div>' +
+              '<span class="au-vb-pay au-vb-in" style="--d:1.2s"><img src="' + BLIK_LOGO + '" alt="BLIK" draggable="false">Płacę BLIK OneClick</span>' +
+              '<div class="au-vb-toast au-vb-in" role="status" style="--d:1.9s">' + OKC + 'Potwierdzone w aplikacji banku</div>' +
+            '</div>' +
+            '<ul class="au-vb-facts au-in" style="--d:2.2s">' + facts + '</ul>' +
+          '</div>',
+        cta: vCta('#/onboarding/4b')
+      });
+    },
+    mount: vMount
+  });
+  registerCheckout('#/onboarding/4b', 'Checkout BLIK wariant B (sheet)');
+
+  /* ---------- wariant C: portfel ---------- */
+  PM.route('#/onboarding/4c', {
+    title: 'Podepnij BLIK', group: G, label: 'Krok 4 wariant C (portfel)', tab: null,
+    render: function (ctx) {
+      return obScreen(4, ctx, {
+        title: 'Dodaj BLIK do portfela',
+        lead: 'Bot zapłaci bez przepisywania kodu, a Ty potwierdzisz w aplikacji banku.',
+        body:
+          '<div class="au-vc">' +
+            '<div class="au-vc-stack">' +
+              '<div class="au-vc-card au-vc-card--visa">' + VISA_SVG + '<span class="au-vc-soon">Wkrótce</span></div>' +
+              '<div class="au-vc-card au-vc-card--mc">' + MC_SVG + '<span class="au-vc-soon">Wkrótce</span></div>' +
+              '<div class="au-vc-front" aria-hidden="true">' +
+                '<span class="au-bglow"></span>' +
+                '<div class="au-bcard">' +
+                  '<div class="au-mini-top">' +
+                    '<img class="au-mini-blik" src="' + BLIK_LOGO + '" alt="" draggable="false">' +
+                    '<span class="au-mini-st"><i></i>Do podpięcia</span>' +
+                  '</div>' +
+                  '<div class="au-mini-foot">' +
+                    '<span><span class="au-mini-name">BLIK OneClick</span><span class="au-bcard-sub">TOMASZ GĘSIOR</span></span>' +
+                    '<span class="au-mini-bots">' + PM.botLogo('claude', 20) + PM.botLogo('chatgpt', 20) + PM.botLogo('perplexity', 20) + '</span>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="au-vc-pts au-in" style="--d:.6s">' +
+              '<span class="au-vc-pt">' + PM.icon('shield-check-line', 14) + 'Limity ustawiasz sam</span>' +
+              '<span class="au-vc-pt">' + PM.icon('check-line', 14) + 'Odłączysz kiedy chcesz</span>' +
+            '</div>' +
+          '</div>',
+        cta: vCta('#/onboarding/4c')
+      });
+    },
+    mount: vMount
+  });
+  registerCheckout('#/onboarding/4c', 'Checkout BLIK wariant C (sheet)');
 
   /* =====================================================================
      6. Gotowe
