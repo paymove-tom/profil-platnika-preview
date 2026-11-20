@@ -10,7 +10,7 @@
    - status: zaplacono | w-toku | nieudana | anulowano | zwrot-w-toku | zwrocono
    - bot: claude | chatgpt | grok | perplexity
    ===================================================================== */
-window.PM_DATA = {
+export const DATA = {
   meta: {
     przyklad: true,
     dzis: '2026-11-15',
