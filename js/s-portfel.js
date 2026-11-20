@@ -53,6 +53,21 @@
     '.pf-manage{display:inline-flex;align-items:center;gap:2px;height:32px;padding:0 10px 0 14px;border-radius:999px;background:rgba(255,255,255,.12);font:500 14px/20px var(--sans);color:#fff}' +
     '.pf-manage .ico{width:16px;height:16px;filter:invert(1)}' +
 
+
+    /* karta BLIK bez podpięcia: komponent alertu w środku karty */
+    '.pf-blik--off{background:linear-gradient(160deg,#222 0%,#050505 70%)}' +
+    '.pf-blik--off::before{background:radial-gradient(circle at 30% 30%,#ffb020 0%,#ff7a1a 55%,#e8403a 100%);opacity:.34}' +
+    '.pf-blik--off::after{background:radial-gradient(circle,rgba(255,138,26,.22) 0%,rgba(255,138,26,0) 70%)}' +
+    '.pf-blik--off .pf-blik-logo{opacity:.92}' +
+    '.pf-badge--off{background:rgba(255,166,43,.18);color:#ffd9a0}' +
+    '.pf-badge--off .dot{background:#ffa62b}' +
+    '.pf-alert{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border-radius:14px;background:rgba(255,166,43,.12);box-shadow:inset 0 0 0 1px rgba(255,166,43,.34)}' +
+    '.pf-alert svg{flex:none;width:22px;height:22px;margin-top:1px;color:#ffa62b}' +
+    '.pf-alert-t{font:500 16px/21px var(--sans);color:#fff}' +
+    '.pf-alert-s{font:400 14px/20px var(--sans);color:rgba(255,255,255,.66);margin-top:2px}' +
+    '.pf-connect{display:inline-flex;align-items:center;justify-content:center;gap:2px;width:100%;height:44px;padding:0 14px 0 18px;border-radius:999px;background:#fff;color:#0b0b0d;font:500 15px/20px var(--sans)}' +
+    '.pf-connect .ico{width:18px;height:18px;filter:none}' +
+
     /* badge */
     '.pf-badge{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px 0 8px;border-radius:999px;font:500 12px/16px var(--sans);white-space:nowrap;flex:none}' +
     '.pf-badge .dot{width:6px;height:6px}' +
@@ -149,16 +164,17 @@
   }
 
   function addBlikTile() {
-    return PM.banner({
-      type: 'warn',
-      title: 'Brak metody płatności',
-      text: 'Boty nie zapłacą, dopóki nie podepniesz BLIK.'
-    }) +
-    '<a class="card pf-add press pf-press" href="#/onboarding/3">' +
-      '<span class="pf-add-logo"><img src="' + BLIK_LOGO + '" alt="BLIK" draggable="false"></span>' +
-      '<div class="grow"><div class="name">Podepnij BLIK</div>' +
-      '<div class="meta">Płacisz bez przepisywania kodu</div></div>' +
-      chev() +
+    return '<a class="pay-card pay-card--blik pf-blik pf-blik--off press pf-press" href="#/onboarding/3" aria-label="BLIK bez kodu, niepodpięty. Podepnij BLIK">' +
+      '<div class="pf-row">' +
+        '<img class="pf-blik-logo" src="' + BLIK_LOGO + '" alt="BLIK" draggable="false">' +
+        '<span class="pay-badge pf-badge pf-badge--off"><span class="dot"></span>Niepodpięty</span>' +
+      '</div>' +
+      '<div class="pf-alert" role="alert">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5"/><path d="M12 16.4v.1"/></svg>' +
+        '<div><div class="pf-alert-t">Brak metody płatności</div>' +
+        '<div class="pf-alert-s">Boty nie zapłacą, dopóki nie podepniesz BLIK.</div></div>' +
+      '</div>' +
+      '<span class="pf-connect">Podepnij BLIK' + PM.icon('arrow-right-s-line', 18) + '</span>' +
       '</a>';
   }
 

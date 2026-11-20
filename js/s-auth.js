@@ -556,6 +556,24 @@
     '.au-st-shackle{animation:au-st-snap .45s cubic-bezier(.3,1.7,.5,1) 1.55s both}' +
     '.au-st-lock::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--tp);opacity:0;pointer-events:none;animation:au-st-ring .7s ease-out 1.9s both}' +
 
+    /* propozycja A: jedna karta obsydian, kłódka pod kartami (nie zasłania podpisów) */
+    '.au-st-art{height:154px}' +
+    '.au-st-card--dark{color:#fff;border-color:rgba(255,255,255,.08);background:radial-gradient(120% 90% at 100% 0%,rgba(230,0,126,.5) 0%,rgba(230,0,126,0) 62%),linear-gradient(160deg,#2a2a2e 0%,#000 70%);box-shadow:0 16px 30px -12px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.16)}' +
+    '.au-st-card--dark .au-st-ci{background:rgba(255,255,255,.14)}' +
+    '.au-st-card--dark .au-st-ci .ico{filter:invert(1)}' +
+    '.au-st-card--dark .au-st-cl i{background:rgba(255,255,255,.2)}' +
+    '.au-st-card--dark .au-st-cn{color:rgba(255,255,255,.72)}' +
+    '.au-st-art .au-st-lock{bottom:0}' +
+    /* propozycja B: czarna kieszeń (vault) z dwiema kartami i kłódką w środku */
+    '.au-st-art--b .au-st-card{height:104px;justify-content:flex-start;gap:7px}' +
+    '.au-st-art--b .au-st-card .au-st-cl{display:none}' +
+    '.au-st-art--b .au-st-card--a{--x:-46px;--y:2px;--r:-8deg;--sy:-6px;--ss:.94}' +
+    '.au-st-art--b .au-st-card--b{--x:46px;--y:-4px;--r:7deg;--sy:0px;--ss:1}' +
+    '.au-st-pocket{position:absolute;z-index:4;left:50%;bottom:0;width:236px;height:88px;margin-left:-118px;border-radius:26px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(80% 140% at 100% 0%,rgba(230,0,126,.5) 0%,rgba(255,0,0,.14) 40%,rgba(0,0,0,0) 70%),linear-gradient(165deg,#2a2a2e 0%,#000 72%);border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 32px -12px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.16)}' +
+    '.au-st-pocket::before{content:"";position:absolute;left:18px;right:18px;top:12px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.28),rgba(255,255,255,0))}' +
+    '.au-st-art--b .au-st-lock{position:relative;left:auto;bottom:auto;margin:6px 0 0;background:#fff;color:#0b0b0d;box-shadow:0 0 0 5px rgba(255,255,255,.12),0 0 28px 2px rgba(230,0,126,.55)}' +
+    '.au-st-art--b .au-st-lock::after{border-color:#fff}' +
+
     /* tekst */
     '.au-st-head{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}' +
     '.au-st-kick{font:500 12px/16px var(--mono);letter-spacing:.04em;color:var(--ts)}' +
@@ -603,20 +621,21 @@
     '<path d="M12 15v2"/>' +
     '</svg>';
 
-  function stArt() {
-    return '<div class="au-st-art" aria-hidden="true">' +
-      '<div class="au-st-card au-st-card--a">' +
+  function stArt(v) {
+    var cardA = '<div class="au-st-card au-st-card--a">' +
         '<span class="au-st-ci">' + PM.icon('map-pin-line', 16) + '</span>' +
         '<span class="au-st-cl"><i></i><i></i></span>' +
-        '<span class="au-st-cn">Adres</span>' +
-      '</div>' +
-      '<div class="au-st-card au-st-card--b">' +
+        '<span class="au-st-cn">Adres</span></div>';
+    var cardB = function (dark) { return '<div class="au-st-card au-st-card--b' + (dark ? ' au-st-card--dark' : '') + '">' +
         '<span class="au-st-ci">' + PM.icon('car-line', 16) + '</span>' +
         '<span class="au-st-cl"><i></i><i></i></span>' +
-        '<span class="au-st-cn">Auto</span>' +
-      '</div>' +
-      '<span class="au-st-lock">' + LOCK_SVG + '</span>' +
-      '</div>';
+        '<span class="au-st-cn">Auto</span></div>'; };
+    if (v === 'b') {
+      return '<div class="au-st-art au-st-art--b" aria-hidden="true">' + cardA + cardB(false) +
+        '<div class="au-st-pocket"><span class="au-st-lock">' + LOCK_SVG + '</span></div></div>';
+    }
+    return '<div class="au-st-art" aria-hidden="true">' + cardA + cardB(true) +
+      '<span class="au-st-lock">' + LOCK_SVG + '</span></div>';
   }
 
   function stStep(o, d) {
@@ -632,7 +651,7 @@
       '</li>';
   }
 
-  function startScreen() {
+  function startScreen(v) {
     var u = PM.state.user || {};
     var hi = u.imie ? 'Cześć, ' + u.imie : 'Cześć';
     var ghost =
@@ -647,19 +666,19 @@
       '</div>';
     var steps =
       '<ul class="au-st-steps" aria-label="Kroki">' +
-        stStep({ icon: 'map-pin-line', name: 'Adres', meta: 'Bot wpisze go, gdy zakup tego wymaga', opt: true }, 0.58) +
-        stStep({ icon: 'car-line', name: 'Nr rejestracyjny', meta: 'Parking bez wpisywania numeru', opt: true }, 0.64) +
+        stStep({ icon: 'map-pin-line', name: 'Adres', meta: 'Twój adres wykorzystywany do zamówień' }, 0.58) +
+        stStep({ icon: 'car-line', name: 'Nr rejestracyjny', meta: 'Parking bez wpisywania numeru' }, 0.64) +
       '</ul>';
     return '<section class="screen au-st">' +
       ghost + blobs +
       '<div class="au-st-scrim" aria-hidden="true"></div>' +
       '<div class="au-st-layer">' +
         '<div class="au-st-sheet" role="dialog" aria-modal="true" aria-labelledby="au-st-title">' +
-          stArt() +
+          stArt(v) +
           '<div class="au-st-head">' +
             '<span class="au-st-kick au-in" style="--d:.34s">' + PM.esc(hi) + '</span>' +
-            '<h1 class="au-st-title au-in" id="au-st-title" style="--d:.4s">Zanim boty zaczną kupować</h1>' +
-            '<p class="au-st-lead au-in" style="--d:.48s">Bezpiecznie zapiszemy dane do zamówień. Co Cię nie dotyczy, pomiń.</p>' +
+            '<h1 class="au-st-title au-in" id="au-st-title" style="--d:.4s">Zaczynamy!</h1>' +
+            '<p class="au-st-lead au-in" style="--d:.48s">Najpierw bezpiecznie zapiszemy dane do zamówień.</p>' +
           '</div>' +
           steps +
           '<div class="au-st-foot au-in" style="--d:.8s">' +
@@ -672,8 +691,26 @@
   }
 
   PM.route('#/onboarding/start', {
-    title: 'Zanim boty zaczną kupować', group: G, label: 'Onboarding · start (powitanie)', tab: null,
+    title: 'Zaczynamy!', group: G, label: 'Onboarding · start (powitanie)', tab: null,
     render: function () { return startScreen(); },
+    mount: function (root) {
+      var a = auth();
+      a.obDir = null;
+      a.obStill = false;
+      var skip = root.querySelector('[data-st-skip]');
+      if (skip) {
+        skip.addEventListener('click', function () {
+          blik().polaczony = false;
+          finish();
+        });
+      }
+    }
+  });
+
+
+  PM.route('#/onboarding/start-b', {
+    title: 'Zaczynamy!', group: G, label: 'Onboarding · start (wariant B)', tab: null,
+    render: function () { return startScreen('b'); },
     mount: function (root) {
       var a = auth();
       a.obDir = null;
