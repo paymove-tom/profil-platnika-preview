@@ -136,6 +136,16 @@
   if (SHOT) html.classList.add('is-shot');
   if (/[?&]statusbar=1(&|$)/.test(location.search || '')) html.classList.add('show-statusbar');
   PM.shot = SHOT;
+  /* ?demo=1 ukrywa panel Stany; ?demo=0 wyłącza; trzymane w sessionStorage */
+  var qs = location.search || '';
+  var DEMO = /[?&]demo=1(&|$)/.test(qs);
+  try {
+    if (DEMO) sessionStorage.setItem('pm-demo', '1');
+    else if (/[?&]demo=0(&|$)/.test(qs)) sessionStorage.removeItem('pm-demo');
+    else DEMO = sessionStorage.getItem('pm-demo') === '1';
+  } catch (e) {}
+  if (DEMO) html.classList.add('is-demo');
+  PM.demo = DEMO;
   PM.version = '2.0';
 
   var LOGO_INK = 'assets/logos/logo_paymove_ink.svg';
@@ -1056,7 +1066,14 @@
 
     /* scroll top */
     qsa(els.device, '.content, .sheet').forEach(function (c) { c.scrollTop = 0; });
-    try { window.scrollTo(0, 0); } catch (e) {}
+    /* reset przewinięcia dokumentu (np. po onboardingu, gdzie przewija się html) */
+    try {
+      var se = document.scrollingElement || html;
+      window.scrollTo(0, 0);
+      se.scrollTop = 0;
+      document.body.scrollTop = 0;
+      if (window.requestAnimationFrame) requestAnimationFrame(function () { if (window.pageYOffset) window.scrollTo(0, 0); });
+    } catch (e) {}
 
     /* mount */
     if (!failed) {
