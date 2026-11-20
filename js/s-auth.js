@@ -565,11 +565,12 @@
     '.au-st-card--dark .au-st-cn{color:rgba(255,255,255,.72)}' +
     '.au-st-art .au-st-lock{bottom:0}' +
     /* propozycja B: czarna kieszeń (vault) z dwiema kartami i kłódką w środku */
+    '.au-st-art--b{height:166px}' +
     '.au-st-art--b .au-st-card{height:104px;justify-content:flex-start;gap:7px}' +
     '.au-st-art--b .au-st-card .au-st-cl{display:none}' +
     '.au-st-art--b .au-st-card--a{--x:-46px;--y:2px;--r:-8deg;--sy:-6px;--ss:.94}' +
     '.au-st-art--b .au-st-card--b{--x:46px;--y:-4px;--r:7deg;--sy:0px;--ss:1}' +
-    '.au-st-pocket{position:absolute;z-index:4;left:50%;bottom:0;width:236px;height:88px;margin-left:-118px;border-radius:26px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(80% 140% at 100% 0%,rgba(230,0,126,.5) 0%,rgba(255,0,0,.14) 40%,rgba(0,0,0,0) 70%),linear-gradient(165deg,#2a2a2e 0%,#000 72%);border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 32px -12px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.16)}' +
+    '.au-st-pocket{position:absolute;z-index:4;left:50%;bottom:0;width:236px;height:80px;margin-left:-118px;border-radius:26px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(80% 140% at 100% 0%,rgba(230,0,126,.5) 0%,rgba(255,0,0,.14) 40%,rgba(0,0,0,0) 70%),linear-gradient(165deg,#2a2a2e 0%,#000 72%);border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 32px -12px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.16)}' +
     '.au-st-pocket::before{content:"";position:absolute;left:18px;right:18px;top:12px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.28),rgba(255,255,255,0))}' +
     '.au-st-art--b .au-st-lock{position:relative;left:auto;bottom:auto;margin:6px 0 0;background:#fff;color:#0b0b0d;box-shadow:0 0 0 5px rgba(255,255,255,.12),0 0 28px 2px rgba(230,0,126,.55)}' +
     '.au-st-art--b .au-st-lock::after{border-color:#fff}' +
