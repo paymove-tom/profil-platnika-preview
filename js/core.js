@@ -1272,68 +1272,34 @@
     if (!SHOT) closeRouteSheet();
   }
 
-  /* ---------- klawiatura ekranowa (mobile) ---------- */
-  function initViewport() {
-    var vv = window.visualViewport;
+  /* ---------- onboarding: pole nad klawiaturą (mobile) ----------
+     Na mobile ekrany .au-ob przewijają cały dokument (CSS: html:has(.screen.au-ob)),
+     iOS sam przewija do pola. Tu tylko korekta, gdy pole zostało pod przyklejonym
+     nagłówkiem albo poza widocznym obszarem. Bez scrollTo, bez wymuszania wysokości. */
+  function initObFocus() {
     var mq = window.matchMedia ? window.matchMedia('(max-width:1023px)') : null;
-    var raf = 0, blurT = 0;
-    var FIELD = 'input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]),textarea,select,[contenteditable="true"]';
-    function mobile() { return !mq || mq.matches; }
-    function isField(el) { return !!(el && el.matches && el.matches(FIELD)); }
-    function resetScroll() {
-      if ((window.scrollY || window.pageYOffset || 0) !== 0) { try { window.scrollTo(0, 0); } catch (e) {} }
-    }
-    function apply() {
-      raf = 0;
-      if (!mobile()) {
-        html.style.removeProperty('--vvh');
-        html.style.removeProperty('--vvt');
-        html.classList.remove('kb-open');
-        return;
-      }
-      var h = vv ? vv.height : window.innerHeight;
-      var t = vv ? vv.offsetTop : 0;
-      html.style.setProperty('--vvh', Math.round(h) + 'px');
-      html.style.setProperty('--vvt', Math.round(t) + 'px');
-      if (html.classList.contains('kb-open')) resetScroll();
-    }
-    function schedule() {
-      if (raf) return;
-      raf = (window.requestAnimationFrame || function (f) { return setTimeout(f, 16); })(apply);
-    }
-    if (vv) {
-      vv.addEventListener('resize', schedule);
-      vv.addEventListener('scroll', schedule);
-    }
-    window.addEventListener('resize', schedule);
-    if (mq) {
-      if (mq.addEventListener) mq.addEventListener('change', schedule);
-      else if (mq.addListener) mq.addListener(schedule);
-    }
+    var FIELD = 'input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]),textarea,select';
+    var timer = 0;
     document.addEventListener('focusin', function (e) {
       var el = e.target;
-      if (!mobile() || !isField(el)) return;
-      clearTimeout(blurT);
-      html.classList.add('kb-open');
-      schedule();
-      setTimeout(function () {
-        if (document.activeElement !== el || !el.closest || !el.closest('.content, .sheet')) return;
-        try { el.scrollIntoView({ block: 'center', inline: 'nearest' }); } catch (x) { el.scrollIntoView(); }
-        resetScroll();
-      }, 250);
+      if (mq && !mq.matches) return;
+      if (!el || !el.matches || !el.matches(FIELD) || !el.closest('.screen.au-ob .content')) return;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        if (document.activeElement !== el) return;
+        var box = el.closest('.field') || el;
+        var hdr = document.querySelector('.screen.au-ob .au-ob-hdr');
+        var vv = window.visualViewport;
+        var vTop = vv ? vv.offsetTop : 0;
+        var vBottom = vTop + (vv ? vv.height : window.innerHeight);
+        var hdrBottom = hdr ? hdr.getBoundingClientRect().bottom : 0;
+        var boxTop = box.getBoundingClientRect().top;
+        var inBottom = el.getBoundingClientRect().bottom;
+        if (boxTop < Math.max(hdrBottom, vTop) || inBottom > vBottom) {
+          try { box.scrollIntoView({ block: 'start' }); } catch (x) { box.scrollIntoView(true); }
+        }
+      }, 300);
     });
-    function maybeClose() {
-      clearTimeout(blurT);
-      blurT = setTimeout(function () {
-        if (isField(document.activeElement)) return;
-        html.classList.remove('kb-open');
-        schedule();
-        resetScroll();
-      }, 120);
-    }
-    document.addEventListener('focusout', maybeClose);
-    document.addEventListener('pm:render', maybeClose);
-    apply();
   }
 
   /* ---------- start ---------- */
@@ -1345,7 +1311,7 @@
     document.addEventListener('click', onClick);
     document.addEventListener('keydown', onKey);
     window.addEventListener('hashchange', render);
-    initViewport();
+    initObFocus();
     render();
   };
 

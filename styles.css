@@ -864,10 +864,13 @@ html .sheet-layer:has(.au-in3){position:fixed;inset:0;z-index:60}
   html .sheet.au-checkout .au-sh-foot{padding:0 6px}
 }
 
-/* klawiatura ekranowa (mobile): układ podąża za visualViewport, pole nad CTA */
+/* onboarding (mobile): przewija się dokument, nagłówek z postępem przyklejony, pole nad klawiaturą */
 @media (max-width:1023px){
-  html.kb-open .app{height:var(--vvh,100%);min-height:0}
-  html.kb-open .states-fab{display:none!important}
-  html.kb-open .content{padding-bottom:120px;scroll-padding-bottom:120px}
-  html.kb-open .device .cta-bar,html.kb-open .device.has-tabbar .cta-bar{padding-bottom:16px}
+  html:has(.screen.au-ob),html:has(.screen.au-ob) body{height:auto;min-height:100%;overflow:visible}
+  html:has(.screen.au-ob) .app,html:has(.screen.au-ob) .stage,html:has(.screen.au-ob) .device,html:has(.screen.au-ob) .view,html:has(.screen.au-ob) .screen.au-ob{height:auto;min-height:100dvh;flex:none;display:flex;flex-direction:column;overflow:visible}
+  html:has(.screen.au-ob) .screen.au-ob .content{flex:1 0 auto;min-height:0;overflow:visible;padding-bottom:24px}
+  html:has(.screen.au-ob) .au-ob-hdr{position:sticky;top:0;z-index:30;background:var(--bg)}
+  html:has(.screen.au-ob) .au-ob .field{scroll-margin-top:calc(56px + 24px + env(safe-area-inset-top))}
+  html:has(.screen.au-ob) .au-ob .cta-bar{position:static}
+  html:has(.au-ob input:focus) .states-fab{display:none!important}
 }
