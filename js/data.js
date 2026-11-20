@@ -23,7 +23,7 @@ window.PM_DATA = {
     imie: 'Tomasz',
     nazwisko: 'Gęsior',
     inicjaly: 'TG',
-    mail: 'tomasz.gesior@paymove.io',
+    mail: 'developer@paymove.io',
     mailPotwierdzony: true,
     nowyMail: 'tomasz@gesior.pl',
     pierwszeLogowanie: false
@@ -42,7 +42,7 @@ window.PM_DATA = {
 
   /* onboarding po social loginie: mail z konta Google, reszta pusta */
   onboarding: {
-    mail: 'tomasz.gesior@paymove.io',
+    mail: 'developer@paymove.io',
     adres: { ulica: '', kod: '', miasto: '' },
     rejestracja: ''
   },
@@ -50,7 +50,7 @@ window.PM_DATA = {
   /* pola danych, do których bot może mieć dostęp (zgoda i uprawnienia) */
   pola: [
     { id: 'imie', label: 'Imię', ikona: 'user-3-line', wartosc: 'Tomasz Gęsior' },
-    { id: 'mail', label: 'Mail', ikona: 'mail-line', wartosc: 'tomasz.gesior@paymove.io' },
+    { id: 'mail', label: 'Mail', ikona: 'mail-line', wartosc: 'developer@paymove.io' },
     { id: 'adres', label: 'Adres', ikona: 'map-pin-line', wartosc: 'ul. Długa 12/4, 80-831 Gdańsk' },
     { id: 'tablice', label: 'Numery rejestracyjne', ikona: 'car-line', wartosc: 'WX 1234A, GD 9876B' }
   ],
@@ -257,8 +257,8 @@ window.PM_DATA = {
   },
 
   login: {
-    mail: 'tomasz.gesior@paymove.io',
-    mailBledny: 'tomasz.gesior@paymove',
+    mail: 'developer@paymove.io',
+    mailBledny: 'developer@paymove',
     kodPoprawny: '123456',
     kodCzesciowy: '482',
     kodBledny: '482915',

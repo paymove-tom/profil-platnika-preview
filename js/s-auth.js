@@ -7,7 +7,7 @@
      #/onboarding/3               BLIK (portfel), znacznik „Najszybsza płatność”
      #/onboarding/3/info          sheet przed bramką: zapłać i zapamiętaj sklep
      #/onboarding/3/checkout      sheet z iframe checkoutu BLIK
-   Mail (tomasz.gesior@paymove.io) bierzemy z konta social, bez osobnego kroku.
+   Mail (developer@paymove.io) bierzemy z konta social, bez osobnego kroku.
      #/onboarding/gotowe          sukces
      #/zgoda, #/zgoda/ok, #/zgoda/odmowa
 
@@ -36,7 +36,7 @@
     var d = e && e.data;
     return e.origin === CHECKOUT_ORIGIN && d && typeof d === 'object' && d.paymove === true && typeof d.type === 'string';
   }
-  var DEFAULT_MAIL = 'tomasz.gesior@paymove.io';
+  var DEFAULT_MAIL = 'developer@paymove.io';
   var KOD_RE = /^\d{2}-\d{3}$/;
   var PLATE_RE = /^[A-Z0-9]{4,8}$/;
   var STEPS = 3;
