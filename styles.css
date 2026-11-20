@@ -914,3 +914,8 @@ html .sheet-layer:has(.au-in3){position:fixed;inset:0;z-index:60}
   .grow,.pstack,.row>*,.kv-row>*,.lim-h .who,.bot-top>*,.pay-card-head>*,.pay-card-foot>*{min-width:0}
   .name,.meta,.title,.pname,.banner-title,.banner-text,.empty-text,.sheet-text,.lead-text,.kv dd,.tl-title,.tl-meta{overflow-wrap:anywhere}
 }
+
+/* Stany: na telefonie i tablecie (<1024 px) przycisk przełączania widoków usunięty całkowicie */
+@media (max-width:1023px){
+  .states-fab,.states-scrim,.states-drawer{display:none!important}
+}
