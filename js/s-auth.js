@@ -532,48 +532,12 @@
 
     /* warstwa i sheet */
     '.au-st-layer{position:relative;z-index:3;flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center;padding:16px 10px max(12px,env(safe-area-inset-bottom))}' +
-    '.au-st-sheet{position:relative;width:100%;max-width:440px;max-height:100%;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;display:flex;flex-direction:column;gap:20px;padding:24px 22px 16px;border-radius:var(--r-sheet);border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.74);-webkit-backdrop-filter:blur(44px);backdrop-filter:blur(44px);box-shadow:0 8px 24px rgba(31,41,82,.08),0 32px 72px -16px rgba(31,41,82,.32),inset 0 1px 0 rgba(255,255,255,.9);animation:au-st-spring .85s ease-out .08s both}' +
+    '.au-st-sheet{position:relative;width:100%;max-width:440px;max-height:100%;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;display:flex;flex-direction:column;gap:21px;padding:34px 28px 21px;border-radius:var(--r-sheet);border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.74);-webkit-backdrop-filter:blur(44px);backdrop-filter:blur(44px);box-shadow:0 8px 24px rgba(31,41,82,.08),0 32px 72px -16px rgba(31,41,82,.32),inset 0 1px 0 rgba(255,255,255,.9);animation:au-st-spring .85s ease-out .08s both}' +
     '.au-st-sheet::-webkit-scrollbar{display:none}' +
-    '@media (min-width:1024px){.au-st-layer{align-items:center;padding:24px}.au-st-sheet{max-width:460px;padding:28px 28px 20px}}' +
+    '@media (min-width:1024px){.au-st-layer{align-items:center;padding:24px}.au-st-sheet{max-width:460px;padding:55px 34px 28px}}' +
 
     /* ilustracja: stos kart, wachlarz, kłódka */
-    '.au-st-art{position:relative;flex:none;height:128px}' +
-    '.au-st-card{position:absolute;top:6px;left:50%;width:88px;height:104px;margin-left:-44px;border-radius:16px;padding:10px;display:flex;flex-direction:column;justify-content:space-between;background:rgba(255,255,255,.94);border:1px solid var(--border);box-shadow:0 12px 24px -12px rgba(31,41,82,.3),inset 0 1px 0 #fff;transform-origin:50% 90%;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1);animation:au-st-pop .35s ease .24s both,au-st-fan .75s cubic-bezier(.3,1.5,.5,1) .6s both}' +
-    '.au-st-card--a{--x:-38px;--y:6px;--r:-9deg;--sy:-8px;--ss:.94;z-index:1}' +
-    '.au-st-card--b{--x:38px;--y:0px;--r:6deg;--sy:0px;--ss:1;z-index:3}' +
-    '.au-st-card--c{--x:66px;--y:8px;--r:11deg;--sy:-5px;--ss:.95;z-index:2;color:#fff;border-color:rgba(255,255,255,.08);background:radial-gradient(120% 90% at 100% 0%,rgba(230,0,126,.46) 0%,rgba(230,0,126,0) 60%),#000;box-shadow:0 14px 28px -12px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.14)}' +
-    '.au-st-ci{width:28px;height:28px;border-radius:8px;background:var(--input-strong);display:grid;place-items:center}' +
-    '.au-st-ci .ico{width:16px;height:16px}' +
-    '.au-st-blik{display:block;height:18px;width:auto;margin-top:4px}' +
-    '.au-st-cl{display:flex;flex-direction:column;gap:5px}' +
-    '.au-st-cl i{display:block;height:5px;width:80%;border-radius:3px;background:var(--chip)}' +
-    '.au-st-cl i+i{width:52%}' +
-    '.au-st-card--c .au-st-cl i{background:rgba(255,255,255,.18)}' +
-    '.au-st-cn{font:500 10px/12px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ts)}' +
-    '.au-st-card--c .au-st-cn{color:rgba(255,255,255,.7)}' +
-    '.au-st-lock{position:absolute;left:50%;bottom:0;z-index:4;width:40px;height:40px;margin-left:-20px;border-radius:50%;display:grid;place-items:center;background:var(--tp);color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.9),0 10px 20px -6px rgba(0,0,0,.45);animation:au-st-lockin .5s cubic-bezier(.3,1.6,.5,1) 1.2s both}' +
-    '.au-st-lock svg{display:block;overflow:visible}' +
-    '.au-st-shackle{animation:au-st-snap .45s cubic-bezier(.3,1.7,.5,1) 1.55s both}' +
-    '.au-st-lock::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--tp);opacity:0;pointer-events:none;animation:au-st-ring .7s ease-out 1.9s both}' +
 
-    /* propozycja A: jedna karta obsydian, kłódka pod kartami (nie zasłania podpisów) */
-    '.au-st-art{height:154px}' +
-    '.au-st-card--dark{color:#fff;border-color:rgba(255,255,255,.08);background:radial-gradient(120% 90% at 100% 0%,rgba(230,0,126,.5) 0%,rgba(230,0,126,0) 62%),linear-gradient(160deg,#2a2a2e 0%,#000 70%);box-shadow:0 16px 30px -12px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.16)}' +
-    '.au-st-card--dark .au-st-ci{background:rgba(255,255,255,.14)}' +
-    '.au-st-card--dark .au-st-ci .ico{filter:invert(1)}' +
-    '.au-st-card--dark .au-st-cl i{background:rgba(255,255,255,.2)}' +
-    '.au-st-card--dark .au-st-cn{color:rgba(255,255,255,.72)}' +
-    '.au-st-art .au-st-lock{bottom:0}' +
-    /* propozycja B: czarna kieszeń (vault) z dwiema kartami i kłódką w środku */
-    '.au-st-art--b{height:166px}' +
-    '.au-st-art--b .au-st-card{height:104px;justify-content:flex-start;gap:7px}' +
-    '.au-st-art--b .au-st-card .au-st-cl{display:none}' +
-    '.au-st-art--b .au-st-card--a{--x:-46px;--y:2px;--r:-8deg;--sy:-6px;--ss:.94}' +
-    '.au-st-art--b .au-st-card--b{--x:46px;--y:-4px;--r:7deg;--sy:0px;--ss:1}' +
-    '.au-st-pocket{position:absolute;z-index:4;left:50%;bottom:0;width:236px;height:80px;margin-left:-118px;border-radius:26px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(80% 140% at 100% 0%,rgba(230,0,126,.5) 0%,rgba(255,0,0,.14) 40%,rgba(0,0,0,0) 70%),linear-gradient(165deg,#2a2a2e 0%,#000 72%);border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 32px -12px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.16)}' +
-    '.au-st-pocket::before{content:"";position:absolute;left:18px;right:18px;top:12px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.28),rgba(255,255,255,0))}' +
-    '.au-st-art--b .au-st-lock{position:relative;left:auto;bottom:auto;margin:6px 0 0;background:#fff;color:#0b0b0d;box-shadow:0 0 0 5px rgba(255,255,255,.12),0 0 28px 2px rgba(230,0,126,.55)}' +
-    '.au-st-art--b .au-st-lock::after{border-color:#fff}' +
 
     /* tekst */
     '.au-st-head{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}' +
@@ -592,7 +556,6 @@
     '.au-st-nl{display:flex;align-items:center;justify-content:space-between;gap:8px}' +
     '.au-st-step .name{font:500 15px/20px var(--sans)}' +
     '.au-st-step .meta{font-size:13px;line-height:18px}' +
-    '.au-st-opt{flex:none;padding:3px 8px;border-radius:999px;background:var(--chip);font:500 11px/14px var(--mono);color:var(--ts);white-space:nowrap}' +
 
     /* CTA */
     '.au-st-foot{display:flex;flex-direction:column;align-items:center;gap:2px}' +
@@ -606,38 +569,11 @@
     '@keyframes au-st-drift{from{transform:translate(0,0) scale(1)}to{transform:translate(24px,-18px) scale(1.08)}}' +
     '@keyframes au-st-spring{0%{opacity:0;transform:translateY(72px) scale(.96)}55%{opacity:1;transform:translateY(-8px) scale(1.006)}75%{transform:translateY(3px) scale(.999)}90%{transform:translateY(-1px) scale(1)}100%{opacity:1;transform:none}}' +
     '@keyframes au-st-pop{from{opacity:0}to{opacity:1}}' +
-    '@keyframes au-st-fan{from{transform:translate(0px,var(--sy)) rotate(0deg) scale(var(--ss))}to{transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1)}}' +
-    '@keyframes au-st-lockin{from{opacity:0;transform:translateY(6px) scale(.4)}to{opacity:1;transform:none}}' +
-    '@keyframes au-st-snap{from{transform:translateY(-4px)}to{transform:translateY(0)}}' +
-    '@keyframes au-st-ring{0%{opacity:0;transform:scale(.9)}12%{opacity:.4}100%{opacity:0;transform:scale(1.7)}}' +
 
     /* bez ruchu: stan końcowy od razu */
     '@media (prefers-reduced-motion:reduce){.au-st *,.au-st *::before,.au-st *::after{animation:none!important}}' +
     '.is-shot .au-st *,.is-shot .au-st *::before,.is-shot .au-st *::after{animation:none!important}'
   );
-
-  var LOCK_SVG = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
-    '<path class="au-st-shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/>' +
-    '<rect x="5" y="11" width="14" height="10" rx="2.5"/>' +
-    '<path d="M12 15v2"/>' +
-    '</svg>';
-
-  function stArt(v) {
-    var cardA = '<div class="au-st-card au-st-card--a">' +
-        '<span class="au-st-ci">' + PM.icon('map-pin-line', 16) + '</span>' +
-        '<span class="au-st-cl"><i></i><i></i></span>' +
-        '<span class="au-st-cn">Adres</span></div>';
-    var cardB = function (dark) { return '<div class="au-st-card au-st-card--b' + (dark ? ' au-st-card--dark' : '') + '">' +
-        '<span class="au-st-ci">' + PM.icon('car-line', 16) + '</span>' +
-        '<span class="au-st-cl"><i></i><i></i></span>' +
-        '<span class="au-st-cn">Auto</span></div>'; };
-    if (v === 'b') {
-      return '<div class="au-st-art au-st-art--b" aria-hidden="true">' + cardA + cardB(false) +
-        '<div class="au-st-pocket"><span class="au-st-lock">' + LOCK_SVG + '</span></div></div>';
-    }
-    return '<div class="au-st-art" aria-hidden="true">' + cardA + cardB(true) +
-      '<span class="au-st-lock">' + LOCK_SVG + '</span></div>';
-  }
 
   function stStep(o, d) {
     return '<li class="au-st-step au-in" style="--d:' + d + 's">' +
@@ -646,13 +582,13 @@
       '</span>' +
       '<div class="grow">' +
         '<div class="au-st-nl"><span class="name">' + PM.esc(o.name) + '</span>' +
-          (o.opt ? '<span class="au-st-opt">Możesz pominąć</span>' : '') + '</div>' +
+          '' + '</div>' +
         '<div class="meta">' + PM.esc(o.meta) + '</div>' +
       '</div>' +
       '</li>';
   }
 
-  function startScreen(v) {
+  function startScreen() {
     var u = PM.state.user || {};
     var hi = u.imie ? 'Cześć, ' + u.imie : 'Cześć';
     var ghost =
@@ -675,7 +611,6 @@
       '<div class="au-st-scrim" aria-hidden="true"></div>' +
       '<div class="au-st-layer">' +
         '<div class="au-st-sheet" role="dialog" aria-modal="true" aria-labelledby="au-st-title">' +
-          stArt(v) +
           '<div class="au-st-head">' +
             '<span class="au-st-kick au-in" style="--d:.34s">' + PM.esc(hi) + '</span>' +
             '<h1 class="au-st-title au-in" id="au-st-title" style="--d:.4s">Zaczynamy!</h1>' +
@@ -694,24 +629,6 @@
   PM.route('#/onboarding/start', {
     title: 'Zaczynamy!', group: G, label: 'Onboarding · start (powitanie)', tab: null,
     render: function () { return startScreen(); },
-    mount: function (root) {
-      var a = auth();
-      a.obDir = null;
-      a.obStill = false;
-      var skip = root.querySelector('[data-st-skip]');
-      if (skip) {
-        skip.addEventListener('click', function () {
-          blik().polaczony = false;
-          finish();
-        });
-      }
-    }
-  });
-
-
-  PM.route('#/onboarding/start-b', {
-    title: 'Zaczynamy!', group: G, label: 'Onboarding · start (wariant B)', tab: null,
-    render: function () { return startScreen('b'); },
     mount: function (root) {
       var a = auth();
       a.obDir = null;
