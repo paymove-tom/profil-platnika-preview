@@ -97,7 +97,7 @@ function addBlikTile() {
     '<div class="pf-alert" role="alert">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5"/><path d="M12 16.4v.1"/></svg>' +
       '<div><div class="pf-alert-t">Brak metody płatności</div>' +
-      '<div class="pf-alert-s">Boty nie zapłacą, dopóki nie podepniesz BLIK.</div></div>' +
+      '<div class="pf-alert-s">Boty zapłacą dopiero po podpięciu BLIK.</div></div>' +
     '</div>' +
     '<span class="pf-connect">Podepnij BLIK' + PM.icon('arrow-right-s-line', 18) + '</span>' +
     '</a>';

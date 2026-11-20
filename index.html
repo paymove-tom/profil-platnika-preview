@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" data-typo="a">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -13,6 +13,7 @@
 <link rel="icon" type="image/svg+xml" href="assets/logos/sygnet.svg">
 <link rel="stylesheet" href="css/fonts.css?v=1795171658">
 <link rel="stylesheet" href="css/tokens.css?v=1795171658">
+<link rel="stylesheet" href="css/typography.css?v=1795171658">
 <link rel="stylesheet" href="css/base.css?v=1795171658">
 <link rel="stylesheet" href="css/shell.css?v=1795171658">
 <link rel="stylesheet" href="css/cards.css?v=1795171658">
@@ -43,6 +44,10 @@
     var q = location.search || '';
     if (/[?&]shot=1(&|$)/.test(q)) document.documentElement.classList.add('is-shot');
     else document.documentElement.classList.add('is-booting');
+    /* Wariant typografii: ?typo=a|b|c (zapamiętany w sessionStorage), domyślnie z data-typo na <html> */
+    var m = q.match(/[?&]typo=([abc])(&|$)/), t = null;
+    try { if (m) sessionStorage.setItem('pm-typo', m[1]); t = sessionStorage.getItem('pm-typo'); } catch (e) { t = m && m[1]; }
+    if (t) document.documentElement.setAttribute('data-typo', t);
   })();
 </script>
 </head>

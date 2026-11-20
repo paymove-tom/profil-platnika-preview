@@ -278,7 +278,7 @@ export const DATA = {
     kroki: [
       'Sprawdzamy zgłoszenie u sprzedawcy',
       'Decyzja do 14 dni',
-      'Pieniądze wrócą na konto, z którego płaciłeś'
+      'Pieniądze wrócą na Twoje konto'
     ]
   }
 };

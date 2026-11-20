@@ -9,7 +9,7 @@
 .dn-banner .grow {display:flex;flex-direction:column;gap:12px}
 .dn-banner .btn {align-self:flex-start}
 .dn-chips {display:flex;flex-wrap:wrap;gap:8px}
-.dn-chips .chip {font:600 14px/20px var(--mono);letter-spacing:.02em}
+.dn-chips .chip {font:var(--t-code-sm);letter-spacing:var(--tr-code-sm)}
 .lead-text strong {color:var(--tp);font-weight:500}
 .dn-resend {display:flex;align-items:center;gap:8px}
-.dn-resend .countdown {font-size:13px;line-height:18px}
+.dn-resend .countdown {font:var(--t-code-sm);letter-spacing:var(--tr-code-sm)}

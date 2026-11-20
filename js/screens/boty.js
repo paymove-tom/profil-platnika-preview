@@ -123,16 +123,16 @@ function emptyContent() {
   return '<div class="boty-empty">' +
     PM.emptyState({
       icon: 'robot-2-line',
-      title: 'Brak połączonych agentów',
-      text: 'Agenta połączysz z czatu. Gdy poprosi o płatność, wyśle Ci link do Paymove.'
+      title: 'Brak połączonych botów',
+      text: 'Bota połączysz linkiem do Paymove, który wyśle w czacie.'
     }) +
     '</div>' +
     '<section class="sec">' +
       '<div class="sec-h"><span>Jak połączyć</span></div>' +
       '<div class="card howto">' +
         '<ol class="steps">' +
-          '<li>Poproś agenta w czacie o zakup</li>' +
-          '<li>Otwórz link, który wyśle agent</li>' +
+          '<li>Poproś bota w czacie o zakup</li>' +
+          '<li>Otwórz link od bota</li>' +
           '<li>Zezwól na dostęp i ustaw limit</li>' +
         '</ol>' +
       '</div>' +

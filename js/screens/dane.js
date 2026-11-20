@@ -192,7 +192,7 @@ function daneScreen(ctx, o) {
     ? '<div class="dn-logos">' + bots.map(function (b) { return PM.botLogo(b.id, 32); }).join('') + '</div>' +
       '<div class="grow meta">' + esc(botsLabel(bots.length)) + '</div>'
     : '<div class="thumb thumb--sm">' + PM.icon('robot-2-line', 20) + '</div>' +
-      '<div class="grow meta">Brak połączonych agentów</div>';
+      '<div class="grow meta">Brak połączonych botów</div>';
   var botsSec =
     '<section class="sec">' +
       '<div class="sec-h"><span>Połączone boty</span><a href="#/boty">Zarządzaj</a></div>' +

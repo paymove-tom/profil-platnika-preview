@@ -3,12 +3,12 @@
 html .sheet-layer:has(.au-checkout){position:fixed;inset:0;z-index:60;align-items:center;padding:max(12px,env(safe-area-inset-top)) 10px max(12px,env(safe-area-inset-bottom))}
 html .sheet.au-checkout{height:100%;max-height:none;overflow:hidden;gap:12px;padding:16px 14px 16px}
 html .sheet.au-checkout .au-sh-head{flex:none;gap:10px}
-html .sheet.au-checkout .au-sh-title{font-size:16px;line-height:20px}
-html .sheet.au-checkout .au-sh-head .meta{font-size:12px;line-height:16px}
+html .sheet.au-checkout .au-sh-title{font:var(--t-title);letter-spacing:var(--tr-title)}
+html .sheet.au-checkout .au-sh-head .meta{font:var(--t-caption);letter-spacing:var(--tr-caption)}
 html .sheet.au-checkout .au-blik-chip{height:32px}
 html .sheet.au-checkout .au-blik-chip img{height:20px}
 html .sheet.au-checkout .au-x{width:32px;height:32px}
-.au-newtab{flex:none;font:var(--t-12-500-16);color:var(--ts);text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+.au-newtab{flex:none;font:var(--t-label);letter-spacing:var(--tr-label);color:var(--ts);text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
 .au-newtab:hover{color:var(--tp)}
 .au-newtab--foot{align-self:center;margin:0 0 8px;padding:2px 0}
 html .sheet.au-checkout .au-sh-title{min-width:0;overflow:hidden;text-overflow:ellipsis}
@@ -16,7 +16,7 @@ html .sheet.au-checkout .au-sh-head .grow{min-width:0}
 html .sheet.au-checkout .au-frame{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;padding:12px 0 16px}
 html .sheet.au-checkout .checkout-frame{flex:1 1 auto;height:auto;min-height:0}
 html .sheet.au-checkout .au-sh-foot{flex:none;gap:0}
-@media (max-width:420px){html .sheet.au-checkout .au-sh-head .meta{display:none}html .sheet.au-checkout .au-sh-title{white-space:nowrap}html .sheet.au-checkout .au-sh-head{gap:8px}html .sheet.au-checkout .au-blik-chip{padding:0 6px}.au-newtab{font-size:11px}}
+@media (max-width:420px){html .sheet.au-checkout .au-sh-head .meta{display:none}html .sheet.au-checkout .au-sh-title{white-space:nowrap}html .sheet.au-checkout .au-sh-head{gap:8px}html .sheet.au-checkout .au-blik-chip{padding:0 6px}.au-newtab{font:var(--t-label);letter-spacing:var(--tr-label)}}
 @media (min-width:1024px){
   html .sheet-layer:has(.au-checkout){padding:24px}
   html .sheet.au-checkout{max-width:560px;max-height:960px;padding:20px 20px 20px}
@@ -24,7 +24,7 @@ html .sheet.au-checkout .au-sh-foot{flex:none;gap:0}
 
 /* checkout: status płatności nad przyciskiem Gotowe */
 html .sheet.au-checkout .au-sh-foot{gap:8px}
-.au-pay-st{display:flex;align-items:center;justify-content:center;gap:6px;margin:0;font:var(--t-12-500-16);color:var(--ts);text-align:center}
+.au-pay-st{display:flex;align-items:center;justify-content:center;gap:6px;margin:0;font:var(--t-label);letter-spacing:var(--tr-label);color:var(--ts);text-align:center}
 .au-pay-st .ico{width:14px;height:14px;opacity:.7;flex:none}
 .au-pay-st.is-ok{color:var(--tp)}
 .au-pay-st.is-err{color:var(--err,#d92d20)}

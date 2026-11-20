@@ -72,9 +72,9 @@ var SVG = {
   }
 };
 var PROVIDERS = [
-  { id: 'google', label: 'Google', cta: 'Kontynuuj z Google' },
-  { id: 'apple', label: 'Apple', cta: 'Kontynuuj z Apple' },
-  { id: 'facebook', label: 'Facebook', cta: 'Kontynuuj z Facebookiem' }
+  { id: 'google', label: 'Google', cta: 'Dalej z Google' },
+  { id: 'apple', label: 'Apple', cta: 'Dalej z Apple' },
+  { id: 'facebook', label: 'Facebook', cta: 'Dalej z Facebookiem' }
 ];
 var PROV = {};
 PROVIDERS.forEach(function (p) { PROV[p.id] = p; });
@@ -286,7 +286,7 @@ function loginScreen(o) {
       '<div class="wallet-hero">' + heroCards() + '</div>' +
       '<div class="au-claim au-in" style="--d:.16s">' +
         '<h1 class="title">Portfel zakupowy AI</h1>' +
-        '<p class="lead-text">Zakupy robi AI. Kontrola nad pieniędzmi zostaje u Ciebie.</p>' +
+        '<p class="lead-text">AI robi zakupy, a kontrola nad pieniędzmi zostaje u Ciebie.</p>' +
       '</div>' +
       (o.bots ? botsRow() : ''),
     cta:
@@ -345,11 +345,11 @@ legacyStart();
    2. Onboarding krok 1: adres
    ===================================================================== */
 PM.route('#/onboarding/1', {
-  title: 'Adres', group: G, label: 'Krok 1 Adres', tab: null,
+  title: 'Twój adres', group: G, label: 'Krok 1 Adres', tab: null,
   render: function (ctx) {
     var a = ob().adres;
     return obScreen(1, ctx, {
-      title: 'Adres',
+      title: 'Twój adres',
       lead: 'Bot wpisze go za Ciebie, gdy zakup tego wymaga.',
       body:
         '<div class="stack">' +
@@ -412,7 +412,7 @@ PM.route('#/onboarding/2', {
     var v = ob().rejestracja || '';
     return obScreen(2, ctx, {
       title: 'Twoje auto',
-      lead: 'Parking zapłacisz bez wpisywania numeru. Bot weźmie go z profilu.',
+      lead: 'Bot weźmie numer z profilu, więc parking opłaci bez wpisywania.',
       body:
         PM.field({
           id: 'ob-rej', label: 'Numer rejestracyjny', value: v, placeholder: 'WI 4821K',
@@ -699,7 +699,7 @@ PM.route('#/onboarding/3/info', {
         '<h2 class="au-in3-title au-in" style="--d:.32s">Zapłać i zapamiętaj sklep</h2>' +
         '<p class="au-in3-lead au-in" style="--d:.38s">W aplikacji banku wybierz <b>„Zapamiętaj sklep”</b>.</p>' +
         '<p class="au-in3-note au-in" style="--d:.44s">' + PM.icon('information-line', 14) +
-          '<span>Dzięki temu kolejne płatności nie będą korzystać z kodów BLIK.</span></p>' +
+          '<span>Kolejne płatności przejdą już bez kodu BLIK.</span></p>' +
       '</div>' +
       '<div class="act-row au-in3-cta au-in" style="--d:.58s">' +
         PM.btn('Wróć', { variant: 'secondary', href: '#/onboarding/3', cls: 'press au-in3-back' }) +
@@ -802,7 +802,7 @@ PM.route('#/zgoda', {
         duo(64) +
         '<div class="auth-head">' +
           '<h1 class="title">' + PM.esc(name) + ' chce używać Twoich danych</h1>' +
-          '<p class="lead-text">Do zakupów w Twoim imieniu. Zmienisz to w każdej chwili.</p>' +
+          '<p class="lead-text">Do zakupów w Twoim imieniu – zmienisz to w każdej chwili.</p>' +
         '</div>' +
         '<section class="sec">' +
           '<div class="sec-h"><span>Dane dla ' + PM.esc(name) + '</span><span class="count" data-zg-count>' + pola.length + ' z ' + pola.length + '</span></div>' +
@@ -822,7 +822,7 @@ PM.route('#/zgoda', {
         '<div class="card">' +
           '<div class="row">' +
             '<span class="tile"><img src="assets/logos/blik-mark-noborder.svg" alt="BLIK" draggable="false"></span>' +
-            '<div class="grow"><div class="name">BLIK bez kodu</div><div class="meta">Każdą płatność potwierdzasz w aplikacji banku</div></div>' +
+            '<div class="grow"><div class="name">BLIK bez kodu</div><div class="meta">Potwierdzasz w aplikacji banku</div></div>' +
           '</div>' +
         '</div>',
       cta: PM.actions({
@@ -951,7 +951,7 @@ PM.route('#/zgoda/odmowa', {
     var z = zgodaData();
     var name = PM.botName(z.bot || 'claude');
     return statusScreen({
-      title: 'Odmówiono',
+      title: 'Odmówiono dostępu',
       hero: '<span class="status-ico">' + PM.icon('close-line', 28) + '</span>',
       lead: PM.esc(name) + ' nie dostał Twoich danych. Połączysz go później z czatu.',
       cta: PM.actions({

@@ -252,7 +252,7 @@ function renderDetail(ctx, status) {
     banner = PM.banner({
       type: 'warn', icon: 'smartphone-line',
       title: 'Czeka na potwierdzenie',
-      text: 'Zatwierdź płatność BLIKIEM bez kodu w aplikacji banku.',
+      text: 'Zatwierdź płatność w aplikacji banku.',
       right: PM.spinner()
     });
   } else if (st === 'nieudana') {
@@ -271,7 +271,7 @@ function renderDetail(ctx, status) {
   var b = PM.bot(p.bot);
   var agentInner = PM.botLogo(p.bot, 44) +
     '<div class="grow"><div class="name">' + esc(PM.botName(p.bot)) + '</div>' +
-    '<div class="meta">' + (b ? 'Agent, zlecił zakup' : 'Agent odłączony') + '</div></div>';
+    '<div class="meta">' + (b ? 'Zlecił zakup' : 'Agent odłączony') + '</div></div>';
   var agent = b
     ? '<a class="row" href="#/bot/' + esc(p.bot) + '">' + agentInner + chev() + '</a>'
     : '<div class="row">' + agentInner + '</div>';
@@ -447,7 +447,7 @@ function renderForm(ctx, preset) {
     PM.actions({
       back: PM.purchaseHref(p),
       primary: { label: 'Wyślij zgłoszenie', attrs: { 'data-send': '' }, loading: dis },
-      legal: 'Zwrot trafi do weryfikacji. Pieniądze wrócą na konto, z którego płaciłeś BLIKIEM bez kodu.'
+      legal: 'Po weryfikacji pieniądze wrócą na konto, z którego płaciłeś.'
     });
 
   return PM.screen({ title: 'Zgłoś zwrot', content: content, cta: cta });
@@ -653,7 +653,7 @@ function renderDone(ctx, p) {
     '<div class="status-ico status-ico--ok">' + PM.icon('check-line', 28) + '</div>' +
     '<h1 class="display">Zwrot zakończony</h1>' +
     '<div class="zw-sent-amt"><span class="big-amount">' + PM.zl(info.kwota) + '</span></div>' +
-    '<p class="lead-text">Wróciło na konto, z którego płaciłeś.</p>' +
+    '<p class="lead-text">Pieniądze wróciły na konto, z którego płaciłeś.</p>' +
     '</div>';
   var status = '<section class="sec"><div class="sec-h"><span>Status</span></div>' +
     '<div class="card">' + PM.purchaseTimeline(p) + '</div></section>';

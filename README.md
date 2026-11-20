@@ -42,6 +42,12 @@ js/
 - Pola formularzy min. 16 px (brak zoomu iOS). Klawiatura iOS: `visualViewport` (checkout `is-kb`, onboarding `initObFocus`); `interactive-widget` w meta jest tylko dla Androida.
 - Kontrolki mają obszar dotyku ≥44 px (`css/touch.css`).
 
+## Typografia (gałąź ds-typografia)
+- Role tekstu w `css/typography.css`: `--t-<rola>` (shorthand font) + `--tr-<rola>` (tracking), kolory hierarchii `--tx-1/2/3`. Role: display, h1, h2, title, callout, body, body-strong, caption, label, eyebrow, amount-xl/amount/amount-sm, code/code-lg/code-sm, btn/btn-sm, tab, input.
+- W CSS ekranów tylko `font:var(--t-<rola>);letter-spacing:var(--tr-<rola>)`, bez rozmiarów w px. Stare `--t-16-500-22` itd. zostały tylko w panelu Stany/sidenav (desktop).
+- Warianty: `html[data-typo="a|b|c"]` (A wierny Bleepay, B kompaktowy, C mocny kontrast). Przełącznik: `?typo=b` (pamiętany w sessionStorage).
+- Limity długości copy: `/workspace/makiety/profil-platnika/ds-typografia/design-system.md`.
+
 ## Checkout BLIK (iframe)
 `js/screens/auth.js`: URL i `externalId` (`CHECKOUT_URL`, `CHECKOUT_EXT`). Wiadomości `paymove:ready|resize|success|error|closed` tylko z origin `https://checkout.paymove.io` i od naszego iframe; stan „zapłacone” kluczowany `externalId`. Nowy link weryfikacyjny = podmiana obu stałych.
 

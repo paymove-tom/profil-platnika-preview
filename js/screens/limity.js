@@ -125,12 +125,12 @@ function renderMain(over) {
 
   var potw =
     '<div class="lim divide">' +
-      '<div class="tog"><span class="name" id="t-potw-lbl">Wymagaj potwierdzenia powyżej</span>' +
+      '<div class="tog"><span class="name" id="t-potw-lbl">Potwierdzaj powyżej</span>' +
         PM.toggle('t-potw', v.potw, { labelledby: 't-potw-lbl', target: 'm-potw' }) + '</div>' +
       '<div class="money' + (v.potw ? '' : ' off is-disabled') + '" id="m-potw">' +
         '<input type="text" inputmode="numeric" autocomplete="off" value="' + Math.round(v.prog || 0) + '" aria-label="Próg potwierdzenia" data-max="' + rp.max + '"' + (v.potw ? '' : ' disabled') + '>' +
         '<span>zł</span></div>' +
-      '<p class="hint">Wyżej zatwierdzasz zakup w aplikacji banku.</p>' +
+      '<p class="hint">Powyżej tej kwoty zatwierdzasz zakup w aplikacji banku.</p>' +
     '</div>';
 
   var content =
@@ -149,7 +149,7 @@ function renderMain(over) {
       '</div>' +
     '</section>' +
     '<section class="sec">' +
-      '<div class="sec-h"><span>Per bot</span><span class="count">miesięcznie</span></div>' +
+      '<div class="sec-h"><span>Dla botów</span><span class="count">miesięcznie</span></div>' +
       '<div class="card" data-lim-bots>' + botRows(err) + '</div>' +
     '</section>';
 
@@ -369,7 +369,7 @@ function renderPotwierdzenie() {
         '<span class="duo-dots"><i></i><i></i><i></i></span>' +
         '<span class="tile"><img src="assets/logos/sygnet.svg" alt="Paymove"></span>' +
       '</div>' +
-      '<h2 class="h-sheet">' + PM.esc(name) + ' chce zapłacić ' + PM.zl(p.kwota) + '</h2>' +
+      '<h2 class="h-sheet">' + PM.esc(name) + ' prosi o ' + PM.zl(p.kwota) + '</h2>' +
     '</div>' +
     '<div class="card">' +
       '<div class="row">' +
@@ -379,10 +379,10 @@ function renderPotwierdzenie() {
       '</div>' +
     '</div>' +
     PM.banner({ type: 'warn', title: 'Powyżej Twojego progu ' + PM.zl(p.prog), text: 'Dlatego prosimy o Twoje potwierdzenie.' }) +
-    '<div class="card pm-bank" data-bank role="button" tabindex="0" aria-label="Zatwierdź w aplikacji banku">' +
+    '<div class="card pm-bank" data-bank role="button" tabindex="0" aria-label="Zatwierdź w aplikacji">' +
       '<div class="row">' +
         '<div class="thumb">' + PM.icon('smartphone-line', 20) + '</div>' +
-        '<div class="grow"><div class="name">Zatwierdź w aplikacji banku</div>' +
+        '<div class="grow"><div class="name">Zatwierdź w aplikacji</div>' +
           '<div class="meta pm-inline">' + blikTile() + 'bez kodu</div></div>' +
         PM.spinner() +
       '</div>' +

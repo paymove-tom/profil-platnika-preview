@@ -30,17 +30,17 @@
 .content::-webkit-scrollbar{display:none}
 .content--center{justify-content:center}
 .content--top{padding-top:24px}
-.title{font:700 24px/32px var(--sans);letter-spacing:-.015em}
+.title{font:var(--t-h1);letter-spacing:var(--tr-h1)}
 .title-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.lead-text{font:var(--t-16-400-22);color:var(--ts)}
-.display{font:700 40px/42px var(--sans);letter-spacing:-.015em}
-.h-sheet{font:700 24px/32px var(--sans);letter-spacing:-.015em}
-.big-amount{font:700 32px/40px var(--sans);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.lead-text{font:var(--t-callout);letter-spacing:var(--tr-callout);color:var(--ts)}
+.display{font:var(--t-display);letter-spacing:var(--tr-display)}
+.h-sheet{font:var(--t-h2);letter-spacing:var(--tr-h2)}
+.big-amount{font:var(--t-amount-xl);letter-spacing:var(--tr-amount-xl);font-variant-numeric:tabular-nums}
 .sec{display:flex;flex-direction:column;gap:8px}
-.sec-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:var(--t-16-500-22)}
-.sec-h .count{font:var(--t-14-400-20);color:var(--ts)}
-.sec-h .tag{font:var(--tm-12-500-16);color:var(--ts)}
-.sec-h a,.sec-h .link{font:var(--t-14-500-20);color:var(--ts);text-decoration:none}
+.sec-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:var(--t-title);letter-spacing:var(--tr-title)}
+.sec-h .count{font:var(--t-body);letter-spacing:var(--tr-body);color:var(--ts)}
+.sec-h .tag{font:var(--t-label);letter-spacing:var(--tr-label);color:var(--ts)}
+.sec-h a,.sec-h .link{font:var(--t-body-strong);letter-spacing:var(--tr-body-strong);color:var(--ts);text-decoration:none}
 .sec-h a:hover,.sec-h .link:hover{color:var(--tp)}
 .stack{display:flex;flex-direction:column;gap:16px}
 .stack-4{display:flex;flex-direction:column;gap:4px}
@@ -56,6 +56,6 @@
 .text-ok{color:var(--ok)}
 .nowrap{white-space:nowrap}
 .mono{font-family:var(--mono)}
-.link{border:0;background:none;padding:0;font:var(--t-14-500-20);color:var(--tp);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(26,26,26,.3);cursor:pointer}
+.link{border:0;background:none;padding:0;font:var(--t-body-strong);letter-spacing:var(--tr-body-strong);color:var(--tp);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(26,26,26,.3);cursor:pointer}
 .link:hover{text-decoration-color:var(--tp)}
 .link.is-disabled,.link:disabled{color:var(--ts);text-decoration:none;pointer-events:none}

@@ -23,12 +23,12 @@ a.row:hover,button.row:hover{background:rgba(255,255,255,.45)}
 .card>.row:last-child{border-bottom-left-radius:19px;border-bottom-right-radius:19px}
 .row-chev{width:16px;height:16px;flex:none;opacity:.35}
 .grow{flex:1;min-width:0}
-.name{font:var(--t-16-500-22)}
-.meta{font:var(--t-14-400-20);color:var(--ts)}
-.mono-s{font:var(--tm-12-500-16);color:var(--ts)}
+.name{font:var(--t-title);letter-spacing:var(--tr-title)}
+.meta{font:var(--t-body);letter-spacing:var(--tr-body);color:var(--ts)}
+.mono-s{font:var(--t-caption);letter-spacing:var(--tr-caption);color:var(--ts)}
 .ellipsis{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none}
-.amount{font:var(--t-16-500-22);font-variant-numeric:tabular-nums;white-space:nowrap}
+.amount{font:var(--t-amount);letter-spacing:var(--tr-amount);font-variant-numeric:tabular-nums;white-space:nowrap}
 .muted{color:var(--ts)}
 .strike{text-decoration:line-through;text-decoration-color:rgba(142,142,147,.6)}
 .thumb{width:44px;height:44px;border-radius:var(--r-thumb);background:var(--input-strong);display:grid;place-items:center;flex:none;color:var(--tp)}
@@ -36,17 +36,17 @@ a.row:hover,button.row:hover{background:rgba(255,255,255,.45)}
 .thumb--sm{width:36px;height:36px;border-radius:10px}
 .item-foot{padding:12px 16px 14px;border-top:1px solid var(--divider)}
 .item-foot .chip{width:100%;height:36px}
-.by{display:inline-flex;align-items:center;gap:6px;font:var(--tm-12-500-16);color:var(--ts);white-space:nowrap}
+.by{display:inline-flex;align-items:center;gap:6px;font:var(--t-caption);letter-spacing:var(--tr-caption);color:var(--ts);white-space:nowrap}
 .by .tile{border-radius:5px}
 
 /* ---------- profil ---------- */
 .profile{display:flex;gap:16px;align-items:center}
 .card.pad.profile{flex-direction:row}
-.avatar{width:56px;height:56px;border-radius:50%;background:var(--cta);color:var(--on-cta);display:grid;place-items:center;font:var(--t-18-500-24);letter-spacing:.01em;flex:none}
-.pname{font:var(--t-18-500-24);letter-spacing:-.005em}
+.avatar{width:56px;height:56px;border-radius:50%;background:var(--cta);color:var(--on-cta);display:grid;place-items:center;font:var(--t-title);letter-spacing:var(--tr-title);flex:none}
+.pname{font:var(--t-h2);letter-spacing:var(--tr-h2)}
 .pstack{display:flex;flex-direction:column;gap:2px;align-items:flex-start;min-width:0}
 .pstack .badge{margin-top:6px}
-.plate{font:600 16px/22px var(--mono);letter-spacing:.02em;text-transform:uppercase}
+.plate{font:var(--t-code);letter-spacing:var(--tr-code);text-transform:uppercase}
 
 /* ---------- logowanie, marka, statusy ---------- */
 .brand{display:flex;flex-direction:column;gap:24px}
@@ -64,8 +64,8 @@ a.row:hover,button.row:hover{background:rgba(255,255,255,.45)}
 .status-ico--fail{background:var(--err)}
 .status-ico--pending{background:#fff}
 .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:st}
-.steps li{display:flex;gap:12px;align-items:flex-start;font:var(--t-15-400-22);counter-increment:st}
-.steps li::before{content:counter(st);width:24px;height:24px;flex:none;border-radius:50%;background:var(--chip);display:grid;place-items:center;font:600 12px/16px var(--mono);color:var(--tp)}
+.steps li{display:flex;gap:12px;align-items:flex-start;font:var(--t-body);letter-spacing:var(--tr-body);counter-increment:st}
+.steps li::before{content:counter(st);width:24px;height:24px;flex:none;border-radius:50%;background:var(--chip);display:grid;place-items:center;font:var(--t-label);letter-spacing:var(--tr-label);color:var(--tp)}
 .checks{display:flex;flex-direction:column}
 .check-row{display:flex;align-items:center;gap:12px;padding:12px 16px}
 .check-row + .check-row{border-top:1px solid var(--divider)}

@@ -12,9 +12,8 @@ html .au-blikbtn.btn.btn--primary {
   gap: 0;
   padding-inline: 16px;
   color: #fff;
-  font-family: var(--sans);
-  font-weight: 500;
-  letter-spacing: .01em;
+  font: var(--t-btn);
+  letter-spacing: var(--tr-btn);
   text-decoration: none;
   /* Czarne wnętrze i cienka obwódka z gradientem w barwach kropki BLIK */
   border: 1px solid transparent;
