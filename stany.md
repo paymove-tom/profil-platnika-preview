@@ -4,7 +4,7 @@ Prototyp: `index.html` (statyczny, bez build stepu). Każdy stan otwiera się ha
 
 Pusty hash prowadzi do `#/login`, nieznany do `#/portfel`. Na desktopie (od 1024 px) ekrany z nawigacją stoją w karcie ~720 px obok bocznego menu, logowanie i onboarding w węższej karcie ~600 px na środku.
 
-Stanów: 62. Dane w prototypie to mock.
+Stanów: 65. Dane w prototypie to mock.
 
 
 ## Portfel
