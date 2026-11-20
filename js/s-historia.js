@@ -138,7 +138,7 @@
     var botChips = ids.map(function (id) {
       var on = bot === id;
       return '<a class="chip-bot' + (on ? ' is-active' : '') + '" href="' + esc(histHref(typ, on ? null : id)) + '"' +
-        ' aria-pressed="' + (on ? 'true' : 'false') + '" aria-label="Filtr: ' + esc(PM.botName(id)) + '">' +
+        ' aria-current="' + (on ? 'true' : 'false') + '" aria-label="Filtr: ' + esc(PM.botName(id)) + '">' +
         PM.botLogo(id, 32) + '</a>';
     }).join('');
 

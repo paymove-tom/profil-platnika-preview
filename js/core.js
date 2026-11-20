@@ -384,7 +384,7 @@
     if (o.cta) cta = /^\s*<div[^>]*class="[^"]*\bcta-bar\b/.test(o.cta) ? o.cta : '<div class="cta-bar">' + o.cta + '</div>';
     return '<section class="screen' + (o.cls ? ' ' + esc(o.cls) : '') + '"' + attrs(o.attrs) + '>' +
       head +
-      '<div class="content' + (o.contentCls ? ' ' + esc(o.contentCls) : '') + '">' + title + (o.content || '') + '</div>' +
+      '<div class="content' + (o.contentCls ? ' ' + esc(o.contentCls) : '') + '" tabindex="0">' + title + (o.content || '') + '</div>' +
       cta +
       '</section>';
   };

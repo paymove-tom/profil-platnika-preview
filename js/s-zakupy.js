@@ -389,7 +389,7 @@
     var botChips = ids.map(function (id) {
       var on = bot === id;
       return '<a class="chip-bot' + (on ? ' is-active' : '') + '" href="' + esc(vHref(base, typ, on ? null : id)) + '"' +
-        ' aria-pressed="' + (on ? 'true' : 'false') + '" aria-label="Filtr: ' + esc(PM.botName(id)) + '">' +
+        ' aria-current="' + (on ? 'true' : 'false') + '" aria-label="Filtr: ' + esc(PM.botName(id)) + '">' +
         PM.botLogo(id, 32) + '</a>';
     }).join('');
     return '<div class="hs-filters">' +
