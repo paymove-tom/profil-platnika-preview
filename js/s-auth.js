@@ -532,7 +532,7 @@
 
     /* warstwa i sheet */
     '.au-st-layer{position:relative;z-index:3;flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center;padding:16px 10px max(12px,env(safe-area-inset-bottom))}' +
-    '.au-st-sheet{position:relative;width:100%;max-width:440px;max-height:100%;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;display:flex;flex-direction:column;gap:21px;padding:34px 21px 21px;border-radius:var(--r-sheet);border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.74);-webkit-backdrop-filter:blur(44px);backdrop-filter:blur(44px);box-shadow:0 8px 24px rgba(31,41,82,.08),0 32px 72px -16px rgba(31,41,82,.32),inset 0 1px 0 rgba(255,255,255,.9);animation:au-st-spring .85s ease-out .08s both}' +
+    '.au-st-sheet{position:relative;width:100%;max-width:440px;max-height:100%;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;display:flex;flex-direction:column;gap:21px;padding:34px 16px 21px;border-radius:var(--r-sheet);border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.74);-webkit-backdrop-filter:blur(44px);backdrop-filter:blur(44px);box-shadow:0 8px 24px rgba(31,41,82,.08),0 32px 72px -16px rgba(31,41,82,.32),inset 0 1px 0 rgba(255,255,255,.9);animation:au-st-spring .85s ease-out .08s both}' +
     '.au-st-sheet::-webkit-scrollbar{display:none}' +
     '@media (min-width:1024px){.au-st-layer{align-items:center;padding:24px}.au-st-sheet{max-width:460px;padding:55px 34px 28px}}' +
 
@@ -547,7 +547,7 @@
 
     /* podgląd kroków */
     '.au-st-steps{list-style:none;margin:0;padding:0;border-radius:var(--r-card);background:rgba(255,255,255,.62);border:1px solid var(--border);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}' +
-    '.au-st-step{display:flex;align-items:center;gap:12px;padding:10px 14px}' +
+    '.au-st-step{display:flex;align-items:center;gap:10px;padding:10px 12px}' +
     '.au-st-step+.au-st-step{border-top:1px solid var(--divider)}' +
     '.au-st-ico{width:36px;height:36px;border-radius:10px;background:var(--input-strong);display:grid;place-items:center;flex:none}' +
     '.au-st-ico .ico{width:18px;height:18px}' +
