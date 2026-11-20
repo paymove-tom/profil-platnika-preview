@@ -184,10 +184,6 @@
     '@keyframes au-ob-back{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}' +
     '.au-src{display:inline-flex;align-items:center;gap:6px;font:500 12px/16px var(--mono);color:var(--ts)}' +
     '.au-src .au-logo{width:14px;height:14px}' +
-    '.au-plate{align-self:flex-start;display:flex;align-items:stretch;height:56px;border-radius:10px;background:#fff;border:2px solid var(--tp);overflow:hidden;box-shadow:var(--shadow-card)}' +
-    '.au-plate-eu{width:28px;flex:none;background:#003399;color:#fff;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;font:600 11px/12px var(--mono)}' +
-    '.au-plate-num{display:flex;align-items:center;min-width:184px;padding:0 16px;font:700 26px/32px var(--mono);letter-spacing:.06em;white-space:nowrap}' +
-    '.au-plate-num.is-empty{color:var(--off)}' +
     '.au-blik-mark{width:72px;height:72px;border-radius:20px;background:#000;display:grid;place-items:center;flex:none;box-shadow:0 12px 28px -10px rgba(0,0,0,.4)}' +
     '.au-blik-mark img{max-width:78%;max-height:62%;width:auto;height:auto}' +
     '.au-points .check-row{padding:14px 16px}' +
@@ -590,10 +586,6 @@
         title: 'Twoje auto',
         lead: 'Parking zapłacisz bez wpisywania numeru. Bot weźmie go z profilu.',
         body:
-          '<div class="au-plate" aria-hidden="true">' +
-            '<span class="au-plate-eu">PL</span>' +
-            '<span class="au-plate-num' + (v ? '' : ' is-empty') + '" data-plate>' + PM.esc(v || 'WI 4821K') + '</span>' +
-          '</div>' +
           PM.field({
             id: 'ob-rej', label: 'Numer rejestracyjny', value: v, placeholder: 'WI 4821K',
             mono: true, autocomplete: 'off', maxlength: 10,
@@ -609,17 +601,12 @@
     mount: function (root, ctx) {
       if (!obMount(root, ctx)) return;
       var inp = root.querySelector('#ob-rej');
-      var plate = root.querySelector('[data-plate]');
       var btn = root.querySelector('[data-ob-next]');
       if (!inp || !btn) return;
 
       inp.addEventListener('input', function () {
         var v = normPlate(inp.value);
         if (inp.value !== v) inp.value = v;
-        if (plate) {
-          plate.textContent = v.trim() || 'WI 4821K';
-          plate.classList.toggle('is-empty', !v.trim());
-        }
         clearFieldError(root, 'ob-rej');
       });
 
@@ -848,11 +835,11 @@
 
     /* tekst */
     '.au-in3-head{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center}' +
-    '.au-in3-kick{display:inline-flex;align-items:center;gap:8px;font:500 16px/21px var(--sans);color:var(--ts)}' +
+    '.au-in3-kick{display:inline-flex;align-items:center;gap:8px;font:500 16px/21px var(--sans);color:var(--tp)}' +
     '.au-in3-kick img{display:block;height:21px;width:auto;flex:none}.au-in3-kick span{display:block;line-height:21px}' +
     '.au-in3-title{font:700 26px/34px var(--sans);letter-spacing:-.02em;color:var(--tp);text-wrap:balance}' +
     '.au-in3-lead{font:400 16px/26px var(--sans);color:var(--ts);max-width:377px;text-wrap:balance}' +
-    '.au-in3-lead b{font-weight:500;color:var(--tp)}' +
+    '.au-in3-lead b{font:inherit;font-weight:700;color:var(--tp)}' +
 
     /* kroki */
     '.au-in3-steps{list-style:none;margin:0;padding:0;border-radius:var(--r-card);background:rgba(255,255,255,.62);border:1px solid var(--border);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}' +
@@ -895,7 +882,7 @@
         '<div class="au-in3-head">' +
           '<span class="au-in3-kick au-in" style="--d:.26s"><img src="' + BLIK_LOGO_FULL + '" alt="BLIK" height="22" draggable="false"><span>bez kodu</span></span>' +
           '<h2 class="au-in3-title au-in" style="--d:.32s">Zapłać i zapamiętaj sklep</h2>' +
-          '<p class="au-in3-lead au-in" style="--d:.38s">Zapłać 1 zł BLIKIEM. W aplikacji banku wybierz <b>„Zapamiętaj sklep”</b>.</p>' +
+          '<p class="au-in3-lead au-in" style="--d:.38s">W aplikacji banku wybierz <b>„Zapamiętaj sklep”</b>.</p>' +
         '</div>' +
         '<p class="au-in3-note au-in" style="--d:.5s">' + PM.icon('information-line', 14) +
           '<span>Dzięki temu kolejne płatności botów idą bez kodu.</span></p>' +
