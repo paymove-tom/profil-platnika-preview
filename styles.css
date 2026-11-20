@@ -113,7 +113,9 @@ h1,h2,h3,p{margin:0}
 .sb-time{font:500 17px/22px var(--sans);letter-spacing:-.01em}
 .sb-icons{display:flex;align-items:center;gap:6px}
 .view{position:relative;flex:1;min-height:0;display:flex;flex-direction:column}
-.screen{position:relative;flex:1;min-height:0;display:flex;flex-direction:column;animation:pm-fade .22s ease both}
+.screen{position:relative;flex:1;min-height:0;display:flex;flex-direction:column}
+/* fade ekranu tylko przy starcie aplikacji; przy zmianie ekranu bez przyciemnienia (miganie) */
+.is-booting .screen{animation:pm-fade .22s ease both}
 .screen--ok{background:radial-gradient(120% 55% at 50% 0%,rgba(22,163,74,.14) 0%,rgba(22,163,74,0) 62%),var(--bg)}
 .screen--fail{background:radial-gradient(120% 55% at 50% 0%,rgba(229,50,45,.12) 0%,rgba(229,50,45,0) 62%),var(--bg)}
 .screen--pending{background:radial-gradient(120% 55% at 50% 0%,rgba(242,107,42,.12) 0%,rgba(242,107,42,0) 62%),var(--bg)}

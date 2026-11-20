@@ -124,9 +124,10 @@
   var STATES = window.PM_STATES = window.PM_STATES || [];
   var routes = {};
   var els = {};
-  var timers = [];
-  var leaveFns = [];
+  var scopes = { base: { timers: [], leave: [] }, sheet: { timers: [], leave: [] } };
+  var mountScope = 'base';
   var started = false;
+  var ready = false;
   var statesDirty = true;
   var cur = { hash: '', path: '', query: {}, def: null };
   var cssAdded = {};
@@ -850,25 +851,30 @@
   };
 
   /* ---------- timery ---------- */
+  /* zakresy: 'base' (ekran) i 'sheet' (warstwa sheeta); rejestracja w zakresie aktualnie montowanym */
+  function scopeOf() { return scopes[mountScope] || scopes.base; }
   PM.later = function (fn, ms) {
     if (SHOT) return 0;
     var id = setTimeout(fn, ms || 0);
-    timers.push({ t: 'to', id: id });
+    scopeOf().timers.push({ t: 'to', id: id });
     return id;
   };
   PM.every = function (fn, ms) {
     if (SHOT) return 0;
     var id = setInterval(fn, ms || 1000);
-    timers.push({ t: 'iv', id: id });
+    scopeOf().timers.push({ t: 'iv', id: id });
     return id;
   };
-  PM.onLeave = function (fn) { if (typeof fn === 'function') leaveFns.push(fn); };
-  function clearTimers() {
-    timers.forEach(function (t) { if (t.t === 'to') clearTimeout(t.id); else clearInterval(t.id); });
-    timers = [];
-    var fns = leaveFns; leaveFns = [];
+  PM.onLeave = function (fn) { if (typeof fn === 'function') scopeOf().leave.push(fn); };
+  function clearScope(name) {
+    var s = scopes[name];
+    if (!s) return;
+    var ts = s.timers; s.timers = [];
+    ts.forEach(function (t) { if (t.t === 'to') clearTimeout(t.id); else clearInterval(t.id); });
+    var fns = s.leave; s.leave = [];
     fns.forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
   }
+  function clearTimers() { clearScope('sheet'); clearScope('base'); }
   function fmtSec(s) { s = Math.max(0, s | 0); return Math.floor(s / 60) + ':' + (s % 60 < 10 ? '0' : '') + (s % 60); }
   PM.fmtSec = fmtSec;
   PM.countdown = function (el, seconds, onDone) {
@@ -996,9 +1002,80 @@
   }
   PM.home = homeHash;
 
+  /* ---------- render: retencja bazy, animacje wejścia, fokus ---------- */
+  var mounted = { screenKey: '', hash: '', sheet: false };
+  var seen = {};
+  var stale = false;
+  var lastTab = null;
+  var opener = null;
+  var lastActivator = null;
+  var announceTimer = 0;
+
+  PM.css(
+    '#pm-route-announcer{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}' +
+    '.screen[tabindex="-1"]:focus,.sheet[tabindex="-1"]:focus{outline:none}'
+  );
+
+  /* wymusza ponowny render bazy przy najbliższej zmianie trasy */
+  PM.invalidate = function () { stale = true; };
+
+  /* kończy skończone animacje CSS w root (bez spinnerów i pulsów) */
+  function finishEntrance(root) {
+    if (!root || typeof document.getAnimations !== 'function') return;
+    var list;
+    try { list = document.getAnimations(); } catch (e) { return; }
+    list.forEach(function (a) {
+      try {
+        var ef = a.effect, tg = ef && ef.target;
+        if (!a.animationName || !tg || !root.contains(tg)) return;
+        var it = ef.getTiming ? ef.getTiming().iterations : 1;
+        if (!isFinite(it)) return;
+        a.finish();
+      } catch (e) {}
+    });
+  }
+
+  function announce(text) {
+    if (SHOT || !els.announcer) return;
+    clearTimeout(announceTimer);
+    els.announcer.textContent = '';
+    announceTimer = setTimeout(function () { els.announcer.textContent = text; }, 50);
+  }
+
+  /* zapamiętuje ostatnio kliknięty element (iOS nie fokusuje przycisków po tapnięciu) */
+  function rememberActivator(e) {
+    var t = e.target;
+    lastActivator = t && t.closest ? t.closest('a[href],button,[tabindex]') : null;
+  }
+
+  function pickOpener() {
+    var a = document.activeElement;
+    if (a && a !== document.body && els.view.contains(a)) return a;
+    return lastActivator && els.view.contains(lastActivator) ? lastActivator : null;
+  }
+
+  /* fokus na kontener, chyba że użytkownik już jest w środku box */
+  function focusInto(box, target) {
+    if (SHOT || !box || !target) return;
+    var a = document.activeElement;
+    if (a && a !== document.body && box.contains(a)) return;
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    try { target.focus({ preventScroll: true }); } catch (e) {}
+  }
+
+  function insertSheet(sheetHtml, def) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = sheetHtml;
+    var layer = tmp.firstElementChild;
+    if (layer) {
+      layer.setAttribute('data-route-sheet', def.base || '');
+      els.device.insertBefore(layer, els.toasts);
+    }
+    return layer;
+  }
+
   function render() {
-    if (!started) return;
-    clearTimers();
+    if (!ready) return;
 
     var h = normHash(location.hash);
     if (!h || h === '#/') {
@@ -1016,47 +1093,82 @@
       }
     }
 
+    var prevHash = cur.hash;
+    var sameHash = prevHash === sp.hash;
     cur = { hash: sp.hash, path: sp.path, query: sp.query, def: def || null };
 
     var baseDef = def && def.sheet && def.base ? routes[def.base] : null;
+    var screenKey = baseDef ? baseDef.hash : sp.path;
     var ctx = makeCtx(sp, def, false);
     var baseCtx = baseDef ? makeCtx({ hash: baseDef.hash, path: baseDef.hash, query: sp.query }, baseDef, true) : null;
-    var screenHtml = '', sheetHtml = '', failed = false;
-
-    try {
-      if (!def) {
-        screenHtml = fallbackScreen(sp.path);
-      } else if (def.sheet) {
-        screenHtml = baseDef ? wrapScreen(callRender(baseDef, baseCtx), baseDef) : PM.screen({ content: '' });
-        sheetHtml = wrapSheet(callRender(def, ctx), def);
-      } else {
-        screenHtml = wrapScreen(callRender(def, ctx), def);
-      }
-    } catch (e) {
-      console.error('[PM] render', sp.path, e);
-      screenHtml = fallbackScreen(sp.path, e);
-      sheetHtml = '';
-      failed = true;
-    }
-
     var tab = def ? def.tab : null;
     if (tab == null && baseDef) tab = baseDef.tab;
-    var hasTab = !!tab;
+
+    /* tryb: full | sheet (baza zostaje) | close (zdjęcie sheeta, baza zostaje) */
+    var mode = 'full';
+    if (!SHOT && !stale && def && mounted.screenKey) {
+      if (baseDef && mounted.screenKey === baseDef.hash) mode = 'sheet';
+      else if (!def.sheet && mounted.sheet && mounted.screenKey === sp.path &&
+        (sp.hash === sp.path || sp.hash === mounted.hash)) mode = 'close';
+    }
+    if (def && def.sheet && !mounted.sheet) opener = pickOpener();
+
+    var screenHtml = '', sheetHtml = '', failed = false, layer = null;
+
+    if (mode === 'sheet') {
+      clearScope('sheet');
+      try {
+        sheetHtml = wrapSheet(callRender(def, ctx), def);
+      } catch (e) {
+        console.error('[PM] render', sp.path, e);
+        screenHtml = fallbackScreen(sp.path, e);
+        sheetHtml = '';
+        failed = true;
+        mode = 'full';
+      }
+    }
+    if (mode === 'full') {
+      clearScope('sheet');
+      clearScope('base');
+      stale = false;
+      if (!failed) {
+        try {
+          if (!def) {
+            screenHtml = fallbackScreen(sp.path);
+          } else if (def.sheet) {
+            screenHtml = baseDef ? wrapScreen(callRender(baseDef, baseCtx), baseDef) : PM.screen({ content: '' });
+            sheetHtml = wrapSheet(callRender(def, ctx), def);
+          } else {
+            screenHtml = wrapScreen(callRender(def, ctx), def);
+          }
+        } catch (e1) {
+          console.error('[PM] render', sp.path, e1);
+          screenHtml = fallbackScreen(sp.path, e1);
+          sheetHtml = '';
+          failed = true;
+        }
+      }
+    } else if (mode === 'close') {
+      clearScope('sheet');
+    }
 
     /* DOM */
-    els.device.classList.toggle('has-tabbar', hasTab);
-    els.app.classList.toggle('no-nav', !hasTab);
+    els.device.classList.toggle('has-tabbar', !!tab);
+    els.app.classList.toggle('no-nav', !tab);
+    /* warstwy sheetów (route i dynamiczne) znikają przy każdej zmianie trasy, jak wcześniej */
     qsa(els.device, '.sheet-layer').forEach(function (l) { l.remove(); });
-    if (SHOT) els.toasts.innerHTML = '';
-    els.view.innerHTML = screenHtml;
-    if (sheetHtml) {
-      var tmp = document.createElement('div');
-      tmp.innerHTML = sheetHtml;
-      var layer = tmp.firstElementChild;
-      if (layer) {
-        layer.setAttribute('data-route-sheet', def.base || '');
-        els.device.insertBefore(layer, els.toasts);
-      }
+
+    if (mode === 'full') {
+      if (SHOT) els.toasts.innerHTML = '';
+      els.view.innerHTML = screenHtml;
+      if (sheetHtml) layer = insertSheet(sheetHtml, def);
+      /* przed pierwszym paintem: bez animacji wejścia przy powrotach */
+      if (seen[screenKey] || (lastTab && tab) || sameHash) finishEntrance(els.view);
+      if (layer && sameHash) finishEntrance(layer);
+      seen[screenKey] = true;
+    } else if (mode === 'sheet') {
+      layer = insertSheet(sheetHtml, def);
+      if (layer && sameHash) finishEntrance(layer);
     }
 
     updateNav(tab);
@@ -1064,36 +1176,65 @@
     updateStatesActive();
     document.title = (def ? (def.title || def.label) + ' · ' : '') + 'Paymove Wallet';
 
-    /* scroll top */
-    qsa(els.device, '.content, .sheet').forEach(function (c) { c.scrollTop = 0; });
-    /* reset przewinięcia dokumentu (np. po onboardingu, gdzie przewija się html) */
-    try {
-      var se = document.scrollingElement || html;
-      window.scrollTo(0, 0);
-      se.scrollTop = 0;
-      document.body.scrollTop = 0;
-      if (window.requestAnimationFrame) requestAnimationFrame(function () { if (window.pageYOffset) window.scrollTo(0, 0); });
-    } catch (e) {}
+    if (mode === 'full') {
+      qsa(els.device, '.content, .sheet').forEach(function (c) { c.scrollTop = 0; });
+      /* reset przewinięcia dokumentu (np. po onboardingu, gdzie przewija się html) */
+      try {
+        var se = document.scrollingElement || html;
+        window.scrollTo(0, 0);
+        se.scrollTop = 0;
+        document.body.scrollTop = 0;
+        if (window.requestAnimationFrame) requestAnimationFrame(function () { if (window.pageYOffset) window.scrollTo(0, 0); });
+      } catch (e) {}
+    }
 
     /* mount */
-    if (!failed) {
+    if (!failed && mode !== 'close') {
       try {
-        if (baseDef && typeof baseDef.mount === 'function') baseDef.mount(els.device, baseCtx);
-        if (def && typeof def.mount === 'function') def.mount(els.device, ctx);
+        if (mode === 'full' && baseDef && typeof baseDef.mount === 'function') {
+          mountScope = 'base';
+          baseDef.mount(els.device, baseCtx);
+        }
+        if (def && typeof def.mount === 'function') {
+          mountScope = def.sheet ? 'sheet' : 'base';
+          def.mount(els.device, ctx);
+        }
       } catch (e2) {
         console.error('[PM] mount', sp.path, e2);
       }
     }
+    mountScope = layer ? 'sheet' : 'base';
 
-    stripMeta(els.device);
+    if (mode === 'full') stripMeta(els.device);
+    else if (layer) stripMeta(layer);
 
-    var af = els.device.querySelector('.sheet [data-autofocus]') || els.device.querySelector('[data-autofocus]');
-    if (af && !af.disabled) { try { af.focus({ preventScroll: true }); } catch (e3) {} }
+    /* fokus */
+    if (mode === 'close') {
+      var back = opener;
+      opener = null;
+      if (!SHOT && back && els.view.contains(back)) { try { back.focus({ preventScroll: true }); } catch (e3) {} }
+      else focusInto(els.view, els.view.querySelector('.screen'));
+    } else {
+      var af = layer ? layer.querySelector('[data-autofocus]') : els.device.querySelector('[data-autofocus]');
+      if (af && !af.disabled) { try { af.focus({ preventScroll: true }); } catch (e4) {} }
+      else if (layer) focusInto(layer, layer.querySelector('.sheet'));
+      else focusInto(els.view, els.view.querySelector('.screen'));
+    }
+    if (!layer) opener = null;
+
+    if (mode === 'full') {
+      mounted.screenKey = failed ? '' : screenKey;
+      mounted.hash = baseDef ? baseDef.hash : sp.hash;
+    }
+    mounted.sheet = !!layer;
+    lastTab = tab;
 
     if (def && def.toast) PM.toast(def.toast);
+    if (!sameHash) announce(document.title);
 
+    if (html.classList.contains('is-booting')) setTimeout(function () { html.classList.remove('is-booting'); }, 400);
     html.setAttribute('data-pm-ready', sp.path || '');
-    try { document.dispatchEvent(new CustomEvent('pm:render', { detail: { hash: sp.hash, path: sp.path } })); } catch (e4) {}
+    try { document.dispatchEvent(new CustomEvent('pm:render', { detail: { hash: sp.hash, path: sp.path } })); } catch (e5) {}
   }
   PM.render = render;
 
@@ -1141,6 +1282,13 @@
         '<div class="states-body" data-states-body></div>' +
       '</aside>';
 
+    var ann = document.createElement('div');
+    ann.id = 'pm-route-announcer';
+    ann.className = 'sr-only';
+    ann.setAttribute('role', 'status');
+    ann.setAttribute('aria-live', 'polite');
+    app.appendChild(ann);
+    els.announcer = ann;
     els.sidenav = app.querySelector('.sidenav');
     els.stage = app.querySelector('.stage');
     els.mockTitle = app.querySelector('[data-mock-title]');
@@ -1320,16 +1468,33 @@
   }
 
   /* ---------- start ---------- */
+  var FONTS = ['400 16px Aeonik', '500 16px Aeonik', '700 16px Aeonik', '500 12px "IBM Plex Mono"'];
+
+  /* pierwszy render po załadowaniu fontów, najdłużej 700 ms */
+  function whenFonts(cb) {
+    var done = false;
+    function go() { if (done) return; done = true; cb(); }
+    var f = document.fonts;
+    if (!f || typeof f.load !== 'function' || typeof Promise === 'undefined') { go(); return; }
+    try {
+      Promise.race([
+        Promise.all(FONTS.map(function (s) { return f.load(s); })),
+        new Promise(function (res) { setTimeout(res, 700); })
+      ]).then(go, go);
+    } catch (e) { go(); }
+  }
+
   PM.start = function () {
     if (started) { render(); return; }
     started = true;
     buildShell();
     buildStates();
+    document.addEventListener('click', rememberActivator, true);
     document.addEventListener('click', onClick);
     document.addEventListener('keydown', onKey);
     window.addEventListener('hashchange', render);
     initObFocus();
-    render();
+    whenFonts(function () { ready = true; render(); });
   };
 
   window.addEventListener('load', function () {
