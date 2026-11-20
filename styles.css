@@ -853,3 +853,13 @@ html .sheet-layer:has(.au-in3){position:fixed;inset:0;z-index:60}
   html .sheet-layer:has(.au-in3){align-items:center;justify-content:center;padding:24px}
   html .sheet.au-in3{max-height:calc(100dvh - 48px)}
 }
+
+/* checkout BLIK na telefonie: maksimum szerokości dla bramki (węższe marginesy, bez ramki wokół iframe) */
+@media (max-width:480px){
+  html .sheet-layer:has(.au-checkout){padding-left:6px;padding-right:6px}
+  html .sheet.au-checkout{padding:14px 8px 14px}
+  html .sheet.au-checkout .au-sh-head{padding:0 6px}
+  html .sheet.au-checkout .au-frame{border:0;border-radius:var(--r-card);padding:0;margin:0}
+  html .sheet.au-checkout .au-frame .checkout-frame{width:100%;min-width:0;border-radius:var(--r-card)}
+  html .sheet.au-checkout .au-sh-foot{padding:0 6px}
+}
