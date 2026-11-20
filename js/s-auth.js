@@ -665,6 +665,55 @@
         }
         PM.later(loaded, 8000);
 
+        /* mobile: klawiatura w iframe zwęża visualViewport, modal dopasowuje się do niego.
+           paymove:resize celowo ignorowany: wysokość iframe wynika z flex modala. */
+        var kbSheet = root.querySelector('.sheet.au-checkout');
+        var kbLayer = kbSheet && kbSheet.closest('.sheet-layer');
+        var vv = window.visualViewport;
+        var kbMq = window.matchMedia ? window.matchMedia('(max-width:519px)') : null;
+        var kbBase = vv ? vv.height : 0;
+        var kbCand = false;
+        var kbOn = false;
+        function kbApply(on) {
+          if (!kbLayer) return;
+          if (on) {
+            kbLayer.style.setProperty('--kbh', Math.round(vv.height) + 'px');
+            kbLayer.style.setProperty('--kbt', Math.round(vv.offsetTop) + 'px');
+          } else {
+            kbLayer.style.removeProperty('--kbh');
+            kbLayer.style.removeProperty('--kbt');
+          }
+          if (on !== kbOn) {
+            kbOn = on;
+            kbLayer.classList.toggle('is-kb', on);
+            kbSheet.classList.toggle('is-kb', on);
+          }
+        }
+        function kbCheck() {
+          if (!vv || !kbLayer || (kbMq && !kbMq.matches)) { kbApply(false); return; }
+          var h = vv.height;
+          var open = h < window.innerHeight - 120 || (kbCand && h < kbBase - 120);
+          if (!open) {
+            if (kbOn) kbCand = false;
+            if (h > kbBase) kbBase = h;
+          }
+          kbApply(open);
+        }
+        function kbBlur() {
+          setTimeout(function () {
+            if (ifr && document.activeElement === ifr) { kbCand = true; kbCheck(); }
+          }, 0);
+        }
+        function kbFocus() { kbCand = false; kbCheck(); }
+        if (vv) { vv.addEventListener('resize', kbCheck); vv.addEventListener('scroll', kbCheck); }
+        window.addEventListener('blur', kbBlur);
+        window.addEventListener('focus', kbFocus);
+        PM.onLeave(function () {
+          if (vv) { vv.removeEventListener('resize', kbCheck); vv.removeEventListener('scroll', kbCheck); }
+          window.removeEventListener('blur', kbBlur);
+          window.removeEventListener('focus', kbFocus);
+        });
+
         var done = root.querySelector('.sheet [data-blik-done]');
         var st = root.querySelector('.sheet [data-pay-st]');
         function setSt(kind, text) {
