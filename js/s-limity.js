@@ -24,21 +24,7 @@
   var GROUP = 'Limity';
   var PID = 'z-2611-potw';
 
-  PM.css(
-    '.pm-okres{gap:12px}' +
-    '.pm-lim-bot .val{flex:none}' +
-    '.pm-lim-bot .meta.text-err{color:var(--err)}' +
-    '.pm-bank{cursor:pointer}' +
-    '.pm-bank:hover{background:var(--card-hover)}' +
-    '.pm-bank .row{padding:14px 16px}' +
-    '.pm-blik{height:20px;padding:0 6px;border-radius:6px;display:inline-grid;vertical-align:middle}' +
-    '.pm-blik img{height:60%;width:auto}' +
-    '.pm-inline{display:inline-flex;align-items:center;gap:6px}' +
-    '.pm-sheet-top{display:flex;align-items:center;justify-content:space-between;gap:12px}' +
-    '.pm-bot-head{display:flex;align-items:center;gap:16px}'
-  );
-
-  /* ---------- pomocnicze ---------- */
+    /* ---------- pomocnicze ---------- */
   function L() { return PM.state.limity || {}; }
   function rng(key) {
     var z = (L().zakresy || {})[key] || {};

@@ -1,0 +1,24 @@
+/* Shell aplikacji: drobne reguły układu i marki (dawniej w core.js) */
+@media (min-width:520px) {
+  .hdr .ex-tag {display:none}
+}
+@media (min-width:1024px) {
+  .app.no-nav .sidenav {display:none}
+  .app.no-nav .stage {padding-left:24px}
+}
+.mockbar-hash {margin-left:8px;opacity:.7}
+a.card {text-decoration:none;color:inherit;display:block}
+a.card.bot {display:flex}
+a.card:hover {background:var(--card-hover)}
+.row .by {margin-top:2px}
+/* lockup marki w sidenav: logo 20px, linia bazowa wordmarku ok. 4.9px nad dołem obrazka */
+.sidenav-brand {display:flex;align-items:baseline;gap:6px}
+.sidenav-brand .sidenav-logo {display:block;height:20px;width:auto;flex:none}
+.sidenav-brand .wallet-word {margin:0;font:500 15px/1 var(--sans);letter-spacing:-.01em;color:var(--ts);transform:translateY(-4.9px)}
+#pm-route-announcer {position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.screen[tabindex="-1"]:focus,.sheet[tabindex="-1"]:focus {outline:none}
+
+/* lockup paymove + Wallet w sidenav: ta sama linia bazowa co na logowaniu */
+html .sidenav-brand{align-items:baseline}
+html .sidenav-brand .sidenav-logo{align-self:auto}
+html .sidenav-brand .wallet-word{font-size:15px;line-height:1}

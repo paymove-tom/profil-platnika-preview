@@ -1,0 +1,88 @@
+/* Pola formularzy, segmented, toggle, suwak, radio, klucz-wartość */
+/* ---------- pola ---------- */
+.field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.field-label{font:500 16px/22px var(--sans)}
+.field-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.input{width:100%;height:52px;padding:0 16px;border:0;border-radius:var(--r-input);background:var(--input);font:400 16px/22px var(--sans);color:var(--tp);outline:0;transition:box-shadow .15s ease,background .15s ease;-webkit-appearance:none;appearance:none}
+.input::placeholder{color:var(--ts);opacity:1}
+.input:focus{box-shadow:0 0 0 2px var(--tp);background:rgba(255,255,255,.7)}
+.input:disabled,.textarea:disabled{opacity:.5;cursor:not-allowed}
+.input--mono{font:600 18px/24px var(--mono);letter-spacing:.04em;text-transform:uppercase}
+.input--mono::placeholder{text-transform:none;letter-spacing:0;font:400 16px/22px var(--sans)}
+.input-row{display:grid;grid-template-columns:120px 1fr;gap:8px}
+.textarea{display:block;width:100%;min-height:140px;padding:16px;border:1px solid var(--border);border-radius:var(--r-card);background:var(--card);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);box-shadow:var(--shadow-card);font:400 16px/22px var(--sans);color:var(--tp);resize:none;outline:0}
+.textarea::placeholder{color:var(--ts)}
+.textarea:focus{box-shadow:var(--shadow-card),0 0 0 2px var(--tp)}
+.is-error .input,.input.is-error{box-shadow:0 0 0 1.5px var(--err);background:var(--err-tint)}
+.is-error .input:focus,.input.is-error:focus{box-shadow:0 0 0 2px var(--err)}
+.is-error .textarea,.textarea.is-error{box-shadow:var(--shadow-card),0 0 0 1.5px var(--err)}
+.hint{margin:0;font:400 13px/18px var(--sans);color:var(--ts)}
+.error-msg{margin:0;display:flex;align-items:center;gap:6px;font:500 13px/18px var(--sans);color:var(--err)}
+.error-msg .ico{width:16px;height:16px;filter:var(--ico-red)}
+.counter{font:500 12px/16px var(--mono);color:var(--ts);text-align:right}
+
+/* pole kwoty z jednostką */
+.money{display:flex;align-items:center;gap:8px;height:48px;padding:0 16px;border-radius:12px;background:var(--input);transition:opacity .2s ease,box-shadow .15s ease}
+.money input{flex:1;min-width:0;width:100%;border:0;outline:0;background:transparent;font:500 16px/22px var(--sans);color:var(--tp);padding:0;font-variant-numeric:tabular-nums}
+.money span{font:400 16px/22px var(--sans);color:var(--ts)}
+.money:focus-within{box-shadow:0 0 0 2px var(--tp)}
+.money.is-error{box-shadow:0 0 0 1.5px var(--err);background:var(--err-tint)}
+.money.off,.money.is-disabled{opacity:.4;pointer-events:none}
+.money--sm{width:124px;flex:none;height:44px;padding:0 12px}
+
+/* ---------- segmented control ---------- */
+.seg{display:flex;gap:2px;padding:3px;border-radius:12px;background:var(--chip)}
+.seg-item{flex:1;min-width:0;height:36px;padding:0 12px;border:0;border-radius:9px;background:transparent;font:500 14px/20px var(--sans);color:var(--ts);text-decoration:none;display:flex;align-items:center;justify-content:center;white-space:nowrap;cursor:pointer;transition:background .15s ease,color .15s ease,box-shadow .15s ease}
+.seg-item:hover{color:var(--tp)}
+.seg-item.is-active,.seg-item[aria-selected="true"],.seg-item[aria-checked="true"]{background:#fff;color:var(--tp);box-shadow:0 3px 8px rgba(0,0,0,.08),0 1px 1px rgba(0,0,0,.04)}
+
+/* ---------- toggle ---------- */
+.toggle,.switch{width:51px;height:31px;border-radius:999px;border:0;padding:0;background:rgba(120,120,128,.16);position:relative;flex:none;cursor:pointer;transition:background .2s ease}
+.toggle::after,.switch::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.15),0 1px 1px rgba(0,0,0,.16);transition:transform .2s ease}
+.toggle[aria-checked="true"],.switch[aria-checked="true"]{background:var(--tp)}
+.toggle[aria-checked="true"]::after,.switch[aria-checked="true"]::after{transform:translateX(20px)}
+.toggle:disabled{opacity:.4;cursor:not-allowed}
+.toggle-row,.tog{display:flex;align-items:center;justify-content:space-between;gap:12px}
+
+/* ---------- suwak ---------- */
+.range,.rng{-webkit-appearance:none;appearance:none;display:block;width:100%;height:28px;margin:0;background:transparent;--p:20%;cursor:pointer}
+.range:focus,.rng:focus{outline:none}
+.range::-webkit-slider-runnable-track,.rng::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--tp) 0,var(--tp) var(--p),var(--track) var(--p),var(--track) 100%)}
+.range::-webkit-slider-thumb,.rng::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;margin-top:-10px;border-radius:50%;background:#fff;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 6px rgba(31,41,82,.18)}
+.range:focus-visible::-webkit-slider-thumb,.rng:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(26,26,26,.18),0 2px 6px rgba(31,41,82,.18)}
+.range::-moz-range-track,.rng::-moz-range-track{height:4px;border-radius:2px;background:var(--track)}
+.range::-moz-range-progress,.rng::-moz-range-progress{height:4px;border-radius:2px;background:var(--tp)}
+.range::-moz-range-thumb,.rng::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 6px rgba(31,41,82,.18)}
+.range.is-error::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--err) 0,var(--err) var(--p),var(--track) var(--p),var(--track) 100%)}
+.range.is-error::-moz-range-progress{background:var(--err)}
+.range:disabled{opacity:.4;cursor:not-allowed}
+
+/* limity i pole kwoty zsynchronizowane */
+.lim{padding:16px;display:flex;flex-direction:column;gap:8px}
+.lim-h{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lim-h .who{display:flex;align-items:center;gap:10px;min-width:0}
+.val{font:500 16px/22px var(--sans);font-variant-numeric:tabular-nums;white-space:nowrap}
+.amount-field{display:flex;flex-direction:column;gap:8px}
+.amount-field-row{display:flex;align-items:center;gap:12px}
+.amount-field-row .range{flex:1;min-width:0}
+.amount-field.is-error .error-msg{display:flex}
+
+/* ---------- radio ---------- */
+.radio-list{display:flex;flex-direction:column}
+.radio-list.card{overflow:hidden}
+.radio-list.is-error{box-shadow:var(--shadow-card),0 0 0 1.5px var(--err)}
+.radio-row{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;font:500 16px/22px var(--sans);transition:background .15s ease}
+.radio-row:hover{background:rgba(255,255,255,.45)}
+.radio-row + .radio-row{border-top:1px solid var(--divider)}
+.radio,.radio-row input[type="radio"]{-webkit-appearance:none;appearance:none;width:22px;height:22px;margin:0;flex:none;border-radius:50%;border:1.5px solid var(--ring);background:transparent;cursor:pointer;transition:background .15s ease,border-color .15s ease,box-shadow .15s ease}
+.radio:checked,.radio-row input[type="radio"]:checked{border-color:var(--tp);background:var(--tp);box-shadow:inset 0 0 0 4.5px #fff}
+.radio:disabled,.radio-row input[type="radio"]:disabled{opacity:.4}
+.radio-row.is-disabled{pointer-events:none;opacity:.5}
+
+/* ---------- klucz-wartość ---------- */
+.kv{display:flex;flex-direction:column;margin:0}
+.kv-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 16px;min-width:0}
+.kv-row + .kv-row{border-top:1px solid var(--divider)}
+.kv dt,.kv .k{font:400 14px/20px var(--sans);color:var(--ts);flex:none}
+.kv dd,.kv .v{margin:0;font:500 15px/20px var(--sans);text-align:right;min-width:0;display:flex;align-items:center;justify-content:flex-end;gap:8px;font-variant-numeric:tabular-nums}
+.kv dd.mono,.kv .v.mono{font:500 13px/18px var(--mono);word-break:break-all}

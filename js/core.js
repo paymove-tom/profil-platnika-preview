@@ -66,7 +66,6 @@
                                            w trybie shot later/every nie startują
      PM.openSheet({ body }), PM.closeSheet()
      PM.toast(msg, { icon, duration })    w trybie shot zostaje na ekranie
-     PM.css(cssString)                    moduł dokleja własny CSS (raz)
      PM.esc(s), PM.zl(n) => "86,00 zł", PM.zlInt(n) => "500 zł",
      PM.date('2026-11-12') => "12.11.2026", PM.dateLong(..) => "12 listopada 2026",
      PM.monthLabel('2026-11') => "Listopad 2026", PM.groupByMonth(lista)
@@ -130,7 +129,6 @@
   var ready = false;
   var statesDirty = true;
   var cur = { hash: '', path: '', query: {}, def: null };
-  var cssAdded = {};
 
   var html = document.documentElement;
   var SHOT = html.classList.contains('is-shot') || /[?&]shot=1(&|$)/.test(location.search || '');
@@ -222,32 +220,6 @@
   PM.esc = esc;
   PM.attrs = attrs;
   PM.qsa = qsa;
-
-  PM.css = function (str) {
-    if (!str) return;
-    var key = String(str).length + ':' + String(str).slice(0, 80);
-    if (cssAdded[key] === str) return;
-    cssAdded[key] = str;
-    var st = document.createElement('style');
-    st.setAttribute('data-pm-css', '');
-    st.textContent = str;
-    document.head.appendChild(st);
-  };
-
-  /* drobne reguły shellu, bez zmiany stylu bazowego */
-  PM.css(
-    '@media (min-width:520px){.hdr .ex-tag{display:none}}' +
-    '@media (min-width:1024px){.app.no-nav .sidenav{display:none}.app.no-nav .stage{padding-left:24px}}' +
-    '.mockbar-hash{margin-left:8px;opacity:.7}' +
-    'a.card{text-decoration:none;color:inherit;display:block}' +
-    'a.card.bot{display:flex}' +
-    'a.card:hover{background:var(--card-hover)}' +
-    '.row .by{margin-top:2px}' +
-    /* lockup marki w sidenav: logo 20px, linia bazowa wordmarku ok. 4.9px nad dołem obrazka */
-    '.sidenav-brand{display:flex;align-items:baseline;gap:6px}' +
-    '.sidenav-brand .sidenav-logo{display:block;height:20px;width:auto;flex:none}' +
-    '.sidenav-brand .wallet-word{margin:0;font:500 15px/1 var(--sans);letter-spacing:-.01em;color:var(--ts);transform:translateY(-4.9px)}'
-  );
 
   /* ---------- formatowanie ---------- */
   PM.zl = function (n) {
@@ -1011,12 +983,7 @@
   var lastActivator = null;
   var announceTimer = 0;
 
-  PM.css(
-    '#pm-route-announcer{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}' +
-    '.screen[tabindex="-1"]:focus,.sheet[tabindex="-1"]:focus{outline:none}'
-  );
-
-  /* wymusza ponowny render bazy przy najbliższej zmianie trasy */
+    /* wymusza ponowny render bazy przy najbliższej zmianie trasy */
   PM.invalidate = function () { stale = true; };
 
   /* kończy skończone animacje CSS w root (bez spinnerów i pulsów) */

@@ -37,24 +37,7 @@
     { id: 'tablice', label: 'Numery rejestracyjne', icon: 'car-line' }
   ];
 
-  PM.css(
-    '.bsum{display:flex;flex-direction:column;gap:4px}' +
-    '.bsum-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}' +
-    '.bsum .meta{margin-top:2px}' +
-    '.bspend{display:flex;flex-direction:column;gap:8px}' +
-    '.bspend-amt{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}' +
-    '.bspend-amt .meta{white-space:nowrap}' +
-    '.perm-row .meta{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}' +
-    '.perm-row.is-off .name,.perm-row.is-off .meta{color:var(--ts)}' +
-    '.perm-row.is-off .thumb .ico{opacity:.45}' +
-    '.boty-hint{text-align:center;padding:4px 16px 0}' +
-    '.bsheet-logo{margin-bottom:4px}' +
-    '.howto{padding:16px}' +
-    '.boty-empty .empty{padding:32px 24px 8px}' +
-    '.bdet-danger{align-self:center}'
-  );
-
-  /* ---------- dane ---------- */
+    /* ---------- dane ---------- */
   function rawBot(id) {
     var list = DATA.boty || [];
     for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];

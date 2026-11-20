@@ -1,0 +1,45 @@
+/* Tokeny designu Paymove: kolory, cienie, promienie, kroje (custom properties) */
+/* ---------- tokeny ---------- */
+:root{
+  --bg:#f2f3f7;
+  --stage:#e9eaef;
+  --card:rgba(255,255,255,.55);
+  --card-hover:rgba(255,255,255,.75);
+  --sheet:rgba(255,255,255,.72);
+  --input:rgba(118,118,128,.08);
+  --input-strong:rgba(118,118,128,.14);
+  --chip:rgba(118,118,128,.12);
+  --chip-hover:rgba(118,118,128,.18);
+  --tp:#1a1a1a;
+  --ts:#8e8e93;
+  --cta:#1a1a1a;
+  --on-cta:#ffffff;
+  --ring:#8e8e93;
+  --border:rgba(26,26,26,.06);
+  --divider:rgba(0,0,0,.07);
+  --tile-border:#ececef;
+  --track:#d8d9de;
+  --ok:#16a34a;
+  --ok-tint:rgba(22,163,74,.12);
+  --warn:#f26b2a;
+  --warn-tint:rgba(242,107,42,.12);
+  --err:#e5322d;
+  --err-tint:rgba(229,50,45,.10);
+  --accent:#2050f5;
+  --accent-tint:rgba(32,80,245,.10);
+  --off:#c7c7cc;
+  --shadow-card:0 8px 24px rgba(31,41,82,.08),inset 0 1px 0 rgba(255,255,255,.8);
+  --shadow-btn:0 6px 18px rgba(31,41,82,.08),inset 0 1px 0 rgba(255,255,255,.8);
+  --shadow-cta:0 8px 20px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.25);
+  --shadow-phone:0 0 0 1px var(--border),0 1px 2px rgba(31,41,82,.06),0 24px 48px -16px rgba(31,41,82,.16);
+  --shadow-float:0 1px 2px rgba(31,41,82,.06),0 16px 40px -8px rgba(31,41,82,.22);
+  --cta-grad:linear-gradient(180deg,#3a3a3e 0%,#0b0b0d 100%);
+  --sans:"Aeonik","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --r-pill:555px;--r-sheet:38px;--r-back:29px;--r-card:20px;--r-input:14px;--r-thumb:12px;--r-tile:10px;
+  --ico-red:invert(25%) sepia(86%) saturate(3200%) hue-rotate(350deg) brightness(92%) contrast(95%);
+  --ico-green:invert(45%) sepia(76%) saturate(560%) hue-rotate(95deg) brightness(92%) contrast(90%);
+  --ico-orange:invert(55%) sepia(80%) saturate(1900%) hue-rotate(345deg) brightness(98%) contrast(92%);
+  --ico-blue:invert(23%) sepia(93%) saturate(4385%) hue-rotate(229deg) brightness(97%) contrast(98%);
+  --ico-grey:invert(62%) sepia(5%) saturate(300%) hue-rotate(200deg) brightness(92%);
+}

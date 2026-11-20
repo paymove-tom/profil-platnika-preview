@@ -26,7 +26,6 @@
   ];
   var MON = ['STY', 'LUT', 'MAR', 'KWI', 'MAJ', 'CZE', 'LIP', 'SIE', 'WRZ', 'PAŹ', 'LIS', 'GRU'];
   var CHARGED = { 'zaplacono': 1, 'w-toku': 1, 'zwrot-w-toku': 1 };
-  var BLUE_F = 'invert(23%) sepia(93%) saturate(4385%) hue-rotate(229deg) brightness(97%) contrast(98%)';
 
   /* ---------- dodatkowe zakupy tylko dla wariantów ---------- */
   var EXTRA = [
@@ -117,80 +116,7 @@
   }
 
   /* ---------- style ---------- */
-  PM.css(
-    '.zk-static{cursor:default}' +
-    '.zk-svg{display:block;flex:none}' +
-    '.zk-ico-blue{filter:' + BLUE_F + '}' +
-
-    /* A: kafel kategorii */
-    '.zk-a-ico{position:relative;width:44px;height:44px;flex:none;border-radius:12px;display:grid;place-items:center;color:var(--c);background:linear-gradient(150deg,var(--ct2),var(--ct));box-shadow:inset 0 0 0 1px var(--ct),inset 0 1px 0 rgba(255,255,255,.6)}' +
-    '.zk-a-ico .ico{width:22px;height:22px}' +
-    '.zk-a-bot{position:absolute;right:-5px;bottom:-5px;display:block;border-radius:6px;box-shadow:0 0 0 2px #fff,0 2px 4px rgba(31,41,82,.12)}' +
-
-    /* B: monogram i dni */
-    '.zk-b-av{width:44px;height:44px;flex:none;border-radius:13px;display:grid;place-items:center;font:700 15px/1 var(--sans);letter-spacing:.01em;box-shadow:inset 0 0 0 1px rgba(26,26,26,.05),inset 0 1px 0 rgba(255,255,255,.7)}' +
-    '.zk-b-av--3{font-size:12px;letter-spacing:.04em}' +
-    '.zk-b-sub{display:flex;align-items:center;gap:8px;margin-top:4px;min-width:0}' +
-    '.zk-b-chip{display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:999px;background:var(--chip);font:500 11px/14px var(--sans);color:var(--tp);white-space:nowrap;flex:none}' +
-    '.zk-b-chip i{width:6px;height:6px;border-radius:50%;flex:none}' +
-    '.zk-b-time{font:500 12px/16px var(--mono);color:var(--ts)}' +
-    '.zk-b-sub .tile{border-radius:5px}' +
-    '.zk-b-sum{font-variant-numeric:tabular-nums}' +
-    '.zk-b-day{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 16px 0;font:500 13px/18px var(--sans);color:var(--ts);font-variant-numeric:tabular-nums}' +
-    '.zk-b-day:not(:first-child){border-top:1px solid var(--divider)}' +
-    '.zk-b-day + .row{padding-top:8px}' +
-
-    /* C: pigułki statusu */
-    '.zk-c-pill{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 10px 0 6px;border-radius:999px;background:var(--chip);font:500 12px/16px var(--sans);color:var(--tp);white-space:nowrap;flex:none}' +
-    '.zk-c-pill .ico{width:14px;height:14px}' +
-    '.zk-c-pill--i{width:24px;padding:0;justify-content:center}' +
-    '.zk-c-pill--ok{background:var(--ok-tint)}.zk-c-pill--ok .ico{filter:var(--ico-green)}' +
-    '.zk-c-pill--pending{background:var(--warn-tint)}.zk-c-pill--pending .ico{filter:var(--ico-orange)}' +
-    '.zk-c-pill--fail{background:var(--err-tint)}.zk-c-pill--fail .ico{filter:var(--ico-red)}' +
-    '.zk-c-pill--cancel{color:var(--ts)}.zk-c-pill--cancel .ico{filter:var(--ico-grey)}' +
-    '.zk-c-pill--refund{background:var(--accent-tint)}.zk-c-pill--refund .ico{filter:' + BLUE_F + '}' +
-
-    /* C: ticket stub */
-    'a.card.zk-c-ticket,.zk-c-ticket{display:flex;overflow:hidden;padding:0}' +
-    '.zk-c-stub{width:72px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:16px 4px;background:linear-gradient(180deg,var(--ct2),var(--ct));text-align:center}' +
-    '.zk-c-dd{font:700 30px/32px var(--sans);letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--tp)}' +
-    '.zk-c-mm{font:600 11px/14px var(--mono);letter-spacing:.08em;color:var(--c)}' +
-    '.zk-c-hh{margin-top:8px;font:500 12px/16px var(--mono);color:var(--ts)}' +
-    '.zk-c-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;padding:14px 16px 14px 18px;border-left:1.5px dashed rgba(26,26,26,.16)}' +
-    '.zk-c-kind{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px;min-width:0}' +
-    '.zk-c-cat{display:inline-flex;align-items:center;gap:6px;font:600 11px/14px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--c)}' +
-    '.zk-c-cat .ico{width:16px;height:16px}' +
-    '.zk-c-place{display:flex;align-items:center;gap:4px;font:400 13px/18px var(--sans);color:var(--ts);min-width:0}' +
-    '.zk-c-place .ico{width:14px;height:14px;opacity:.55}' +
-    '.zk-c-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}' +
-    '.zk-c-notch{position:absolute;left:63.75px;width:18px;height:18px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 1px var(--border);z-index:1}' +
-    '.zk-c-notch--t{top:-10px}.zk-c-notch--b{bottom:-10px}' +
-
-    /* C: parking z tablicą */
-    'a.card.zk-c-park,.zk-c-park{display:flex;flex-direction:column;gap:12px;padding:16px}' +
-    '.zk-c-ptop{display:flex;align-items:flex-start;gap:12px;min-width:0}' +
-    '.zk-c-ptop .by{margin-top:4px}' +
-    '.zk-c-pfoot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px;border-top:1px solid var(--divider)}' +
-    '.zk-c-plate{display:inline-flex;align-items:stretch;height:30px;border-radius:5px;border:1.5px solid #1a1a1a;background:#fff;overflow:hidden;box-shadow:0 1px 2px rgba(31,41,82,.1);flex:none}' +
-    '.zk-c-eu{width:18px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;background:#0a3a9f;color:#fff;font:700 8px/1 var(--sans);letter-spacing:.02em}' +
-    '.zk-c-eu svg{width:10px;height:10px;display:block}' +
-    '.zk-c-num{display:flex;align-items:center;padding:0 10px 0 8px;font:600 15px/1 var(--mono);letter-spacing:.08em;color:#1a1a1a;white-space:nowrap}' +
-
-    /* C: usługa */
-    'a.card.zk-c-serv,.zk-c-serv{display:flex;align-items:center;gap:12px;padding:14px 16px}' +
-    '.zk-c-serv .right{gap:6px}' +
-
-    /* C: małe karty w portfelu */
-    '.zk-c-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}' +
-    'a.card.zk-c-mini,.zk-c-mini{display:flex;flex-direction:column;gap:10px;padding:14px;min-width:0}' +
-    '.zk-c-mtop{display:flex;align-items:center;justify-content:space-between;gap:8px}' +
-    '.zk-c-mico{width:36px;height:36px;border-radius:10px}' +
-    '.zk-c-mico .ico{width:18px;height:18px}' +
-    '.zk-c-mdate{margin-top:2px;font:500 12px/16px var(--mono);color:var(--ts)}' +
-    '.zk-c-mfoot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:10px;border-top:1.5px dashed rgba(26,26,26,.14)}'
-  );
-
-  /* ---------- pomocnicze ---------- */
+    /* ---------- pomocnicze ---------- */
   function plural(n, one, few, many) {
     if (n === 1) return one;
     var m10 = n % 10, m100 = n % 100;

@@ -1,0 +1,61 @@
+/* Shell: stage, device, view, nagłówek, treść */
+/* ---------- shell ---------- */
+.app{position:relative;min-height:100%;height:100%}
+.stage{position:relative;height:100%;display:flex;flex-direction:column;align-items:center}
+.device{position:relative;width:100%;height:100%;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);isolation:isolate}
+.statusbar{flex:none;height:max(12px,env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 36px}
+.statusbar>*{visibility:hidden}
+.show-statusbar .statusbar>*{visibility:visible}
+.sb-time{font:500 17px/22px var(--sans);letter-spacing:-.01em}
+.sb-icons{display:flex;align-items:center;gap:6px}
+.view{position:relative;flex:1;min-height:0;display:flex;flex-direction:column}
+.screen{position:relative;flex:1;min-height:0;display:flex;flex-direction:column}
+/* fade ekranu tylko przy starcie aplikacji; przy zmianie ekranu bez przyciemnienia (miganie) */
+.is-booting .screen{animation:pm-fade .22s ease both}
+.screen--ok{background:radial-gradient(120% 55% at 50% 0%,rgba(22,163,74,.14) 0%,rgba(22,163,74,0) 62%),var(--bg)}
+.screen--fail{background:radial-gradient(120% 55% at 50% 0%,rgba(229,50,45,.12) 0%,rgba(229,50,45,0) 62%),var(--bg)}
+.screen--pending{background:radial-gradient(120% 55% at 50% 0%,rgba(242,107,42,.12) 0%,rgba(242,107,42,0) 62%),var(--bg)}
+.screen--accent{background:radial-gradient(120% 55% at 50% 0%,rgba(32,80,245,.12) 0%,rgba(106,207,251,.08) 40%,rgba(255,255,255,0) 66%),var(--bg)}
+
+/* nagłówek z logo */
+.hdr{flex:none;display:flex;align-items:center;gap:12px;height:48px;padding:0 16px}
+.hdr-logo{height:18px;width:auto}
+.hdr-back{width:36px;height:36px;flex:none;border-radius:50%;display:grid;place-items:center;border:1px solid var(--border);background:var(--card);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:var(--shadow-btn);text-decoration:none}
+.hdr-back:hover{background:var(--card-hover)}
+.hdr .ex-tag{margin-left:auto}
+.ex-tag{font:500 11px/16px var(--mono);letter-spacing:.02em;color:var(--ts);white-space:nowrap}
+
+/* treść */
+.content{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:8px 16px 24px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.content::-webkit-scrollbar{display:none}
+.content--center{justify-content:center}
+.content--top{padding-top:24px}
+.title{font:700 24px/32px var(--sans);letter-spacing:-.015em}
+.title-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lead-text{font:400 16px/22px var(--sans);color:var(--ts)}
+.display{font:700 40px/42px var(--sans);letter-spacing:-.015em}
+.h-sheet{font:700 24px/32px var(--sans);letter-spacing:-.015em}
+.big-amount{font:700 32px/40px var(--sans);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.sec{display:flex;flex-direction:column;gap:8px}
+.sec-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:500 16px/22px var(--sans)}
+.sec-h .count{font:400 14px/20px var(--sans);color:var(--ts)}
+.sec-h .tag{font:500 12px/16px var(--mono);color:var(--ts)}
+.sec-h a,.sec-h .link{font:500 14px/20px var(--sans);color:var(--ts);text-decoration:none}
+.sec-h a:hover,.sec-h .link:hover{color:var(--tp)}
+.stack{display:flex;flex-direction:column;gap:16px}
+.stack-4{display:flex;flex-direction:column;gap:4px}
+.stack-8{display:flex;flex-direction:column;gap:8px}
+.stack-12{display:flex;flex-direction:column;gap:12px}
+.stack-24{display:flex;flex-direction:column;gap:24px}
+.hstack{display:flex;align-items:center;gap:8px}
+.spacer{flex:1}
+.mt-auto{margin-top:auto}
+.text-c{text-align:center}
+.text-s{color:var(--ts)}
+.text-err{color:var(--err)}
+.text-ok{color:var(--ok)}
+.nowrap{white-space:nowrap}
+.mono{font-family:var(--mono)}
+.link{border:0;background:none;padding:0;font:500 14px/20px var(--sans);color:var(--tp);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(26,26,26,.3);cursor:pointer}
+.link:hover{text-decoration-color:var(--tp)}
+.link.is-disabled,.link:disabled{color:var(--ts);text-decoration:none;pointer-events:none}

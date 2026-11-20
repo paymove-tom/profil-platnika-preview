@@ -1,0 +1,32 @@
+/* Sheety na telefonie: info kroku 3, checkout (marginesy, klawiatura is-kb) */
+/* krok 3 info: modal na pełny viewport na desktopie, żeby nie przewijać */
+html .sheet-layer:has(.au-in3){position:fixed;inset:0;z-index:60}
+@media (min-width:1024px){
+  html .sheet-layer:has(.au-in3){align-items:center;justify-content:center;padding:24px}
+  html .sheet.au-in3{max-height:calc(100dvh - 48px)}
+}
+
+/* checkout BLIK na telefonie: maksimum szerokości dla bramki (węższe marginesy, bez ramki wokół iframe) */
+@media (max-width:480px){
+  html .sheet-layer:has(.au-checkout){padding-left:6px;padding-right:6px}
+  html .sheet.au-checkout{padding:14px 8px 14px}
+  html .sheet.au-checkout .au-sh-head{padding:0 6px}
+  html .sheet.au-checkout .au-frame{border:0;border-radius:var(--r-card);padding:0;margin:0}
+  html .sheet.au-checkout .au-frame .checkout-frame{width:100%;min-width:0;border-radius:var(--r-card)}
+  html .sheet.au-checkout .au-sh-foot{padding:0 6px}
+}
+
+/* checkout BLIK na telefonie: otwarta klawiatura (klasa is-kb z s-auth.js), modal = visualViewport */
+@media (max-width:519px){
+  html .sheet-layer.is-kb:has(.au-checkout){top:var(--kbt,0px);bottom:auto;height:var(--kbh,100%);padding:6px;align-items:flex-start}
+  html .sheet.au-checkout.is-kb{height:100%;max-height:none;padding:8px 6px;gap:8px}
+  html .sheet.au-checkout.is-kb .au-sh-head{padding:0 4px;gap:8px}
+  html .sheet.au-checkout.is-kb .au-sh-head .meta{display:none}
+  html .sheet.au-checkout.is-kb .au-blik-chip.au-blik-chip--oc{padding:3px 5px}
+  html .sheet.au-checkout.is-kb .au-blik-chip.au-blik-chip--oc img{height:18px}
+  html .sheet.au-checkout.is-kb .au-x{width:28px;height:28px}
+  html .sheet.au-checkout.is-kb .au-sh-foot{display:none}
+  html .sheet.au-checkout.is-kb .au-frame{flex:1 1 auto;min-height:0;padding:0;margin:0}
+  html .sheet.au-checkout.is-kb .checkout-frame{flex:1 1 auto;height:auto;min-height:0}
+  html:has(.sheet-layer .sheet) .states-fab{display:none!important}
+}

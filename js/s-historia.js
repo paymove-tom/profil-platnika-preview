@@ -25,21 +25,7 @@
     { v: 'usluga', l: 'Usługi' }
   ];
 
-  PM.css(
-    '.hs-filters{display:flex;flex-direction:column;gap:12px}' +
-    '.hs-bots.is-all .chip-bot{opacity:1}' +
-    '.hs-active{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:32px}' +
-    '.hs-active .left{display:flex;align-items:center;gap:8px;min-width:0}' +
-    '.hs-top{display:flex;align-items:center;gap:12px;min-width:0}' +
-    '.hs-amt{display:flex;align-items:center;justify-content:space-between;gap:12px}' +
-    '.hs-amt .meta{min-width:0}' +
-    '.zw [hidden]{display:none!important}' +
-    '.zw .textarea{min-height:104px}' +
-    '.zw .radio-row span{min-width:0}' +
-    '.zw-sent-amt{display:flex;align-items:baseline;gap:10px}'
-  );
-
-  /* ---------- pomocnicze ---------- */
+    /* ---------- pomocnicze ---------- */
   function plural(n, one, few, many) {
     if (n === 1) return one;
     var m10 = n % 10, m100 = n % 100;
