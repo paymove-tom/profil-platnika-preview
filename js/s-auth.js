@@ -24,9 +24,9 @@
   var LOGO_INK = 'assets/logos/logo_paymove_ink.svg';
   var SYGNET = 'assets/logos/sygnet.svg';
   var BLIK_LOGO = 'assets/logos/blik-logo.svg';
-  var CHECKOUT_URL = 'https://checkout.paymove.io/411718ba-b114-427f-8bc9-bbf18a798936?externalId=N66P961V8g';
+  var CHECKOUT_URL = 'https://checkout.paymove.io/411718ba-b114-427f-8bc9-bbf18a798936?externalId=XJZFOAlPaq';
   /* stan "zapłacono" kluczowany externalId: nowy link = przycisk Gotowe znów nieaktywny */
-  var CHECKOUT_EXT = 'N66P961V8g';
+  var CHECKOUT_EXT = 'XJZFOAlPaq';
   var CHECKOUT_ORIGIN = 'https://checkout.paymove.io';
   /* tryb embed bramki: wysyła do rodzica paymove:ready/resize/success/error/closed (postMessage na podany origin) */
   function embedUrl() {
