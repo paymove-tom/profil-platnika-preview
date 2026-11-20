@@ -863,3 +863,11 @@ html .sheet-layer:has(.au-in3){position:fixed;inset:0;z-index:60}
   html .sheet.au-checkout .au-frame .checkout-frame{width:100%;min-width:0;border-radius:var(--r-card)}
   html .sheet.au-checkout .au-sh-foot{padding:0 6px}
 }
+
+/* klawiatura ekranowa (mobile): układ podąża za visualViewport, pole nad CTA */
+@media (max-width:1023px){
+  html.kb-open .app{height:var(--vvh,100%);min-height:0}
+  html.kb-open .states-fab{display:none!important}
+  html.kb-open .content{padding-bottom:120px;scroll-padding-bottom:120px}
+  html.kb-open .device .cta-bar,html.kb-open .device.has-tabbar .cta-bar{padding-bottom:16px}
+}
