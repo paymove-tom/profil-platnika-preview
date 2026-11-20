@@ -20,7 +20,6 @@ Stanów: 62. Dane w prototypie to mock.
 | Hash | Stan |
 |---|---|
 | `#/login` | Logowanie: Google, Apple, Facebook |
-| `#/onboarding/start` | Powitanie po logowaniu (adres i auto, każdy krok można pominąć) |
 | `#/onboarding/1` | Krok 1 · Adres |
 | `#/onboarding/2` | Krok 2 · Numer auta |
 | `#/onboarding/3` | Krok 3 · BLIK (portfel) |
