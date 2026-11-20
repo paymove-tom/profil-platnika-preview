@@ -850,7 +850,7 @@
     '.au-in3-step b{font-weight:500}' +
 
     /* notka i CTA */
-    '.au-in3-note{display:block;margin:0;font:400 13px/21px var(--sans);color:var(--ts);text-align:center;text-wrap:balance}' +
+    '.au-in3-note{display:block;margin:-5px 0 0;font:400 13px/21px var(--sans);color:var(--ts);text-align:center;text-wrap:balance}' +
     '.au-in3-note .ico{display:inline-block;vertical-align:-2px;margin:0 8px 0 0;width:14px;height:14px;opacity:.7}' +
     '.au-in3-cta.act-row{gap:13px}' +
     '.au-in3-cta.act-row .btn{height:50px}' +
@@ -883,9 +883,9 @@
           '<span class="au-in3-kick au-in" style="--d:.26s"><img src="' + BLIK_LOGO_FULL + '" alt="BLIK" height="22" draggable="false"><span>bez kodu</span></span>' +
           '<h2 class="au-in3-title au-in" style="--d:.32s">Zapłać i zapamiętaj sklep</h2>' +
           '<p class="au-in3-lead au-in" style="--d:.38s">W aplikacji banku wybierz <b>„Zapamiętaj sklep”</b>.</p>' +
+          '<p class="au-in3-note au-in" style="--d:.44s">' + PM.icon('information-line', 14) +
+            '<span>Dzięki temu kolejne płatności nie będą korzystać z kodów BLIK.</span></p>' +
         '</div>' +
-        '<p class="au-in3-note au-in" style="--d:.5s">' + PM.icon('information-line', 14) +
-          '<span>Dzięki temu kolejne płatności botów idą bez kodu.</span></p>' +
         '<div class="act-row au-in3-cta au-in" style="--d:.58s">' +
           PM.btn('Wróć', { variant: 'secondary', href: '#/onboarding/3', cls: 'press au-in3-back' }) +
           PM.btn('Rozumiem, dalej', { variant: 'primary', href: '#/onboarding/3/checkout', cls: 'press', iconRight: 'arrow-right-s-line' }) +
