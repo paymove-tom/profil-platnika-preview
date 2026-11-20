@@ -8,7 +8,7 @@ html .sheet.au-checkout .au-sh-head .meta{font-size:12px;line-height:16px}
 html .sheet.au-checkout .au-blik-chip{height:32px}
 html .sheet.au-checkout .au-blik-chip img{height:20px}
 html .sheet.au-checkout .au-x{width:32px;height:32px}
-.au-newtab{flex:none;font:500 12px/16px var(--sans);color:var(--ts);text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+.au-newtab{flex:none;font:var(--t-12-500-16);color:var(--ts);text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
 .au-newtab:hover{color:var(--tp)}
 .au-newtab--foot{align-self:center;margin:0 0 8px;padding:2px 0}
 html .sheet.au-checkout .au-sh-title{min-width:0;overflow:hidden;text-overflow:ellipsis}
@@ -24,10 +24,10 @@ html .sheet.au-checkout .au-sh-foot{flex:none;gap:0}
 
 /* checkout: status płatności nad przyciskiem Gotowe */
 html .sheet.au-checkout .au-sh-foot{gap:8px}
-.au-pay-st{display:flex;align-items:center;justify-content:center;gap:6px;margin:0;font:500 12px/16px var(--sans);color:var(--ts);text-align:center}
+.au-pay-st{display:flex;align-items:center;justify-content:center;gap:6px;margin:0;font:var(--t-12-500-16);color:var(--ts);text-align:center}
 .au-pay-st .ico{width:14px;height:14px;opacity:.7;flex:none}
 .au-pay-st.is-ok{color:var(--tp)}
 .au-pay-st.is-err{color:var(--err,#d92d20)}
-.au-pay-ok{width:16px;height:16px;border-radius:50%;flex:none;background:var(--ok,#16a34a) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.3l2.2 2.2L11.5 5.7' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;animation:au-pop .32s cubic-bezier(.2,.8,.2,1) both}
+.au-pay-ok{width:16px;height:16px;border-radius:50%;flex:none;background:var(--ok,#16a34a) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.3l2.2 2.2L11.5 5.7' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;animation:au-pop .32s var(--ease-out) both}
 @keyframes au-pop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
 html .sheet.au-checkout [data-blik-done]:disabled{opacity:.42;cursor:not-allowed;box-shadow:none}
