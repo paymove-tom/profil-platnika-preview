@@ -218,19 +218,23 @@ function duo(size) {
 }
 
 /* krok onboardingu: pasek postępu, wstecz, animowany kontener */
+
+/* onb-kroki: wstecz w dolnym pasku obok głównego przycisku (kwadrat ~16% szerokości) */
 function obScreen(n, ctx, o) {
   var a = auth();
   var anim = (ctx && ctx.isBase) || a.obStill ? ' au-still' : (a.obDir === 'back' ? ' au-back' : '');
-  var segs = '';
+  var dir = anim === ' au-still' ? 'still' : (anim === ' au-back' ? 'back' : 'fwd');
+  var names = ['Adres', 'Auto', 'BLIK'];
+  var name = names[n - 1] || '';
+  var dots = '';
   for (var i = 1; i <= STEPS; i++) {
-    segs += '<i class="' + (i < n ? 'is-done' : i === n ? 'is-active' : '') + '"></i>';
+    dots += '<i class="' + (i < n ? 'is-done' : i === n ? 'is-active' : '') + '"></i>';
   }
-  var backHref = n === 1 ? '#/login' : '#/onboarding/' + (n - 1);
   var header =
-    '<header class="hdr au-ob-hdr">' +
-      '<a class="hdr-back press" href="' + backHref + '" data-ob-back aria-label="Wstecz">' + PM.icon('arrow-left-s-line', 20) + '</a>' +
-      '<div class="ob-progress" role="progressbar" aria-label="Postęp" aria-valuemin="1" aria-valuemax="' + STEPS + '" aria-valuenow="' + n + '">' + segs + '</div>' +
-      '<span class="au-hdr-sp" aria-hidden="true"></span>' +
+    '<header class="hdr au-ob-hdr au-ob-hdr--dots" data-ob-dir="' + dir + '">' +
+      '<div class="ob-dots" role="progressbar" aria-label="Postęp konfiguracji" aria-valuemin="1" aria-valuemax="' + STEPS + '" aria-valuenow="' + n + '" aria-valuetext="' + PM.esc('Krok ' + n + ' z ' + STEPS + (name ? ': ' + name : '')) + '">' +
+        dots +
+      '</div>' +
     '</header>';
   return PM.screen({
     title: o.title,
@@ -243,7 +247,7 @@ function obScreen(n, ctx, o) {
         '<div class="stack-24">' +
           (o.top || '') +
           '<div class="auth-head">' +
-            '<span class="ob-kicker">Krok ' + n + ' z ' + STEPS + '</span>' +
+            '<span class="ob-kicker" aria-hidden="true">Krok ' + n + ' z ' + STEPS + (name ? ' · ' + PM.esc(name) : '') + '</span>' +
             '<h1 class="title">' + PM.esc(o.title) + '</h1>' +
             (o.lead ? '<p class="lead-text">' + o.lead + '</p>' : '') +
           '</div>' +
@@ -252,6 +256,17 @@ function obScreen(n, ctx, o) {
       '</div>',
     cta: o.cta
   });
+}
+function obBackBtn(n) {
+  // Krok 1: nieaktywny. Pozycja i szerokość głównego przycisku są identyczne na wszystkich krokach (pamięć mięśniowa),
+  // a celowo nie prowadzimy z powrotem do #/login. Bez href i bez data-ob-back, więc nie ustawia kierunku animacji.
+  if (n <= 1) {
+    return '<button type="button" class="btn btn--secondary btn--icon ob-back press is-disabled" disabled aria-disabled="true" aria-label="Wstecz">' + PM.icon('arrow-left-s-line', 22) + '</button>';
+  }
+  return '<a class="btn btn--secondary btn--icon ob-back press" href="#/onboarding/' + (n - 1) + '" data-ob-back aria-label="Wstecz">' + PM.icon('arrow-left-s-line', 22) + '</a>';
+}
+function obNav(n, primaryHtml) {
+  return '<div class="act-row ob-nav">' + obBackBtn(n) + primaryHtml + '</div>';
 }
 
 /* zwraca false dla ekranu bazowego pod sheetem */
@@ -390,10 +405,8 @@ PM.route('#/onboarding/1', {
             PM.field({ id: 'ob-miasto', name: 'address-level2', label: 'Miasto', value: a.miasto, placeholder: 'np. Warszawa', autocomplete: 'address-level2', attrs: { enterkeyhint: 'done' } }) +
           '</div>' +
         '</form>',
-      cta: PM.actions({
-        primary: { label: 'Zapisz i dalej', cls: 'press', attrs: { 'data-ob-next': '' } },
-        extra: PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/2', cls: 'press' })
-      })
+      cta: obNav(1, PM.btn('Zapisz i dalej', { variant: 'primary', cls: 'press', attrs: { 'data-ob-next': '' } })) +
+        PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/2', cls: 'press' })
     });
   },
   mount: function (root, ctx) {
@@ -455,10 +468,8 @@ PM.route('#/onboarding/2', {
           attrs: { autocapitalize: 'characters', spellcheck: 'false' },
           hint: 'Kolejne auta dodasz w Moich danych.'
         }),
-      cta: PM.actions({
-        primary: { label: 'Dalej', cls: 'press', attrs: { 'data-ob-next': '' } },
-        extra: PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/3', cls: 'press' })
-      })
+      cta: obNav(2, PM.btn('Dalej', { variant: 'primary', cls: 'press', attrs: { 'data-ob-next': '' } })) +
+        PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/3', cls: 'press' })
     });
   },
   mount: function (root, ctx) {
@@ -649,8 +660,8 @@ var BLIK_LOGO_FULL = 'assets/logos/blik-logo.svg';
 
 /* Przycisk w stylu BLIK bez kodu. Ma klasy btn / btn--primary i siedzi w .act-row,
    więc wysokość (48px), max-width (360/400) i układ dziedziczy z dotychczasowego primary. */
-function blikOneClickBtn(href) {
-  return '<div class="act-row">' +
+function blikOneClickBtn(href, step) {
+  return '<div class="act-row' + (step ? ' ob-nav' : '') + '">' + (step ? obBackBtn(step) : '') +
     '<a class="btn btn--primary au-blikbtn press" href="' + PM.esc(href) + '" aria-label="Podepnij BLIK bez kodu">' +
       '<span class="au-blikbtn-txt" aria-hidden="true">Podepnij</span>' +
       '<img class="au-blikbtn-logo" src="' + BLIK_LOGO_FULL + '" alt="" height="24" draggable="false">' +
@@ -662,7 +673,7 @@ function blikOneClickBtn(href) {
 function vCta(hash) {
   /* Mikrokopii pod przyciskiem nie dodajemy, bo lead mówi już o potwierdzeniu w aplikacji banku. */
   /* Najpierw objaśnienie (zapłać i zapamiętaj sklep), dopiero z niego wchodzimy do bramki. */
-  return blikOneClickBtn(hash + '/info') +
+  return blikOneClickBtn(hash + '/info', 3) +
     PM.actions({
       extra: PM.btn('Zrobię to później', { variant: 'ghost', block: true, cls: 'press', attrs: { 'data-ob-later': '' } })
     });

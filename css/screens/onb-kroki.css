@@ -1,0 +1,21 @@
+/* onb-kroki.css – opcja B: kropki iOS z licznikiem */
+.au-ob-hdr.au-ob-hdr--dots{display:flex;align-items:center;justify-content:center;gap:0;height:56px;padding:0 16px}
+.au-ob-hdr .ob-dots{display:flex;align-items:center;gap:8px;height:8px}
+.au-ob-hdr .ob-dots>i{position:relative;display:block;width:8px;height:8px;border-radius:4px;background:var(--track);overflow:hidden;flex:none}
+.au-ob-hdr .ob-dots>i.is-done{background:var(--tp)}
+.au-ob-hdr .ob-dots>i.is-active{width:28px}
+.au-ob-hdr .ob-dots>i.is-active::after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--tp);transform-origin:left center}
+.au-ob-hdr[data-ob-dir="fwd"] .ob-dots>i.is-active::after{animation:obB-grow .5s var(--ease-out) .08s both}
+.au-ob-hdr[data-ob-dir="back"] .ob-dots>i.is-active::after{transform-origin:right center;animation:obB-grow .5s var(--ease-out) .08s both}
+
+/* dolny pasek: wstecz jako koło 58 px (~15%), na kroku 1 wyszarzony */
+.au-ob .ob-nav{align-items:stretch}
+.au-ob .ob-nav .ob-back{width:58px;height:58px;flex:none;border-radius:50%}
+.au-ob .ob-nav .ob-back.is-disabled{opacity:.4;background:transparent;border-color:var(--border);box-shadow:none;cursor:default}
+
+@keyframes obB-grow{from{transform:scaleX(.29)}to{transform:scaleX(1)}}
+
+@media (prefers-reduced-motion:reduce){
+  .au-ob-hdr *,.au-ob-hdr *::after{animation:none!important;transition:none!important}
+  .au-ob .ob-step,.au-ob .ob-step>*{animation:none!important}
+}
