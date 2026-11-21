@@ -42,8 +42,9 @@ export const header = PM.header = function (o) {
       : '<a class="hdr-back" href="#" data-back aria-label="Wstecz">' + PM.icon('arrow-left-s-line', 20) + '</a>';
   }
   var tag = o.tag ? '<span class="ex-tag">' + esc(o.tag) + '</span>' : '';
-  return '<header class="hdr"' + (o.title ? ' aria-label="' + esc(o.title) + '"' : '') + '>' +
-    back + '<img class="hdr-logo" src="' + LOGO_INK + '" alt="Paymove" width="103" height="18">' + tag +
+  /* t418: logo Paymove nie jest już w nagłówku (jest w stopce, PM.brandFoot); pusty nagłówek = odstęp od góry */
+  return '<header class="hdr' + (back || tag ? '' : ' hdr--bare') + '"' + (o.title ? ' aria-label="' + esc(o.title) + '"' : '') + '>' +
+    back + tag +
     '</header>';
 };
 
@@ -70,6 +71,11 @@ export const actions = PM.actions = function (o) {
   if (o.extra) out += o.extra;
   if (o.legal) out += '<p class="legal">' + o.legal + '</p>';
   return out;
+};
+
+/* t418: stopka z logo Paymove (małe, wyszarzone, na końcu treści) */
+export const brandFoot = PM.brandFoot = function () {
+  return '<div class="pm-foot"><img src="' + LOGO_INK + '" alt="Paymove" width="80" height="14" loading="lazy" decoding="async"></div>';
 };
 
 export const screen = PM.screen = function (o) {

@@ -99,6 +99,35 @@ function callRender(def, ctx) {
   return out == null ? '' : String(out);
 }
 
+/* t418: logo Paymove w stopce na wszystkich ekranach poza dashboardem (Portfel).
+   Ekrany przepływu (onboarding, login, zgoda, gotowe, dodaj BLIK): na końcu dolnego paska akcji, pod linkami.
+   Pozostałe: na końcu przewijanej treści, nad tab barem. */
+var NO_FOOT = { '#/portfel': 1, '#/portfel/bez-blik': 1 };
+function placeBrandFoot(scr, path) {
+  if (!scr || !path || NO_FOOT[path] || scr.querySelector('.pm-foot')) return;
+  var wrap = document.createElement('div');
+  wrap.innerHTML = PM.brandFoot();
+  var foot = wrap.firstChild;
+  var flow = scr.matches('.au-ob, .au-done, .au-login, .au-addblik') || /^#\/(zgoda|login|onboarding)/.test(path);
+  var cta = scr.querySelector(':scope > .cta-bar');
+  var content = scr.querySelector(':scope > .content');
+  if (flow && cta) { foot.classList.add('pm-foot--cta'); cta.appendChild(foot); }
+  else if (content) content.appendChild(foot);
+}
+
+/* t417: tryb dokumentu onboardingu jako klasa na <html> (zamiast samego :has, które WebKit potrafi
+   nie przeliczyć po podmianie ekranu); po wyjściu z onboardingu przewinięcie dokumentu wraca na 0 */
+function syncDocMode() {
+  var ob = !!(els.view && els.view.querySelector(':scope > .screen.au-ob'));
+  var was = document.documentElement.classList.contains('pm-ob-doc');
+  document.documentElement.classList.toggle('pm-ob-doc', ob);
+  if (was && !ob) {
+    try { window.scrollTo(0, 0); } catch (e) {}
+    if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
+}
+
 function wrapScreen(out, def) {
   if (/^\s*<(section|div)[^>]*class="[^"]*\bscreen\b/.test(out)) return out;
   return PM.screen({ content: out, back: def && def.back, cls: def && def.screenClass, cta: def && def.cta });
@@ -297,6 +326,7 @@ export function render() {
   if (mode === 'full') {
     if (SHOT) els.toasts.innerHTML = '';
     els.view.innerHTML = screenHtml;
+    placeBrandFoot(els.view.querySelector(':scope > .screen'), def && def.sheet ? (baseDef && baseDef.hash) : sp.path);
     if (sheetHtml) layer = insertSheet(sheetHtml, def);
     /* przed pierwszym paintem: bez animacji wejścia przy powrotach */
     if (seen[screenKey] || (lastTab && tab) || sameHash) finishEntrance(els.view);
@@ -370,6 +400,7 @@ export function render() {
 
   if (html.classList.contains('is-booting')) setTimeout(function () { html.classList.remove('is-booting'); }, 400);
   html.setAttribute('data-pm-ready', sp.path || '');
+  syncDocMode();
   try { document.dispatchEvent(new CustomEvent('pm:render', { detail: { hash: sp.hash, path: sp.path } })); } catch (e5) {}
 }
 PM.render = render;

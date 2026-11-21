@@ -1,0 +1,8 @@
+/* Obszary dotyku min. 44x44 px (WCAG 2.5.8 AA = 24 px, cel Apple HIG = 44 px).
+   Powiększenie jest niewidoczne: przezroczysty ::before wokół kontrolki, wygląd bez zmian. */
+.chip,.chip-bot,.textbtn,.link,.hdr-back,.au-x,.pf-x,.toggle,.switch,.seg-item,.btn--sm,.btn--danger,.au-newtab,.sec-h a{position:relative}
+.chip::before,.chip-bot::before,.textbtn::before,.link::before,.hdr-back::before,.au-x::before,.pf-x::before,.toggle::before,.switch::before,.seg-item::before,.btn--sm::before,.btn--danger::before,.au-newtab::before,.sec-h a::before{content:"";position:absolute;left:50%;top:50%;width:max(100%,44px);height:max(100%,44px);transform:translate(-50%,-50%)}
+/* pola kwoty: input wypełnia całą wysokość pudełka (tekst nadal wyśrodkowany) */
+.money input{align-self:stretch}
+/* przewijany obszar dostępny z klawiatury: fokus bez ramki dla dotyku */
+.content[tabindex]:focus:not(:focus-visible){outline:none}

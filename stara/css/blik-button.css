@@ -1,0 +1,95 @@
+/* Przycisk BLIK bez kodu (krok 3) i chip w nagłówku sheetu */
+/* =====================================================================
+   BLIK bez kodu: przycisk kroku 3 + chip w nagłówku sheetu checkout
+   ===================================================================== */
+html .au-blikbtn.btn.btn--primary {
+  position: relative;
+  width: 100%;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding-inline: 16px;
+  color: #fff;
+  font: var(--t-btn);
+  letter-spacing: var(--tr-btn);
+  text-decoration: none;
+  /* Czarne wnętrze i cienka obwódka z gradientem w barwach kropki BLIK */
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#000, #000) padding-box,
+    linear-gradient(100deg, #ff0000 0%, #e83e49 45%, #e6007e 100%) border-box;
+  box-shadow:
+    0 8px 20px -10px rgba(230, 0, 126, .55),
+    0 2px 6px -2px rgba(255, 0, 0, .25);
+  transition: background .18s ease, box-shadow .18s ease, transform .12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+html .au-blikbtn.btn.btn--primary:hover {
+  color: #fff;
+  background:
+    linear-gradient(#161616, #161616) padding-box,
+    linear-gradient(100deg, #ff1f1f 0%, #ee4d5a 45%, #ff1a95 100%) border-box;
+  box-shadow:
+    0 10px 24px -10px rgba(230, 0, 126, .65),
+    0 2px 8px -2px rgba(255, 0, 0, .3);
+}
+html .au-blikbtn.btn.btn--primary:active {
+  transform: scale(.98);
+  background:
+    linear-gradient(#1c1c1c, #1c1c1c) padding-box,
+    linear-gradient(100deg, #ff0000 0%, #e83e49 45%, #e6007e 100%) border-box;
+  box-shadow: 0 4px 12px -8px rgba(230, 0, 126, .6);
+}
+html .au-blikbtn.btn.btn--primary:focus-visible {
+  outline: 2px solid #e6007e;
+  outline-offset: 3px;
+}
+html .au-blikbtn-txt {
+  color: #fff;
+  font: inherit;
+  line-height: 1;
+  white-space: nowrap;
+}
+html .au-blikbtn-logo {
+  display: block;
+  flex: none;
+  height: 24px;
+  width: auto;          /* proporcje z viewBox, bez zniekształceń */
+  max-width: none;
+  margin-inline: 6px;   /* pole ochronne logo */
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Chip w nagłówku sheetu, spójny z przyciskiem */
+html .au-blik-chip.au-blik-chip--oc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: auto;
+  height: auto;
+  padding: 5px 6px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#000, #000) padding-box,
+    linear-gradient(135deg, #ff0000 0%, #e6007e 100%) border-box;
+  box-shadow: 0 6px 14px -8px rgba(230, 0, 126, .5);
+}
+html .au-blik-chip.au-blik-chip--oc img {
+  display: block;
+  height: 22px;
+  width: auto;
+  max-width: none;
+}
+
+/* Bez animacji: reduced motion i zrzuty */
+@media (prefers-reduced-motion: reduce) {
+  html .au-blikbtn.btn.btn--primary { transition: none; }
+  html .au-blikbtn.btn.btn--primary:active { transform: none; }
+}
+html.is-shot .au-blikbtn.btn.btn--primary { transition: none; }
+html.is-shot .au-blikbtn.btn.btn--primary:active { transform: none; }

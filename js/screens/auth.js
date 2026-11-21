@@ -162,9 +162,8 @@ function onEnter(inp, fn) {
 
 /* ---------- wspólne ekrany ---------- */
 function brandHeader() {
-  return '<header class="hdr au-hdr">' +
-    '<span class="au-brand"><img src="' + LOGO_INK + '" alt="Paymove" width="126" height="22"><span class="au-wallet">Wallet</span></span>' +
-    '</header>';
+  /* t418: logo przeniesione do stopki; nagłówek zostaje pusty, żeby układ loginu się nie przesunął */
+  return '<header class="hdr au-hdr" aria-hidden="true"></header>';
 }
 
 function statusScreen(o) {
@@ -673,10 +672,6 @@ function vcBody() {
                 '</div>' +
               '</div>' +
             '</div>' +
-          '</div>' +
-          '<div class="au-vc-pts au-in" style="--d:.6s">' +
-            '<span class="au-vc-pt">' + PM.icon('shield-check-line', 14) + 'Limity ustawiasz sam</span>' +
-            '<span class="au-vc-pt">' + PM.icon('check-line', 14) + 'Odłączysz kiedy chcesz</span>' +
           '</div>' +
         '</div>'
   );

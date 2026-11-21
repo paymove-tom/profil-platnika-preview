@@ -279,3 +279,6 @@ button.check-row:hover {background:rgba(255,255,255,.45)}
   .sheet.au-in3,.au-in3 *,.au-in3 *::before,.au-in3 *::after {animation:none!important}
 }
 .is-shot .sheet.au-in3,.is-shot .au-in3 *,.is-shot .au-in3 *::before,.is-shot .au-in3 *::after {animation:none!important}
+/* t421: bez badge'y pod kartą – karta wyśrodkowana w wolnym miejscu między nagłówkiem a przyciskiem (równe odstępy) */
+.content:has(.au-vc) > .ob-step,.content:has(.au-vc) > .ob-step > .stack-24,.content:has(.au-vc) > .stack-24{flex:1 0 auto}
+.stack-24 > .au-vc{margin-block:auto}

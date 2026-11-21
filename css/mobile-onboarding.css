@@ -1,12 +1,12 @@
 /* Onboarding na telefonie: przewijany dokument, przyklejony nagłówek */
 /* onboarding (mobile): przewija się dokument, nagłówek z postępem przyklejony, pole nad klawiaturą */
 @media (max-width:1023px){
-  html:has(.screen.au-ob),html:has(.screen.au-ob) body{height:auto;min-height:100%;overflow:visible}
-  html:has(.screen.au-ob) .app,html:has(.screen.au-ob) .stage,html:has(.screen.au-ob) .device,html:has(.screen.au-ob) .view,html:has(.screen.au-ob) .screen.au-ob{height:auto;min-height:100dvh;flex:none;display:flex;flex-direction:column;overflow:visible}
-  html:has(.screen.au-ob) .screen.au-ob .content{flex:1 0 auto;min-height:0;overflow:visible;padding-bottom:24px}
-  html:has(.screen.au-ob) .au-ob-hdr{position:sticky;top:0;z-index:30;background:var(--bg)}
-  html:has(.screen.au-ob) .au-ob .field{scroll-margin-top:calc(56px + 24px + env(safe-area-inset-top))}
-  html:has(.screen.au-ob) .au-ob .cta-bar{position:static}
+  html.pm-ob-doc,html.pm-ob-doc body{height:auto;min-height:100%;overflow:visible}
+  html.pm-ob-doc .app,html.pm-ob-doc .stage,html.pm-ob-doc .device,html.pm-ob-doc .view,html.pm-ob-doc .screen.au-ob{height:auto;min-height:100dvh;flex:none;display:flex;flex-direction:column;overflow:visible}
+  html.pm-ob-doc .screen.au-ob .content{flex:1 0 auto;min-height:0;overflow:visible;padding-bottom:24px}
+  html.pm-ob-doc .au-ob-hdr{position:sticky;top:0;z-index:30;background:var(--bg)}
+  html.pm-ob-doc .au-ob .field{scroll-margin-top:calc(56px + 24px + env(safe-area-inset-top))}
+  html.pm-ob-doc .au-ob .cta-bar{position:static}
   /* t406/5: dolne przyciski (Pomiń na razie / Zrobię to później) dalej od krawędzi i home indicatora */
   html .screen:is(.au-ob,.au-done) .cta-bar{padding-bottom:calc(max(16px, env(safe-area-inset-bottom)) + 16px)}
   html:has(.au-ob input:focus) .states-fab{display:none!important}

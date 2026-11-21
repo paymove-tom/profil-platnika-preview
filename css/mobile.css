@@ -12,7 +12,7 @@
   .device:not(.has-tabbar) .screen>.content:last-child{padding-bottom:max(24px,env(safe-area-inset-bottom))}
   .cta-bar{padding-left:16px;padding-right:16px}
   /* onboarding: dokument przewija się sam, shell wraca do przepływu */
-  html:has(.screen.au-ob) .app{position:relative;inset:auto}
+  html.pm-ob-doc .app{position:relative;inset:auto}
   /* FAB Stany: mały, z lewej, nad tab barem */
   .states-fab{left:8px;right:auto;bottom:calc(max(8px,env(safe-area-inset-bottom)) + 66px);width:36px;height:36px;opacity:.55}
   .states-fab:hover,.states-fab[aria-expanded="true"]{opacity:1;transform:none}

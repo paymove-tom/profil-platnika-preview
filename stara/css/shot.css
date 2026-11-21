@@ -1,0 +1,9 @@
+/* Tryb zrzutów ?shot=1 i reduced motion */
+.is-shot *,.is-shot *::before,.is-shot *::after{animation:none!important;transition:none!important;caret-color:transparent!important}
+.is-shot .states-fab,.is-shot .states-scrim,.is-shot .states-drawer{display:none!important}
+.is-shot .toast.is-leaving{opacity:1}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .spinner,.btn.is-loading::after{animation:pm-spin 1.6s linear infinite!important}
+}

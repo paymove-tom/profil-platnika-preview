@@ -73,7 +73,7 @@ function onKey(e) {
 }
 
 /* ---------- onboarding: pole nad klawiaturą (mobile) ----------
-   Na mobile ekrany .au-ob przewijają cały dokument (CSS: html:has(.screen.au-ob)),
+   Na mobile ekrany .au-ob przewijają cały dokument (CSS: html.pm-ob-doc, ustawiane w routerze),
    iOS sam przewija do pola. Tu tylko korekta, gdy pole zostało pod przyklejonym
    nagłówkiem albo poza widocznym obszarem. Bez scrollTo, bez wymuszania wysokości. */
 function initObFocus() {

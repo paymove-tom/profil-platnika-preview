@@ -1,0 +1,70 @@
+/* Typografia: tokeny ról tekstu, warianty A/B/C (html[data-typo]) – opis: ds-typografia/design-system.md */
+:root{
+/* kolory hierarchii z /workspace/figma/colors/tokens.json, motyw Porcelain Metal (text-secondary 7.3:1, text-tertiary 5.3:1 na #f2f3f7) */
+--text-secondary:#525256;--text-tertiary:#68696C;
+--tx-1:var(--tp);--tx-2:var(--text-secondary);--tx-3:var(--text-tertiary);--ts:var(--tx-2);
+--t-display:500 40px/40px var(--sans);--tr-display:-0.06em;
+--t-h1:500 32px/32px var(--sans);--tr-h1:-0.06em;
+--t-h2:500 24px/24px var(--sans);--tr-h2:-0.06em;
+--t-title:500 16px/19px var(--sans);--tr-title:-0.02em;
+--t-callout:400 16px/19px var(--sans);--tr-callout:-0.02em;
+--t-body:400 14px/17px var(--sans);--tr-body:-0.02em;
+--t-body-strong:500 14px/17px var(--sans);--tr-body-strong:-0.02em;
+--t-caption:400 12px/14px var(--sans);--tr-caption:-0.02em;
+--t-label:500 12px/14px var(--sans);--tr-label:-0.02em;
+--t-eyebrow:500 14px/17px var(--sans);--tr-eyebrow:-0.02em;
+--t-amount-xl:500 40px/40px var(--sans);--tr-amount-xl:-0.06em;
+--t-amount:500 16px/19px var(--sans);--tr-amount:-0.02em;
+--t-amount-sm:500 40px/40px var(--sans);--tr-amount-sm:-0.06em;
+--t-code:500 16px/20px var(--mono);--tr-code:0.02em;
+--t-code-lg:500 24px/28px var(--mono);--tr-code-lg:0.04em;
+--t-code-sm:500 13px/16px var(--mono);--tr-code-sm:0.02em;
+--t-btn:500 16px/22px var(--sans);--tr-btn:-0.02em;
+--t-btn-sm:500 14px/20px var(--sans);--tr-btn-sm:-0.02em;
+--t-tab:500 12px/16px var(--sans);--tr-tab:-0.02em;
+--t-input:400 16px/22px var(--sans);--tr-input:-0.02em;
+}
+html[data-typo="b"]{
+--t-display:500 32px/32px var(--sans);--tr-display:-0.05em;
+--t-h1:500 24px/24px var(--sans);--tr-h1:-0.04em;
+--t-h2:500 18px/20px var(--sans);--tr-h2:-0.03em;
+--t-title:500 15px/18px var(--sans);--tr-title:-0.02em;
+--t-callout:400 15px/18px var(--sans);--tr-callout:-0.015em;
+--t-body:400 14px/17px var(--sans);--tr-body:-0.01em;
+--t-body-strong:500 14px/17px var(--sans);--tr-body-strong:-0.01em;
+--t-caption:400 12px/14px var(--sans);--tr-caption:-0.01em;
+--t-label:500 12px/14px var(--sans);--tr-label:-0.01em;
+--t-eyebrow:500 12px/14px var(--sans);--tr-eyebrow:0em;
+--t-amount-xl:500 32px/32px var(--sans);--tr-amount-xl:-0.05em;
+--t-amount:500 15px/18px var(--sans);--tr-amount:-0.02em;
+--t-amount-sm:500 32px/32px var(--sans);--tr-amount-sm:-0.05em;
+--t-code:500 16px/20px var(--mono);--tr-code:0.02em;
+--t-code-lg:500 22px/26px var(--mono);--tr-code-lg:0.04em;
+--t-code-sm:500 12px/16px var(--mono);--tr-code-sm:0.02em;
+--t-btn:500 15px/22px var(--sans);--tr-btn:-0.01em;
+--t-btn-sm:500 14px/20px var(--sans);--tr-btn-sm:-0.01em;
+--t-tab:500 12px/16px var(--sans);--tr-tab:-0.01em;
+--t-input:400 16px/22px var(--sans);--tr-input:-0.01em;
+}
+html[data-typo="c"]{
+--t-display:500 48px/48px var(--sans);--tr-display:-0.06em;
+--t-h1:500 36px/36px var(--sans);--tr-h1:-0.05em;
+--t-h2:500 24px/26px var(--sans);--tr-h2:-0.04em;
+--t-title:500 16px/20px var(--sans);--tr-title:-0.02em;
+--t-callout:400 16px/22px var(--sans);--tr-callout:-0.01em;
+--t-body:400 14px/20px var(--sans);--tr-body:-0.01em;
+--t-body-strong:500 14px/20px var(--sans);--tr-body-strong:-0.01em;
+--t-caption:400 11px/14px var(--sans);--tr-caption:0.01em;
+--t-label:500 12px/16px var(--sans);--tr-label:0em;
+--t-eyebrow:500 11px/14px var(--mono);--tr-eyebrow:0.06em;
+--t-amount-xl:500 48px/48px var(--sans);--tr-amount-xl:-0.06em;
+--t-amount:500 16px/20px var(--sans);--tr-amount:-0.02em;
+--t-amount-sm:500 24px/24px var(--sans);--tr-amount-sm:-0.04em;
+--t-code:500 16px/20px var(--mono);--tr-code:0.02em;
+--t-code-lg:500 28px/32px var(--mono);--tr-code-lg:0.06em;
+--t-code-sm:500 12px/16px var(--mono);--tr-code-sm:0.02em;
+--t-btn:500 16px/22px var(--sans);--tr-btn:-0.01em;
+--t-btn-sm:500 14px/20px var(--sans);--tr-btn-sm:-0.01em;
+--t-tab:500 12px/16px var(--sans);--tr-tab:0em;
+--t-input:400 16px/22px var(--sans);--tr-input:-0.01em;
+}

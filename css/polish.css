@@ -134,3 +134,16 @@ html.pm-polish-on .toast span{text-wrap:balance}
 /* ---------- t416: pusty stan z wyśrodkowaną treścią – tytuł ekranu zostaje u góry (Historia pusta) ---------- */
 .screen.pm-polish .content--center > :first-child:not(.empty){margin-bottom:auto}
 .screen.pm-polish .content--center > .empty{margin-bottom:auto}
+
+/* ---------- t418: logo Paymove w stopce zamiast w nagłówku ---------- */
+/* pusty nagłówek (bez strzałki) = tylko odstęp od góry pod safe area (statusbar trzyma env(safe-area-inset-top));
+   w ekranach przepływu (onboarding, login, zgoda, gotowe) zostaje pełna wysokość, żeby układ się nie przesunął */
+.screen:not(.au-ob):not(.au-done):not(.au-login):not(.au-addblik):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) > .hdr.hdr--bare{height:clamp(12px, 1.8svh + 2px, 20px)}
+@media (min-width:1024px){
+  .screen:not(.au-ob):not(.au-done):not(.au-login):not(.au-addblik):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) > .hdr.hdr--bare{height:24px}
+}
+.pm-foot{flex:none;display:flex;justify-content:center;align-items:center;margin-top:auto;padding:var(--section-gap,24px) 0 4px;pointer-events:none;user-select:none;-webkit-user-select:none}
+.pm-foot img{display:block;height:14px;width:auto;opacity:.28}
+/* w dolnym pasku akcji przepływów: pod ostatnim linkiem, przed safe area; bez zmiany szerokości przycisków */
+.cta-bar > .pm-foot--cta{margin-top:0;padding:4px 0 0}
+.cta-bar > .pm-foot--cta img{height:12px}

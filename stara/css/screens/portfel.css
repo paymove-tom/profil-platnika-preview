@@ -1,0 +1,66 @@
+/* Ekran: portfel */
+.pf-in {animation:pf-in .42s var(--ease-out) both;animation-delay:var(--d,0ms)}
+@keyframes pf-in {
+  from {opacity:0;transform:translateY(8px)}
+  to {opacity:1;transform:none}
+}
+.pf-press {transition:transform .12s ease,background .15s ease}
+.pf-press:active {transform:scale(.98)}
+/* powitanie */
+.pf-hero {display:flex;align-items:center;gap:14px;padding:12px 0 8px}
+.pf-hi {font:var(--t-h1);letter-spacing:var(--tr-h1)}
+.pf-mail {font:var(--t-body);letter-spacing:var(--tr-body);color:var(--ts);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* karta BLIK */
+.pf-blik {position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:188px;padding:20px;border-radius:var(--r-card);border:1px solid rgba(255,255,255,.06);background:linear-gradient(160deg,#262626 0%,#000 68%);color:#fff;text-decoration:none;box-shadow:0 16px 36px -14px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12)}
+.pf-blik::before {content:"";position:absolute;right:-56px;top:-56px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#ff0000 0%,#e83e49 49%,#ff00ff 100%);opacity:.85}
+.pf-blik::after {content:"";position:absolute;right:-90px;top:-90px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(230,0,126,.28) 0%,rgba(230,0,126,0) 70%)}
+.pf-blik>* {position:relative;z-index:1}
+.pf-blik-logo {height:30px;width:auto}
+.pf-blik .pf-name {font:var(--t-h2);letter-spacing:var(--tr-h2)}
+.pf-blik .pf-sub {font:var(--t-body);letter-spacing:var(--tr-body);color:rgba(255,255,255,.62)}
+.pf-blik .pf-bank {font:var(--t-caption);letter-spacing:var(--tr-caption);text-transform:uppercase;color:rgba(255,255,255,.62)}
+.pf-row {display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pf-manage {display:inline-flex;align-items:center;gap:2px;height:32px;padding:0 10px 0 14px;border-radius:999px;background:rgba(255,255,255,.12);font:var(--t-btn-sm);letter-spacing:var(--tr-btn-sm);color:#fff}
+.pf-manage .ico {width:16px;height:16px;filter:invert(1)}
+/* karta BLIK bez podpięcia: komponent alertu w środku karty */
+.pf-blik--off {background:linear-gradient(160deg,#222 0%,#050505 70%)}
+.pf-blik--off::before {background:radial-gradient(circle at 30% 30%,#ffb020 0%,#ff7a1a 55%,#e8403a 100%);opacity:.34}
+.pf-blik--off::after {background:radial-gradient(circle,rgba(255,138,26,.22) 0%,rgba(255,138,26,0) 70%)}
+.pf-blik--off .pf-blik-logo {opacity:.92}
+.pf-badge--off {background:rgba(255,166,43,.18);color:#ffd9a0}
+.pf-badge--off .dot {background:#ffa62b}
+.pf-alert {display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border-radius:14px;background:rgba(255,166,43,.12);box-shadow:inset 0 0 0 1px rgba(255,166,43,.34)}
+.pf-alert svg {flex:none;width:22px;height:22px;margin-top:1px;color:#ffa62b}
+.pf-alert-t {font:var(--t-title);letter-spacing:var(--tr-title);color:#fff}
+.pf-alert-s {font:var(--t-body);letter-spacing:var(--tr-body);color:rgba(255,255,255,.66);margin-top:2px}
+.pf-connect {display:inline-flex;align-items:center;justify-content:center;gap:2px;width:100%;height:44px;padding:0 14px 0 18px;border-radius:999px;background:#fff;color:#0b0b0d;font:var(--t-btn);letter-spacing:var(--tr-btn)}
+.pf-connect .ico {width:18px;height:18px;filter:none}
+/* badge */
+.pf-badge {display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px 0 8px;border-radius:999px;font:var(--t-label);letter-spacing:var(--tr-label);white-space:nowrap;flex:none}
+.pf-badge .dot {width:6px;height:6px}
+.pf-badge--on {background:rgba(22,163,74,.22);color:#dcfce7}
+.pf-badge--on .dot {background:#22c55e}
+.pf-badge--ok {background:var(--ok-tint);color:var(--tp)}
+.pf-badge--ok .dot {background:var(--ok)}
+.pf-badge--soon {background:var(--chip);color:var(--ts);padding:0 10px}
+/* wkrótce: Visa, Mastercard */
+.pf-off {filter:grayscale(1);opacity:.55;pointer-events:none;user-select:none}
+.pf-off .row {padding:14px 16px}
+.pf-logo {width:56px;height:38px;flex:none;border-radius:8px;background:#fff;border:1px solid var(--tile-border);display:grid;place-items:center}
+.pf-logo svg {display:block}
+/* podepnij BLIK */
+.pf-add {display:flex;align-items:center;gap:14px;padding:16px;text-decoration:none;color:inherit;border-style:dashed;border-color:rgba(26,26,26,.16)}
+.pf-add:hover {background:var(--card-hover)}
+.pf-add-logo {width:56px;height:38px;flex:none;border-radius:8px;background:#000;display:grid;place-items:center}
+.pf-add-logo img {height:24px;width:auto}
+/* skróty */
+.pf-grid {display:grid;grid-template-columns:1fr 1fr;gap:8px}
+a.card.pf-tile {display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:118px;padding:16px;text-decoration:none;color:inherit}
+.pf-tile .thumb {width:40px;height:40px;border-radius:12px}
+.pf-tile .meta {overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* sheet zarządzania */
+.pf-sh-top {display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pf-sh-logo {height:34px;width:auto}
+.pf-x {width:36px;height:36px;flex:none;border-radius:50%;background:var(--chip);display:grid;place-items:center;text-decoration:none}
+.pf-x:hover {background:var(--chip-hover)}
+.pf-x .ico {width:18px;height:18px}

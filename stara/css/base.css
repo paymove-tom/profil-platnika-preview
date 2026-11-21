@@ -1,0 +1,16 @@
+/* Reset i baza */
+/* ---------- baza ---------- */
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg)}
+body{font-family:var(--sans);color:var(--tp);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent;overflow:hidden}
+button,input,textarea,select,output{font-family:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3,p{margin:0}
+.noscript{padding:24px;font:var(--t-title);letter-spacing:var(--tr-title)}
+:focus-visible{outline:2px solid var(--tp);outline-offset:2px}
+::selection{background:rgba(26,26,26,.12)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* brak opóźnienia dotyku i podwójnego tapnięcia-zoomu na kontrolkach */
+a,button,input,select,textarea,label,[role="button"],[role="switch"]{touch-action:manipulation}

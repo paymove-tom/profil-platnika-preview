@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pl" data-typo="b">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#f2f3f7">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Paymove Wallet: logowanie, onboarding z BLIK, portfel, historia zakupów botów, zwroty i limity.">
+<title>Paymove Wallet (stara wersja e2bf5c3)</title>
+<link rel="icon" type="image/svg+xml" href="assets/logos/sygnet.svg">
+<link rel="stylesheet" href="css/fonts.css?v=1795218204">
+<link rel="stylesheet" href="css/tokens.css?v=1795218204">
+<link rel="stylesheet" href="css/typography.css?v=1795218204">
+<link rel="stylesheet" href="css/base.css?v=1795218204">
+<link rel="stylesheet" href="css/shell.css?v=1795218204">
+<link rel="stylesheet" href="css/cards.css?v=1795218204">
+<link rel="stylesheet" href="css/actions.css?v=1795218204">
+<link rel="stylesheet" href="css/forms.css?v=1795218204">
+<link rel="stylesheet" href="css/feedback.css?v=1795218204">
+<link rel="stylesheet" href="css/chrome.css?v=1795218204">
+<link rel="stylesheet" href="css/touch.css?v=1795218204">
+<link rel="stylesheet" href="css/responsive.css?v=1795218204">
+<link rel="stylesheet" href="css/animations.css?v=1795218204">
+<link rel="stylesheet" href="css/shot.css?v=1795218204">
+<link rel="stylesheet" href="css/checkout.css?v=1795218204">
+<link rel="stylesheet" href="css/blik-button.css?v=1795218204">
+<link rel="stylesheet" href="css/mobile-sheets.css?v=1795218204">
+<link rel="stylesheet" href="css/mobile-onboarding.css?v=1795218204">
+<link rel="stylesheet" href="css/mobile.css?v=1795218204">
+<link rel="stylesheet" href="css/app-shell.css?v=1795218204">
+<link rel="stylesheet" href="css/screens/auth.css?v=1795218204">
+<link rel="stylesheet" href="css/screens/portfel.css?v=1795218204">
+<link rel="stylesheet" href="css/screens/dane.css?v=1795218204">
+<link rel="stylesheet" href="css/screens/historia.css?v=1795218204">
+<link rel="stylesheet" href="css/screens/boty.css?v=1795218204">
+<link rel="stylesheet" href="css/screens/limity.css?v=1795218204">
+<link rel="stylesheet" href="css/screens/zakupy.css?v=1795218204">
+<script>
+  /* Tryb zrzutów: ?shot=1 wyłącza animacje i panel Stany jeszcze przed pierwszym renderem */
+  (function () {
+    var q = location.search || '';
+    if (/[?&]shot=1(&|$)/.test(q)) document.documentElement.classList.add('is-shot');
+    else document.documentElement.classList.add('is-booting');
+    /* Wariant typografii: ?typo=a|b|c (zapamiętany w sessionStorage), domyślnie z data-typo na <html> */
+    var m = q.match(/[?&]typo=([abc])(&|$)/), t = null;
+    try { if (m) sessionStorage.setItem('pm-stara-typo', m[1]); t = sessionStorage.getItem('pm-stara-typo'); } catch (e) { t = m && m[1]; }
+    if (t) document.documentElement.setAttribute('data-typo', t);
+  })();
+</script>
+</head>
+<body>
+<div id="app" class="app" data-app>
+  <noscript>
+    <div class="noscript">Prototyp wymaga włączonego JavaScriptu.</div>
+  </noscript>
+</div>
+
+<script type="importmap">
+  {
+    "imports": {
+      "./js/main.js": "./js/main.js?v=1795218204",
+      "./js/data.js": "./js/data.js?v=1795218204",
+      "./js/core/behaviors.js": "./js/core/behaviors.js?v=1795218204",
+      "./js/core/components.js": "./js/core/components.js?v=1795218204",
+      "./js/core/env.js": "./js/core/env.js?v=1795218204",
+      "./js/core/events.js": "./js/core/events.js?v=1795218204",
+      "./js/core/index.js": "./js/core/index.js?v=1795218204",
+      "./js/core/overlay.js": "./js/core/overlay.js?v=1795218204",
+      "./js/core/pm.js": "./js/core/pm.js?v=1795218204",
+      "./js/core/router.js": "./js/core/router.js?v=1795218204",
+      "./js/core/shell.js": "./js/core/shell.js?v=1795218204",
+      "./js/core/state.js": "./js/core/state.js?v=1795218204",
+      "./js/core/timers.js": "./js/core/timers.js?v=1795218204",
+      "./js/core/util.js": "./js/core/util.js?v=1795218204",
+      "./js/screens/auth.js": "./js/screens/auth.js?v=1795218204",
+      "./js/screens/boty.js": "./js/screens/boty.js?v=1795218204",
+      "./js/screens/dane.js": "./js/screens/dane.js?v=1795218204",
+      "./js/screens/historia.js": "./js/screens/historia.js?v=1795218204",
+      "./js/screens/limity.js": "./js/screens/limity.js?v=1795218204",
+      "./js/screens/portfel.js": "./js/screens/portfel.js?v=1795218204",
+      "./js/screens/zakupy.js": "./js/screens/zakupy.js?v=1795218204"
+    }
+  }
+</script>
+<script>
+  /* import map (cache busting modułów) wymaga Safari 16.4+ / Chrome 89+ */
+  if (!(window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports('importmap'))) {
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('app').innerHTML = '<div class="noscript">Ta przeglądarka jest za stara. Zaktualizuj system lub użyj nowszej przeglądarki.</div>';
+    });
+  }
+</script>
+<link rel="modulepreload" href="js/data.js?v=1795218204">
+<link rel="modulepreload" href="js/core/behaviors.js?v=1795218204">
+<link rel="modulepreload" href="js/core/components.js?v=1795218204">
+<link rel="modulepreload" href="js/core/env.js?v=1795218204">
+<link rel="modulepreload" href="js/core/events.js?v=1795218204">
+<link rel="modulepreload" href="js/core/index.js?v=1795218204">
+<link rel="modulepreload" href="js/core/overlay.js?v=1795218204">
+<link rel="modulepreload" href="js/core/pm.js?v=1795218204">
+<link rel="modulepreload" href="js/core/router.js?v=1795218204">
+<link rel="modulepreload" href="js/core/shell.js?v=1795218204">
+<link rel="modulepreload" href="js/core/state.js?v=1795218204">
+<link rel="modulepreload" href="js/core/timers.js?v=1795218204">
+<link rel="modulepreload" href="js/core/util.js?v=1795218204">
+<link rel="modulepreload" href="js/screens/auth.js?v=1795218204">
+<link rel="modulepreload" href="js/screens/boty.js?v=1795218204">
+<link rel="modulepreload" href="js/screens/dane.js?v=1795218204">
+<link rel="modulepreload" href="js/screens/historia.js?v=1795218204">
+<link rel="modulepreload" href="js/screens/limity.js?v=1795218204">
+<link rel="modulepreload" href="js/screens/portfel.js?v=1795218204">
+<link rel="modulepreload" href="js/screens/zakupy.js?v=1795218204">
+<script type="module" src="js/main.js?v=1795218204"></script>
+</body>
+</html>
