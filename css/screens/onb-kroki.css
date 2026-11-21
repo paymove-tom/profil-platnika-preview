@@ -22,3 +22,6 @@
 
 /* t428: dolne przyciski nie na pełną szerokość (jak login, t426) – rząd [wstecz][główny] i „Pomiń” w jednej kolumnie 296 px */
 .au-ob .ob-nav,.au-ob .ob-nav~.btn--ghost,.au-ob .ob-nav~.act-row{width:100%;max-width:296px;margin-left:auto;margin-right:auto}
+
+/* t429: „Przejdź do portfela” – węższy przycisk, jak pozostałe (296 px, wyśrodkowany) */
+.au-done .act-row{width:100%;max-width:296px;margin-left:auto;margin-right:auto}
