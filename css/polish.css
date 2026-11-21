@@ -1,4 +1,4 @@
-/* css/polish.css: finalny polish (t416). Ładowany po motion.css, przed onboarding-legacy.css.
+/* css/polish.css: finalny polish (t416). Ładowany po motion.css.
    Zakres: wyłącznie elementy oznaczone przez js/core/polish.js:
      .pm-polish        na .view > .screen (poza onboardingiem/loginem/zgodą) i na .sheet-layer (poza .au-in3/.au-checkout/zgodą)
      html.pm-polish-on gdy bieżąca trasa nie jest onboardingiem (toasty, fokus tab bara)
@@ -25,13 +25,8 @@
   --pm-tertiary:#68696C;
 }
 
-/* ---------- 2. kontrast: błąd na tokenie error (#BE222A ≥ 4.5:1) ---------- */
-.pm-polish{--err:#BE222A;--err-tint:rgba(190,34,42,.10)}
-.pm-polish .btn--danger-solid{background:var(--pm-error);box-shadow:0 8px 20px rgba(190,34,42,.24)}
+/* ---------- 2. (t423: nadpisania koloru tekstu/błędu usunięte – typografia zamrożona jak w e2bf5c3) ---------- */
 /* wyłączone pole kwoty: obrys zamiast opacity .4 (1.82:1 → ≈5.2:1) */
-.pm-polish .money.off,.pm-polish .money.is-disabled{opacity:1;background:transparent;box-shadow:inset 0 0 0 1px var(--pm-hairline)}
-.pm-polish .money.off input,.pm-polish .money.off span,
-.pm-polish .money.is-disabled input,.pm-polish .money.is-disabled span{color:var(--pm-tertiary);-webkit-text-fill-color:var(--pm-tertiary)}
 
 /* ---------- 3. fokus: spójny ring #3567DE 2px / offset 2px ---------- */
 .pm-polish :focus-visible,html.pm-polish-on .tabbar :focus-visible{outline:2px solid var(--pm-focus);outline-offset:2px}
@@ -48,13 +43,10 @@
 .pm-polish .range:focus-visible::-moz-range-thumb{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--pm-focus)}
 
 /* ---------- 4. tap targety ≥44 px dla linków w tekście (bez zmiany layoutu) ---------- */
-.pm-polish :is(.dn-mail-help,.legal,.hint,.sheet-text,.lead-text,.banner-text) a:not(.btn):not(.chip){
-  display:inline-block;padding:15px 0;margin:-15px 0}
 /* przycisk kopiowania (nr transakcji): niewidoczne powiększenie */
 .pm-copy{position:relative;display:inline;margin:0;padding:0;border:0;background:none;font:inherit;letter-spacing:inherit;color:inherit;text-align:inherit;word-break:inherit;cursor:pointer;border-radius:6px;-webkit-tap-highlight-color:transparent;transition:color var(--dur-3) var(--ease-standard),opacity var(--dur-2) var(--ease-standard)}
 .pm-copy::before{content:"";position:absolute;left:50%;top:50%;width:max(100%,44px);height:44px;transform:translate(-50%,-50%)}
 .pm-copy:active{opacity:.55;transition-duration:0s}
-.pm-copy.is-copied{color:var(--pm-success-text)}
 
 /* ---------- 5. hairline nagłówka/CTA po przewinięciu (tylko opacity, zero zmiany wysokości) ---------- */
 .pm-polish > .hdr,.pm-polish > .cta-bar{position:relative}
@@ -88,7 +80,6 @@
 
 /* ---------- 10. toasty: sprężyna, swipe w górę, rysowany ✓ ---------- */
 html.pm-polish-on .toast{pointer-events:auto;touch-action:none}
-html.pm-polish-on .toast span{text-wrap:balance}
 .pm-check{display:block;width:20px;height:20px;flex:none}
 .pm-check circle,.pm-check path{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .pm-check circle{opacity:.6}
@@ -99,10 +90,7 @@ html.pm-polish-on .toast span{text-wrap:balance}
   background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.10) 40%,rgba(255,255,255,.20) 50%,rgba(255,255,255,.10) 60%,rgba(255,255,255,0) 100%);
   transform:translateX(-120%) skewX(-14deg)}
 
-/* ---------- 12. typografia: balans nagłówków, ładne akapity, cyfry tabelaryczne ---------- */
-.pm-polish :is(h1,h2,.title,.h-sheet,.pname,.display,.pf-hi,.empty-title,.banner-title,.tl-title){text-wrap:balance}
-.pm-polish :is(p,.hint,.lead-text,.sheet-text,.empty-text,.banner-text,.legal,.pf-alert-s){text-wrap:pretty}
-.pm-polish :is(.progress-meta,.tl-meta,.countdown,.pf-tile .meta,.hs-active .mono-s,.bspend-amt .meta){font-variant-numeric:tabular-nums}
+/* ---------- 12. (t423: usunięte – typografia zamrożona) ---------- */
 
 /* ---------- 13. optyka ikon: chevron dosunięty do krawędzi paddingu ---------- */
 .pm-polish .row .row-chev:last-child,.pm-polish .bot-top .row-chev{margin-right:-4px}

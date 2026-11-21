@@ -1,0 +1,538 @@
+[
+{
+"h": "#/login",
+"g": "1 Logowanie i onboarding",
+"l": "Logowanie (social)",
+"tab": null,
+"sheet": false,
+"base": null
+},
+{
+"h": "#/onboarding/1",
+"g": "1 Logowanie i onboarding",
+"l": "Krok 1 Adres",
+"tab": null,
+"sheet": false,
+"base": null
+},
+{
+"h": "#/onboarding/2",
+"g": "1 Logowanie i onboarding",
+"l": "Krok 2 Rejestracja",
+"tab": null,
+"sheet": false,
+"base": null
+},
+{
+"h": "#/onboarding/3",
+"g": "1 Logowanie i onboarding",
+"l": "Krok 3 BLIK",
+"tab": null,
+"sheet": false,
+"base": null
+},
+{
+"h": "#/portfel/dodaj-blik",
+"g": "0 Portfel",
+"l": "Dodaj BLIK (z portfela)",
+"tab": null,
+"sheet": false,
+"base": null
+},
+{
+"h": "#/onboarding/3/info",
+"g": "1 Logowanie i onboarding",
+"l": "Krok 3 · jak zapamiętać sklep (modal)",
+"tab": null,
+"sheet": true,
+"base": "#/onboarding/3"
+},
+{
+"h": "#/onboarding/3/checkout",
+"g": "1 Logowanie i onboarding",
+"l": "Checkout BLIK (sheet)",
+"tab": null,
+"sheet": true,
+"base": "#/onboarding/3"
+},
+{
+"h": "#/portfel/dodaj-blik/info",
+"g": "0 Portfel",
+"l": "Dodaj BLIK · jak zapamiętać sklep (modal)",
+"tab": null,
+"sheet": true,
+"base": "#/portfel/dodaj-blik"
+},
+{
+"h": "#/portfel/dodaj-blik/checkout",
+"g": "0 Portfel",
+"l": "Dodaj BLIK · checkout (sheet)",
+"tab": null,
+"sheet": true,
+"base": "#/portfel/dodaj-blik"
+},
+{
+"h": "#/onboarding/gotowe",
+"g": "1 Logowanie i onboarding",
+"l": "Gotowe",
+"tab": null,
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zgoda",
+"g": "1 Logowanie i onboarding",
+"l": "Zgoda dla Claude",
+"tab": null,
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zgoda/ok",
+"g": "1 Logowanie i onboarding",
+"l": "Claude połączony",
+"tab": null,
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zgoda/odmowa",
+"g": "1 Logowanie i onboarding",
+"l": "Odmowa",
+"tab": null,
+"sheet": false,
+"base": null
+},
+{
+"h": "#/portfel",
+"g": "0 Portfel",
+"l": "Portfel",
+"tab": "portfel",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/portfel/bez-blik",
+"g": "0 Portfel",
+"l": "Bez BLIK",
+"tab": "portfel",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/portfel/blik",
+"g": "0 Portfel",
+"l": "Zarządzaj BLIK",
+"tab": "portfel",
+"sheet": true,
+"base": "#/portfel"
+},
+{
+"h": "#/dane",
+"g": "Moje dane",
+"l": "Domyślny",
+"tab": "dane",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/dane/niepotwierdzony",
+"g": "Moje dane",
+"l": "Mail niepotwierdzony",
+"tab": "dane",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/dane/adres",
+"g": "Moje dane",
+"l": "Edycja adresu",
+"tab": "dane",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/dane/adres-blad",
+"g": "Moje dane",
+"l": "Adres, zły kod",
+"tab": "dane",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/dane/numer-dodaj",
+"g": "Moje dane",
+"l": "Dodaj numer",
+"tab": "dane",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/dane/numer-blad",
+"g": "Moje dane",
+"l": "Numer, zły format",
+"tab": "dane",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/dane/numer-duplikat",
+"g": "Moje dane",
+"l": "Numer, duplikat",
+"tab": "dane",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/dane/numer-usun",
+"g": "Moje dane",
+"l": "Usuń numer (sheet)",
+"tab": "dane",
+"sheet": true,
+"base": "#/dane"
+},
+{
+"h": "#/dane/bez-numerow",
+"g": "Moje dane",
+"l": "Bez numerów",
+"tab": "dane",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/dane/mail-kod",
+"g": "Moje dane",
+"l": "Kod z maila",
+"tab": "dane",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/dane/zapisano",
+"g": "Moje dane",
+"l": "Zapisano",
+"tab": "dane",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/historia",
+"g": "Historia",
+"l": "Wszystkie zakupy",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/historia/bilety",
+"g": "Historia",
+"l": "Filtr: bilety",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/historia/parking",
+"g": "Historia",
+"l": "Filtr: parking",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/historia/uslugi",
+"g": "Historia",
+"l": "Filtr: usługi",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/historia/bot-claude",
+"g": "Historia",
+"l": "Filtr: Claude",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/historia/pusta",
+"g": "Historia",
+"l": "Pusta historia",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zakup/zaplacono",
+"g": "Historia",
+"l": "Zakup: zapłacono",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zakup/w-toku",
+"g": "Historia",
+"l": "Zakup: w toku",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zakup/nieudana",
+"g": "Historia",
+"l": "Zakup: nieudana",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zakup/anulowano",
+"g": "Historia",
+"l": "Zakup: anulowano",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zakup/zwrot-w-toku",
+"g": "Historia",
+"l": "Zakup: zwrot w toku",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zakup/zwrocono",
+"g": "Historia",
+"l": "Zakup: zwrócono",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zwrot",
+"g": "Zwrot",
+"l": "Zgłoszenie",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zwrot/blad",
+"g": "Zwrot",
+"l": "Brak powodu",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zwrot/czesciowy",
+"g": "Zwrot",
+"l": "Kwota częściowa",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zwrot/wysylanie",
+"g": "Zwrot",
+"l": "Wysyłanie",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zwrot/wyslano",
+"g": "Zwrot",
+"l": "Wysłano",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zwrot/niedostepny",
+"g": "Zwrot",
+"l": "Po terminie",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/zwrot/zwrocono",
+"g": "Zwrot",
+"l": "Zwrócono",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/boty",
+"g": "Boty",
+"l": "Lista botów",
+"tab": "boty",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/boty/limit-przekroczony",
+"g": "Boty",
+"l": "Limit przekroczony",
+"tab": "boty",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/boty/pusta",
+"g": "Boty",
+"l": "Brak botów",
+"tab": "boty",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/bot/claude",
+"g": "Boty",
+"l": "Szczegół · Claude",
+"tab": "boty",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/bot/chatgpt",
+"g": "Boty",
+"l": "Szczegół · ChatGPT",
+"tab": "boty",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/bot/grok",
+"g": "Boty",
+"l": "Szczegół · Grok",
+"tab": "boty",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/bot/perplexity",
+"g": "Boty",
+"l": "Szczegół · Perplexity",
+"tab": "boty",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/bot/claude/odlacz",
+"g": "Boty",
+"l": "Odłącz Claude (sheet)",
+"tab": "boty",
+"sheet": true,
+"base": "#/bot/claude"
+},
+{
+"h": "#/bot/claude/odlaczono",
+"g": "Boty",
+"l": "Claude odłączony",
+"tab": "boty",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/limity",
+"g": "Limity",
+"l": "Ogólne, okres miesięczny",
+"tab": "limity",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/limity/dzienny",
+"g": "Limity",
+"l": "Okres dzienny",
+"tab": "limity",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/limity/potwierdzenie-wyl",
+"g": "Limity",
+"l": "Potwierdzenie wyłączone",
+"tab": "limity",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/limity/bot-claude",
+"g": "Limity",
+"l": "Limity Claude",
+"tab": "limity",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/limity/blad-bot",
+"g": "Limity",
+"l": "Błąd: limit bota",
+"tab": "limity",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/limity/blad-transakcja",
+"g": "Limity",
+"l": "Błąd: limit transakcji",
+"tab": "limity",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/limity/zapisano",
+"g": "Limity",
+"l": "Zapisano",
+"tab": "limity",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/potwierdzenie",
+"g": "Limity",
+"l": "Prośba o potwierdzenie",
+"tab": null,
+"sheet": true,
+"base": "#/historia"
+},
+{
+"h": "#/potwierdzenie/zatwierdzono",
+"g": "Limity",
+"l": "Zatwierdzono",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/historia-a",
+"g": "0b Zakupy · warianty",
+"l": "Historia · wariant A (ikony kategorii)",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/historia-b",
+"g": "0b Zakupy · warianty",
+"l": "Historia · wariant B (monogramy i dni)",
+"tab": "historia",
+"sheet": false,
+"base": null
+},
+{
+"h": "#/historia-c",
+"g": "0b Zakupy · warianty",
+"l": "Historia · wariant C (bilety i tablice)",
+"tab": "historia",
+"sheet": false,
+"base": null
+}
+]

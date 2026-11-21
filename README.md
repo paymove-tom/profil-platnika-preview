@@ -4,6 +4,14 @@ Statyczna aplikacja (vanilla JS, ES modules, **bez buildu**) hostowana na GitHub
 
 Live: https://paymove-tom.github.io/profil-platnika-preview/ (push na `main` = wdrożenie w ~30 s).
 
+## ⛔ TYPOGRAFIA ZAMROŻONA (decyzja Tomasza, 21.11.2026)
+Typografia jest **1:1 z wersją e2bf5c3** (podgląd: `/stara/`) i **nie wolno jej zmieniać bez wyraźnej zgody Tomasza** – „bez nawet grama zmian”.
+Dotyczy wszystkich ekranów (onboarding, login, zgoda, aplikacja) i wszystkich właściwości tekstu: `font-family`, `font-size`, `font-weight`,
+`line-height`, `letter-spacing`, kolor tekstu, `text-transform`, `text-wrap`, `font-variant-numeric`, twarde spacje/cudzysłowy wstawiane z JS itd.
+Żadnych nadpisań „dla kontrastu”, „polskiego łamania” ani cyfr tabelarycznych. Pliki `css/typography.css`, `css/fonts.css` i tokeny tekstu – tylko do odczytu.
+Każda zmiana UI musi przejść porównanie computed styles z `/stara/` przy 390 px z wynikiem **0 różnic**
+(skrypt: `tools/typo_cmp.py`: `python3 tools/typo_cmp.py <url stara> <url nowa> wynik.json`).
+
 ## Parametry URL
 - `?demo=1` – ukrywa panel Stany (zapamiętane w sessionStorage, `?demo=0` wyłącza).
 - `?shot=1` – tryb zrzutów: bez animacji i panelu, deterministyczny render.

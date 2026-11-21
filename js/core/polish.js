@@ -69,6 +69,8 @@ function widow(el) {
 }
 
 function typo(root) {
+  /* t423: typografia zamrożona 1:1 z e2bf5c3 – bez twardych spacji, cudzysłowów i półpauz. */
+  return;
   if (!root) return;
   const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
   let n;

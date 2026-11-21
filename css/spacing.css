@@ -107,11 +107,6 @@
     gap:var(--s-1);                      /* imię→mail 2 → 4 */
   }
 
-  /* Dane: pomoc „Aby zmienić e-mail” prawie dotykała badge’a (2 px) → 8 px */
-  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .pstack > .dn-mail-help{
-    margin-top:calc(var(--s-2) - 2px);   /* + gap 2 = 8 */
-  }
-
   /* cta-bar: margines boczny jak treść */
   html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) > .cta-bar{
     padding-left:var(--gutter-l);

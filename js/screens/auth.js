@@ -351,11 +351,11 @@ legacyStart();
    ===================================================================== */
 PM.route('#/onboarding/1', {
   guard: obGuard,
-  title: 'Adres', group: G, label: 'Krok 1 Adres', tab: null,
+  title: 'Twój adres', group: G, label: 'Krok 1 Adres', tab: null,
   render: function (ctx) {
     var a = ob().adres;
     return obScreen(1, ctx, {
-      title: 'Adres',
+      title: 'Twój adres',
       lead: 'Bot wpisze go za Ciebie, gdy zakup tego wymaga.',
       body:
         '<div class="stack">' +
@@ -419,7 +419,7 @@ PM.route('#/onboarding/2', {
     var v = ob().rejestracja || '';
     return obScreen(2, ctx, {
       title: 'Twoje auto',
-      lead: 'Parking zapłacisz bez wpisywania numeru. Bot weźmie go z profilu.',
+      lead: 'Bot weźmie numer z profilu, więc parking opłaci bez wpisywania.',
       body:
         PM.field({
           id: 'ob-rej', label: 'Numer rejestracyjny', value: v, placeholder: 'WI 4821K',
@@ -743,7 +743,7 @@ PM.route(baseHash + '/info', {
         '<h2 class="au-in3-title au-in" style="--d:.32s">Zapłać i zapamiętaj sklep</h2>' +
         '<p class="au-in3-lead au-in" style="--d:.38s">W aplikacji banku wybierz <b>„Zapamiętaj sklep”</b>.</p>' +
         '<p class="au-in3-note au-in" style="--d:.44s">' + PM.icon('information-line', 14) +
-          '<span>Dzięki temu kolejne płatności nie będą korzystać z kodów BLIK.</span></p>' +
+          '<span>Kolejne płatności przejdą już bez kodu BLIK.</span></p>' +
       '</div>' +
       '<div class="act-row au-in3-cta au-in" style="--d:.58s">' +
         PM.btn('Wróć', { variant: 'secondary', href: baseHash, cls: 'press au-in3-back' }) +
