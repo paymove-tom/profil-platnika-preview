@@ -254,6 +254,15 @@ function obScreen(n, ctx, o) {
   });
 }
 
+/* onb-kroki: wstecz w dolnym pasku obok głównego przycisku (kwadrat ~16% szerokości) */
+function obBackBtn(n) {
+  var h = n === 1 ? '#/login' : '#/onboarding/' + (n - 1);
+  return '<a class="btn btn--secondary btn--icon ob-back press" href="' + h + '" data-ob-back aria-label="Wstecz">' + PM.icon('arrow-left-s-line', 22) + '</a>';
+}
+function obNav(n, primaryHtml) {
+  return '<div class="act-row ob-nav">' + obBackBtn(n) + primaryHtml + '</div>';
+}
+
 /* zwraca false dla ekranu bazowego pod sheetem */
 function obMount(root, ctx) {
   if (ctx && ctx.isBase) return false;
@@ -390,10 +399,8 @@ PM.route('#/onboarding/1', {
             PM.field({ id: 'ob-miasto', name: 'address-level2', label: 'Miasto', value: a.miasto, placeholder: 'np. Warszawa', autocomplete: 'address-level2', attrs: { enterkeyhint: 'done' } }) +
           '</div>' +
         '</form>',
-      cta: PM.actions({
-        primary: { label: 'Zapisz i dalej', cls: 'press', attrs: { 'data-ob-next': '' } },
-        extra: PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/2', cls: 'press' })
-      })
+      cta: obNav(1, PM.btn('Zapisz i dalej', { variant: 'primary', cls: 'press', attrs: { 'data-ob-next': '' } })) +
+        PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/2', cls: 'press' })
     });
   },
   mount: function (root, ctx) {
@@ -455,10 +462,8 @@ PM.route('#/onboarding/2', {
           attrs: { autocapitalize: 'characters', spellcheck: 'false' },
           hint: 'Kolejne auta dodasz w Moich danych.'
         }),
-      cta: PM.actions({
-        primary: { label: 'Dalej', cls: 'press', attrs: { 'data-ob-next': '' } },
-        extra: PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/3', cls: 'press' })
-      })
+      cta: obNav(2, PM.btn('Dalej', { variant: 'primary', cls: 'press', attrs: { 'data-ob-next': '' } })) +
+        PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/3', cls: 'press' })
     });
   },
   mount: function (root, ctx) {
@@ -649,8 +654,8 @@ var BLIK_LOGO_FULL = 'assets/logos/blik-logo.svg';
 
 /* Przycisk w stylu BLIK bez kodu. Ma klasy btn / btn--primary i siedzi w .act-row,
    więc wysokość (48px), max-width (360/400) i układ dziedziczy z dotychczasowego primary. */
-function blikOneClickBtn(href) {
-  return '<div class="act-row">' +
+function blikOneClickBtn(href, step) {
+  return '<div class="act-row' + (step ? ' ob-nav' : '') + '">' + (step ? obBackBtn(step) : '') +
     '<a class="btn btn--primary au-blikbtn press" href="' + PM.esc(href) + '" aria-label="Podepnij BLIK bez kodu">' +
       '<span class="au-blikbtn-txt" aria-hidden="true">Podepnij</span>' +
       '<img class="au-blikbtn-logo" src="' + BLIK_LOGO_FULL + '" alt="" height="24" draggable="false">' +
@@ -662,7 +667,7 @@ function blikOneClickBtn(href) {
 function vCta(hash) {
   /* Mikrokopii pod przyciskiem nie dodajemy, bo lead mówi już o potwierdzeniu w aplikacji banku. */
   /* Najpierw objaśnienie (zapłać i zapamiętaj sklep), dopiero z niego wchodzimy do bramki. */
-  return blikOneClickBtn(hash + '/info') +
+  return blikOneClickBtn(hash + '/info', 3) +
     PM.actions({
       extra: PM.btn('Zrobię to później', { variant: 'ghost', block: true, cls: 'press', attrs: { 'data-ob-later': '' } })
     });
