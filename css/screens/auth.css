@@ -282,3 +282,19 @@ button.check-row:hover {background:rgba(255,255,255,.45)}
 /* t421: bez badge'y pod kartą – karta wyśrodkowana w wolnym miejscu między nagłówkiem a przyciskiem (równe odstępy) */
 .content:has(.au-vc) > .ob-step,.content:has(.au-vc) > .ob-step > .stack-24,.content:has(.au-vc) > .stack-24{flex:1 0 auto}
 .stack-24 > .au-vc{margin-block:auto}
+
+/* t426: autouzupełnianie w onboardingu – bez żółtego/niebieskiego tła WebKit/Chrome (tło jak zwykłe pole),
+   jednorazowe podświetlenie wypełnionego pola (outline = zero zmian układu); typografia bez zmian */
+.au-ob .input:-webkit-autofill,.au-ob .input:-webkit-autofill:hover{
+  -webkit-box-shadow:0 0 0 100px #e8e9ee inset;box-shadow:0 0 0 100px #e8e9ee inset;
+  transition:background-color 600000s 0s,box-shadow .15s ease;animation-name:pm-af-detect;animation-duration:1ms}
+.au-ob .input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 2px var(--tp),0 0 0 100px #fbfbfd inset;box-shadow:0 0 0 2px var(--tp),0 0 0 100px #fbfbfd inset}
+@keyframes pm-af-detect{from{outline-color:transparent}to{outline-color:transparent}}
+.au-ob .field.is-autofilled .input{outline:2px solid transparent;outline-offset:2px;animation:pm-af-glow 900ms cubic-bezier(.2,.8,.2,1) both}
+@keyframes pm-af-glow{0%{outline-color:rgba(53,103,222,0);outline-offset:4px}18%{outline-color:rgba(53,103,222,.55);outline-offset:2px}100%{outline-color:rgba(53,103,222,0);outline-offset:2px}}
+@media (prefers-reduced-motion:reduce){.au-ob .field.is-autofilled .input{animation:none}}
+.is-shot .au-ob .field.is-autofilled .input{animation:none}
+
+/* t426: logowanie – przyciski social nie na pełną szerokość: szerokość od treści, równa w grupie, wyśrodkowane */
+.au-social{display:grid;grid-template-columns:minmax(min(100%,264px),max-content);justify-content:center;width:100%;max-width:none}
+.au-social .social-btn{width:100%;padding:0 28px}

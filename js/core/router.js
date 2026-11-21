@@ -109,10 +109,9 @@ function placeBrandFoot(scr, path) {
   wrap.innerHTML = PM.brandFoot();
   var foot = wrap.firstChild;
   var flow = scr.matches('.au-ob, .au-done, .au-login, .au-addblik') || /^#\/(zgoda|login|onboarding)/.test(path);
-  var cta = scr.querySelector(':scope > .cta-bar');
   var content = scr.querySelector(':scope > .content');
-  if (flow && cta) { foot.classList.add('pm-foot--cta'); cta.appendChild(foot); }
-  else if (content) content.appendChild(foot);
+  if (flow) return; /* t426: w procesie onboardingu (login, zgoda, kroki, info, checkout, gotowe, dodaj-blik) bez logo */
+  if (content) content.appendChild(foot);
 }
 
 /* t417: tryb dokumentu onboardingu jako klasa na <html> (zamiast samego :has, które WebKit potrafi

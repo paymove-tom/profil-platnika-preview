@@ -133,5 +133,3 @@ html.pm-polish-on .toast{pointer-events:auto;touch-action:none}
 .pm-foot{flex:none;display:flex;justify-content:center;align-items:center;margin-top:auto;padding:var(--section-gap,24px) 0 4px;pointer-events:none;user-select:none;-webkit-user-select:none}
 .pm-foot img{display:block;height:14px;width:auto;opacity:.28}
 /* w dolnym pasku akcji przepływów: pod ostatnim linkiem, przed safe area; bez zmiany szerokości przycisków */
-.cta-bar > .pm-foot--cta{margin-top:0;padding:4px 0 0}
-.cta-bar > .pm-foot--cta img{height:12px}

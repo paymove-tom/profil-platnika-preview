@@ -153,6 +153,30 @@ function bindClear(root, id) {
   var inp = root.querySelector('#' + id);
   if (inp) inp.addEventListener('input', function () { clearFieldError(root, id); });
 }
+/* t426: autouzupełnianie (iOS/Chrome) – wartość wpada bez klawiatury (input bez inputType lub
+   insertReplacementText albo :-webkit-autofill) → pole dostaje jednorazowe, subtelne podświetlenie.
+   Bez zmiany układu (outline, nie box-shadow/height); przy reduced-motion bez animacji. */
+function bindAutofill(inputs) {
+  function flash(inp) {
+    var f = inp && inp.closest('.field');
+    if (!f) return;
+    f.classList.remove('is-autofilled');
+    void f.offsetWidth;
+    f.classList.add('is-autofilled');
+    clearTimeout(f.__afT);
+    f.__afT = setTimeout(function () { f.classList.remove('is-autofilled'); }, 1000);
+  }
+  inputs.forEach(function (inp) {
+    if (!inp) return;
+    inp.addEventListener('input', function (e) {
+      var t = e.inputType;
+      if ((!t || t === 'insertReplacementText') && String(inp.value).length > 1) flash(inp);
+    });
+    inp.addEventListener('animationstart', function (e) {
+      if (e.animationName === 'pm-af-detect') flash(inp);
+    });
+  });
+}
 function onEnter(inp, fn) {
   if (!inp) return;
   inp.addEventListener('keydown', function (e) {
@@ -358,13 +382,14 @@ PM.route('#/onboarding/1', {
       title: 'Twój adres',
       lead: 'Bot wpisze go za Ciebie, gdy zakup tego wymaga.',
       body:
-        '<div class="stack">' +
-          PM.field({ id: 'ob-ulica', label: 'Ulica i numer', value: a.ulica, placeholder: 'np. Marszałkowska 10/4', autocomplete: 'street-address' }) +
+        /* t426: <form> + tokeny adresu – iOS/Chrome wypełniają wszystkie 3 pola jednym tapnięciem */
+        '<form class="stack ob-form" autocomplete="on" novalidate>' +
+          PM.field({ id: 'ob-ulica', name: 'address-line1', label: 'Ulica i numer', value: a.ulica, placeholder: 'np. Marszałkowska 10/4', autocomplete: 'address-line1', attrs: { enterkeyhint: 'next' } }) +
           '<div class="input-row">' +
-            PM.field({ id: 'ob-kod', label: 'Kod', value: a.kod, placeholder: '00-000', inputmode: 'numeric', autocomplete: 'postal-code', maxlength: 6 }) +
-            PM.field({ id: 'ob-miasto', label: 'Miasto', value: a.miasto, placeholder: 'np. Warszawa', autocomplete: 'address-level2' }) +
+            PM.field({ id: 'ob-kod', name: 'postal-code', label: 'Kod', value: a.kod, placeholder: '00-000', inputmode: 'numeric', autocomplete: 'postal-code', maxlength: 6, attrs: { enterkeyhint: 'next' } }) +
+            PM.field({ id: 'ob-miasto', name: 'address-level2', label: 'Miasto', value: a.miasto, placeholder: 'np. Warszawa', autocomplete: 'address-level2', attrs: { enterkeyhint: 'done' } }) +
           '</div>' +
-        '</div>',
+        '</form>',
       cta: PM.actions({
         primary: { label: 'Zapisz i dalej', cls: 'press', attrs: { 'data-ob-next': '' } },
         extra: PM.btn('Pomiń na razie', { variant: 'ghost', block: true, href: '#/onboarding/2', cls: 'press' })
@@ -400,8 +425,11 @@ PM.route('#/onboarding/1', {
       PM.go('#/onboarding/2');
     }
     btn.addEventListener('click', submit);
+    var form = root.querySelector('.ob-form');
+    if (form) form.addEventListener('submit', function (e) { e.preventDefault(); submit(); });
     [ulica, kod, miasto].forEach(function (i) { onEnter(i, submit); });
     ['ob-ulica', 'ob-kod', 'ob-miasto'].forEach(function (id) { bindClear(root, id); });
+    bindAutofill([ulica, kod, miasto]);
   }
 });
 
