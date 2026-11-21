@@ -218,19 +218,23 @@ function duo(size) {
 }
 
 /* krok onboardingu: pasek postępu, wstecz, animowany kontener */
+
+/* onb-kroki: wstecz w dolnym pasku obok głównego przycisku (kwadrat ~16% szerokości) */
 function obScreen(n, ctx, o) {
   var a = auth();
   var anim = (ctx && ctx.isBase) || a.obStill ? ' au-still' : (a.obDir === 'back' ? ' au-back' : '');
-  var segs = '';
+  var dir = anim === ' au-still' ? 'still' : (anim === ' au-back' ? 'back' : 'fwd');
+  var names = ['Adres', 'Auto', 'BLIK'];
+  var name = names[n - 1] || '';
+  var dots = '';
   for (var i = 1; i <= STEPS; i++) {
-    segs += '<i class="' + (i < n ? 'is-done' : i === n ? 'is-active' : '') + '"></i>';
+    dots += '<i class="' + (i < n ? 'is-done' : i === n ? 'is-active' : '') + '"></i>';
   }
-  var backHref = n === 1 ? '#/login' : '#/onboarding/' + (n - 1);
   var header =
-    '<header class="hdr au-ob-hdr">' +
-      '<a class="hdr-back press" href="' + backHref + '" data-ob-back aria-label="Wstecz">' + PM.icon('arrow-left-s-line', 20) + '</a>' +
-      '<div class="ob-progress" role="progressbar" aria-label="Postęp" aria-valuemin="1" aria-valuemax="' + STEPS + '" aria-valuenow="' + n + '">' + segs + '</div>' +
-      '<span class="au-hdr-sp" aria-hidden="true"></span>' +
+    '<header class="hdr au-ob-hdr au-ob-hdr--dots" data-ob-dir="' + dir + '">' +
+      '<div class="ob-dots" role="progressbar" aria-label="Postęp konfiguracji" aria-valuemin="1" aria-valuemax="' + STEPS + '" aria-valuenow="' + n + '" aria-valuetext="' + PM.esc('Krok ' + n + ' z ' + STEPS + (name ? ': ' + name : '')) + '">' +
+        dots +
+      '</div>' +
     '</header>';
   return PM.screen({
     title: o.title,
@@ -243,7 +247,7 @@ function obScreen(n, ctx, o) {
         '<div class="stack-24">' +
           (o.top || '') +
           '<div class="auth-head">' +
-            '<span class="ob-kicker">Krok ' + n + ' z ' + STEPS + '</span>' +
+            '<span class="ob-kicker" aria-hidden="true">Krok ' + n + ' z ' + STEPS + (name ? ' · ' + PM.esc(name) : '') + '</span>' +
             '<h1 class="title">' + PM.esc(o.title) + '</h1>' +
             (o.lead ? '<p class="lead-text">' + o.lead + '</p>' : '') +
           '</div>' +
@@ -253,11 +257,13 @@ function obScreen(n, ctx, o) {
     cta: o.cta
   });
 }
-
-/* onb-kroki: wstecz w dolnym pasku obok głównego przycisku (kwadrat ~16% szerokości) */
 function obBackBtn(n) {
-  var h = n === 1 ? '#/login' : '#/onboarding/' + (n - 1);
-  return '<a class="btn btn--secondary btn--icon ob-back press" href="' + h + '" data-ob-back aria-label="Wstecz">' + PM.icon('arrow-left-s-line', 22) + '</a>';
+  // Krok 1: nieaktywny. Pozycja i szerokość głównego przycisku są identyczne na wszystkich krokach (pamięć mięśniowa),
+  // a celowo nie prowadzimy z powrotem do #/login. Bez href i bez data-ob-back, więc nie ustawia kierunku animacji.
+  if (n <= 1) {
+    return '<button type="button" class="btn btn--secondary btn--icon ob-back press is-disabled" disabled aria-disabled="true" aria-label="Wstecz">' + PM.icon('arrow-left-s-line', 22) + '</button>';
+  }
+  return '<a class="btn btn--secondary btn--icon ob-back press" href="#/onboarding/' + (n - 1) + '" data-ob-back aria-label="Wstecz">' + PM.icon('arrow-left-s-line', 22) + '</a>';
 }
 function obNav(n, primaryHtml) {
   return '<div class="act-row ob-nav">' + obBackBtn(n) + primaryHtml + '</div>';
