@@ -2,6 +2,7 @@
    i start aplikacji. Właściciel routes/cur/mounted/started/ready. */
 import { PM, STATES } from './pm.js';
 import { SHOT } from './env.js';
+import { runTransition, reduced } from './motion.js';
 import { qsa, stripMeta } from './util.js';
 import { clearScope, setMountScope } from './timers.js';
 import { els, buildShell, buildStates, updateNav, updateMockbar, updateStatesActive, markStatesDirty } from './shell.js';
@@ -211,6 +212,17 @@ export function render() {
     }
   }
 
+  /* guard trasy: def.guard(sp) zwraca hash przekierowania (replace, bez wpisu w historii) */
+  if (def && typeof def.guard === 'function' && !SHOT) {
+    var red = normHash(def.guard(sp) || '');
+    var rsp = red ? splitHash(red) : null;
+    if (rsp && routes[rsp.path] && rsp.path !== sp.path) {
+      setHashSilently(red);
+      sp = rsp;
+      def = routes[rsp.path];
+    }
+  }
+
   var prevHash = cur.hash;
   var sameHash = prevHash === sp.hash;
   cur = { hash: sp.hash, path: sp.path, query: sp.query, def: def || null };
@@ -274,7 +286,12 @@ export function render() {
   els.device.classList.toggle('has-tabbar', !!tab);
   els.app.classList.toggle('no-nav', !tab);
   /* warstwy sheetów (route i dynamiczne) znikają przy każdej zmianie trasy, jak wcześniej */
-  qsa(els.device, '.sheet-layer').forEach(function (l) { l.remove(); });
+  qsa(els.device, '.sheet-layer').forEach(function (l) {
+    if (l.classList.contains('is-closing')) return;
+    /* zamknięcie sheeta nad tą samą bazą: animacja wyjścia, potem usunięcie */
+    if (mode === 'close' && !reduced() && !l.querySelector('.au-in3, .au-checkout')) PM.dismissLayer(l);
+    else l.remove();
+  });
 
   if (mode === 'full') {
     if (SHOT) els.toasts.innerHTML = '';
@@ -385,6 +402,36 @@ function whenFonts(cb) {
   } catch (e) { go(); }
 }
 
+/* ---------- przejścia: rodzaj ruchu dla zmiany trasy ---------- */
+const navStack = [];
+let tabTap = false;
+document.addEventListener('click', function (e) {
+  tabTap = !!(e.target && e.target.closest && e.target.closest('.tabbar [data-tab]'));
+}, true);
+function navKind(fromDef, toDef, toPath) {
+  if (!fromDef || !toDef) return null;
+  if (toDef.sheet || fromDef.sheet) return null;                       /* sheety mają własną animację */
+  var flow = /^#\/(login|onboarding|zgoda)/;
+  if (flow.test(toPath) || flow.test(fromDef.hash)) return null;       /* onboarding bez zmian */
+  if (fromDef.hash === toDef.hash) return null;
+  if (tabTap) return 'tab';
+  if (navStack.length > 1 && navStack[navStack.length - 2] === toPath) return 'back';
+  return 'push';
+}
+function onHashChange() {
+  var sp = splitHash(normHash(location.hash));
+  var toDef = routes[sp.path];
+  if (!navStack.length && cur.def && !cur.def.sheet) navStack.push(cur.path);
+  var kind = navKind(cur.def, toDef, sp.path);
+  tabTap = false;
+  if (toDef && !toDef.sheet) {
+    if (kind === 'back') navStack.pop();
+    else if (navStack[navStack.length - 1] !== sp.path) navStack.push(sp.path);
+    if (navStack.length > 30) navStack.shift();
+  }
+  runTransition(kind, render);
+}
+
 export function start() {
   if (started) { render(); return; }
   started = true;
@@ -392,7 +439,7 @@ export function start() {
   buildStates();
   document.addEventListener('click', rememberActivator, true);
   initEvents({ go: go, homeHash: homeHash, closeRouteSheet: closeRouteSheet });
-  window.addEventListener('hashchange', render);
+  window.addEventListener('hashchange', onHashChange);
   whenFonts(function () { ready = true; render(); });
 }
 PM.start = start;

@@ -1,0 +1,148 @@
+/* css/spacing.css: rytm odstępów Paymove Wallet (mobile web)
+   Ładowany PO wszystkich plikach ekranów. Zmienia tylko odstępy: padding, margin, gap, scroll-padding.
+   Nie rusza: tab bara, onboardingu (.au-ob/.au-done), logowania (.au-login), zgody (.zg-*),
+   sheetów .au-in3/.au-checkout ani desktopu (>=1024).
+   Źródła: [HIG] Apple HIG, [M3] Material 3, [Bleepay] pomiar, [R] research.md §3.1 */
+
+/* ---------- tokeny (same custom properties, bezpieczne globalnie) ---------- */
+:root{
+  /* skala 4/8 [M3][Bleepay] */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px;
+  --s-5:20px; --s-6:24px; --s-7:32px; --s-8:40px;
+
+  /* szerokość 375→430: 16→20 [HIG compact→regular iPhone] */
+  --margin-x:  clamp(16px, 7.273vw - 11.27px, 20px);
+  --card-pad:  clamp(16px, 7.273vw - 11.27px, 20px);   /* 16→20 [HIG inset grouped][M3 16dp] */
+  --tile-gap:  clamp( 8px, 7.273vw - 19.27px, 12px);   /* 8→12 [M3 8dp][Revolut 8–12] */
+  --gutter-l:  calc(var(--margin-x) + env(safe-area-inset-left));
+  --gutter-r:  calc(var(--margin-x) + env(safe-area-inset-right));
+
+  /* wysokość 667→932, fallback vh */
+  --section-gap:  clamp(24px, 3.02vh + 3.86px, 32px);  /* 24→32 [M3 24–32][Revolut] */
+  --head-to-body: clamp(12px, 1.51vh + 1.93px, 16px);  /* 12→16, zawsze 1/2 section-gap [R] */
+  --logo-to-greet:clamp(16px, 3.02vh - 4.14px, 24px);  /* 16→24 [R] */
+  --content-end:  var(--section-gap);                   /* oddech ostatniego elementu nad paskiem */
+}
+/* svh: stabilne przy chowaniu paska Safari (dvh by „pływało”) [R] */
+@supports (height:1svh){
+  :root{
+    --section-gap:  clamp(24px, 3.02svh + 3.86px, 32px);
+    --head-to-body: clamp(12px, 1.51svh + 1.93px, 16px);
+    --logo-to-greet:clamp(16px, 3.02svh - 4.14px, 24px);
+  }
+}
+
+/* ---------- tylko telefony i tablety (desktop ma własny layout w responsive.css) ---------- */
+@media (max-width:1023px){
+
+  /* treść ekranu: marginesy boczne, oddech na końcu, scroll-padding
+     (scope wyklucza onboarding, login i zgodę; prefiks html daje specyficzność > mobile.css) */
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .content{
+    padding-left:var(--gutter-l);
+    padding-right:var(--gutter-r);
+    padding-bottom:var(--content-end);           /* 24 → 24…32 */
+    row-gap:var(--s-4);                           /* bazowy rytm bloków: 16 */
+    scroll-padding-top:var(--s-2);
+    scroll-padding-bottom:var(--content-end);    /* fokus/scrollIntoView nie dobija do cta-bar */
+  }
+
+  /* sekcja→sekcja = --section-gap (gap 16 + margines). Nagłówek dostaje połowę tej wartości [R] */
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .content > * + .sec{
+    margin-top:calc(var(--section-gap) - var(--s-4));
+  }
+  /* w sekcji: karty co --tile-gap, nagłówek→treść = --head-to-body (różnica jako margin, nigdy <0) */
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .sec{
+    row-gap:var(--tile-gap);
+  }
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .sec > .sec-h{
+    margin-bottom:calc(var(--head-to-body) - var(--tile-gap));
+  }
+
+  /* listy i siatki kart [M3 8dp → 12 na dużych] */
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .list,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .pf-grid,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .shortcut-grid,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .zk-c-grid{
+    gap:var(--tile-gap);
+  }
+
+  /* chipy filtrów: pełny spad do krawędzi przy zmiennym marginesie */
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .chips{
+    margin-left:calc(-1 * var(--gutter-l));
+    margin-right:calc(-1 * var(--gutter-r));
+    padding-left:var(--gutter-l);
+    padding-right:var(--gutter-r);
+  }
+
+  /* padding kart: pełny [HIG 16/20][M3 16] */
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .pad,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .lim,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .timeline,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .howto,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .pf-add,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) a.card.bot,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) a.card.pf-tile,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .pf-blik{
+    padding:var(--card-pad);
+  }
+  /* wiersze: tylko poziomo (pion 14 i wyjątki typu .zk-b-day + .row zostają) */
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .row,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .kv-row,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .radio-row,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .check-row,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .item-foot,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .banner,
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .zk-b-day{
+    padding-left:var(--card-pad);
+    padding-right:var(--card-pad);
+  }
+
+  /* Portfel: powitanie dalej od logo, zwarte wewnątrz [R logo-to-greet] */
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .pf-hero{
+    padding-top:var(--logo-to-greet);    /* 12 → 16…24 */
+    padding-bottom:0;                    /* odstęp do sekcji daje --section-gap */
+    gap:var(--s-3);                      /* 14 (poza skalą) → 12 */
+  }
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .pf-hero .pstack{
+    gap:var(--s-1);                      /* imię→mail 2 → 4 */
+  }
+
+  /* Dane: pomoc „Aby zmienić e-mail” prawie dotykała badge’a (2 px) → 8 px */
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) .pstack > .dn-mail-help{
+    margin-top:calc(var(--s-2) - 2px);   /* + gap 2 = 8 */
+  }
+
+  /* cta-bar: margines boczny jak treść */
+  html .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) > .cta-bar{
+    padding-left:var(--gutter-l);
+    padding-right:var(--gutter-r);
+  }
+  /* cta-bar nad tab barem: safe area obsługuje już tab bar [HIG 49 + 34], bez podwójnego env() */
+  html:has(.device.has-tabbar) .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) > .cta-bar{
+    padding-bottom:var(--s-4);           /* iPhone z home indicatorem: 34 → 16 */
+  }
+
+  /* sheety (bez .au-in3, .au-checkout i zgody): ten sam rytm nagłówków + scroll-padding */
+  .sheet-layer:not(:has(.au-in3, .au-checkout, [class^="zg-"], [class*=" zg-"])) .sheet{
+    scroll-padding-bottom:var(--s-6);
+  }
+  .sheet-layer:not(:has(.au-in3, .au-checkout, [class^="zg-"], [class*=" zg-"])) .sheet .sec{
+    row-gap:var(--tile-gap);
+  }
+  .sheet-layer:not(:has(.au-in3, .au-checkout, [class^="zg-"], [class*=" zg-"])) .sheet .sec > .sec-h{
+    margin-bottom:calc(var(--head-to-body) - var(--tile-gap));
+  }
+}
+
+/* ---------- telefon pełnoekranowy (<520): safe area przy ekranach bez tab bara (np. .au-addblik) ---------- */
+@media (max-width:519px){
+  /* treść bez paska pod spodem: oddech + home indicator */
+  html:has(.device:not(.has-tabbar)) .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) > .content:last-child{
+    padding-bottom:calc(var(--content-end) + env(safe-area-inset-bottom));
+    scroll-padding-bottom:calc(var(--content-end) + env(safe-area-inset-bottom));
+  }
+  /* CTA bez tab bara: przycisk nie styka się z home indicatorem (+8) [HIG] */
+  html:has(.device:not(.has-tabbar)) .screen:not(.au-ob):not(.au-done):not(.au-login):not([class*=" zg-"]):not(:has([class^="zg-"],[class*=" zg-"])) > .cta-bar{
+    padding-bottom:max(var(--s-6), calc(env(safe-area-inset-bottom) + var(--s-2)));
+  }
+}

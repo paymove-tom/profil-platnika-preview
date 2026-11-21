@@ -1,0 +1,80 @@
+/* Ruch i mikrointerakcje (t406 steering 1–2). Tab bar: bez zmian wyglądu/wysokości/layoutu, bez blur.
+   Onboarding, logowanie i ich sheety (au-in3, au-checkout) bez zmian. ?shot=1 i reduced-motion: wyłączone. */
+:root{--spring:cubic-bezier(.34,1.56,.64,1);--ease-ios:cubic-bezier(.32,.72,0,1);--ease-emph:cubic-bezier(.05,.7,.1,1)}
+
+/* ---------- przejścia ekranów (View Transitions) ---------- */
+/* animuje się tylko treść (.view); reszta (tab bar, tło) jest statyczna — zero mrugania */
+.view{view-transition-name:pm-view}
+html[data-nav] .view{background:var(--bg)}
+::view-transition{pointer-events:none}
+::view-transition-old(root){display:none}
+::view-transition-new(root){animation:none}
+::view-transition-group(pm-view){animation-duration:0s}
+::view-transition-image-pair(pm-view){isolation:auto}
+::view-transition-old(pm-view),::view-transition-new(pm-view){mix-blend-mode:normal;height:100%;overflow:hidden}
+
+/* zakładki: crossfade ~180 ms z lekkim przesunięciem */
+html[data-nav="tab"]::view-transition-old(pm-view){animation:pm-vt-out 90ms ease-out both}
+html[data-nav="tab"]::view-transition-new(pm-view){animation:pm-vt-tab-in 200ms var(--ease-emph) 40ms both}
+
+/* w głąb: nowy ekran wjeżdża z prawej, poprzedni odjeżdża lekko w lewo; powrót odwrotnie (iOS) */
+html[data-nav="push"]::view-transition-old(pm-view){animation:pm-vt-push-old 340ms var(--ease-ios) both}
+html[data-nav="push"]::view-transition-new(pm-view){animation:pm-vt-push-new 340ms var(--ease-ios) both;box-shadow:-12px 0 32px -16px rgba(31,41,82,.22)}
+html[data-nav="back"]::view-transition-old(pm-view){animation:pm-vt-back-old 300ms var(--ease-ios) both;z-index:2;box-shadow:-12px 0 32px -16px rgba(31,41,82,.22)}
+html[data-nav="back"]::view-transition-new(pm-view){animation:pm-vt-back-new 300ms var(--ease-ios) both;z-index:1}
+
+@keyframes pm-vt-out{to{opacity:0}}
+@keyframes pm-vt-tab-in{from{opacity:0;transform:translateY(6px) scale(.995)}to{opacity:1;transform:none}}
+@keyframes pm-vt-push-new{from{transform:translateX(100%)}to{transform:none}}
+@keyframes pm-vt-push-old{to{transform:translateX(-28%)}}
+@keyframes pm-vt-back-old{to{transform:translateX(100%)}}
+@keyframes pm-vt-back-new{from{transform:translateX(-28%)}to{transform:none}}
+/* w ramce telefonu (desktop/tablet) obraz nie może wyjść poza urządzenie: krótkie przesunięcie + fade */
+@media (min-width:520px){
+  @keyframes pm-vt-push-new{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+  @keyframes pm-vt-push-old{to{opacity:0;transform:translateX(-14px)}}
+  @keyframes pm-vt-back-old{to{opacity:0;transform:translateX(28px)}}
+  @keyframes pm-vt-back-new{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+  html[data-nav="push"]::view-transition-new(pm-view),html[data-nav="back"]::view-transition-old(pm-view){box-shadow:none}
+}
+
+/* ---------- sheety: wjazd od dołu, scrim 0 → docelowa jasność, animowane zamykanie ---------- */
+.sheet-layer:not(:has(.au-in3, .au-checkout)) .sheet{animation:pm-sheet-up .42s var(--ease-ios) both;will-change:transform}
+.sheet-layer:not(:has(.au-in3, .au-checkout)) .scrim{animation:pm-fade .28s ease-out both}
+.sheet-layer.is-closing{pointer-events:none}
+.sheet-layer.is-closing .sheet{animation:pm-sheet-down .24s cubic-bezier(.4,0,1,1) both!important}
+.sheet-layer.is-closing .scrim{animation:pm-fade-out .24s ease-in both!important}
+@keyframes pm-sheet-up{from{transform:translateY(calc(100% + 24px))}to{transform:none}}
+@keyframes pm-sheet-down{from{transform:none}to{transform:translateY(calc(100% + 24px))}}
+@keyframes pm-fade-out{from{opacity:1}to{opacity:0}}
+@media (min-width:1024px){
+  /* desktop: sheet jako modal na środku, scale .95 → 1 + fade */
+  .sheet-layer:not(:has(.au-in3, .au-checkout)) .sheet{animation:pm-modal-in .26s var(--ease-emph) both}
+  .sheet-layer.is-closing .sheet{animation:pm-modal-out .18s ease-in both!important}
+  @keyframes pm-modal-in{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:none}}
+  @keyframes pm-modal-out{to{opacity:0;transform:scale(.97)}}
+}
+
+/* ---------- dotyk: wciśnięcie .97 i sprężysty powrót, podświetlenie wierszy ---------- */
+:where(.screen:not(.au-ob, .au-done, .au-login), .sheet-layer:not(:has(.au-in3, .au-checkout))) :is(.press, .pf-press, .btn, .pf-blik){
+  transition:transform .34s var(--spring),background-color .15s ease,filter .15s ease,opacity .15s ease,box-shadow .2s ease}
+:where(.screen:not(.au-ob, .au-done, .au-login), .sheet-layer:not(:has(.au-in3, .au-checkout))) :is(.press, .pf-press, .btn, .pf-blik):active{
+  transform:scale(.97);transition-duration:.1s;transition-timing-function:ease-out}
+:where(.screen:not(.au-ob, .au-done, .au-login), .sheet-layer) :is(a.row, button.row){-webkit-tap-highlight-color:transparent}
+:where(.screen:not(.au-ob, .au-done, .au-login), .sheet-layer) :is(a.row, button.row):active{background:rgba(26,26,26,.06);transition-duration:0s}
+
+/* ---------- aktywna ikona w tab barze: płynny kolor + mikro-pop (bez zmian layoutu) ---------- */
+.tab{transition:color .2s ease}
+.tab .ico{transition:opacity .2s ease,transform .3s var(--spring)}
+.tab:active .ico{transform:scale(.9);transition-duration:.1s}
+.tab.is-active .ico{animation:pm-tab-pop .38s var(--spring)}
+@keyframes pm-tab-pop{0%{transform:scale(.88)}60%{transform:scale(1.06)}100%{transform:none}}
+
+/* ---------- reduced motion / zrzuty ---------- */
+@media (prefers-reduced-motion:reduce){
+  .sheet-layer .sheet,.sheet-layer .scrim{animation-duration:.01ms!important}
+  .tab.is-active .ico{animation:none}
+  :is(.press, .pf-press, .btn, .pf-blik):active{transform:none!important}
+  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+}
+.is-shot .tab.is-active .ico,.is-shot .sheet-layer .sheet,.is-shot .sheet-layer .scrim{animation:none!important}

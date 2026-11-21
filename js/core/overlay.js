@@ -19,7 +19,19 @@ export const openSheet = PM.openSheet = function (o) {
 };
 export const closeSheet = PM.closeSheet = function (silent) {
   if (!els.device) return;
-  qsa(els.device, '.sheet-layer[data-dynamic-sheet]').forEach(function (l) { l.remove(); });
+  qsa(els.device, '.sheet-layer[data-dynamic-sheet]').forEach(function (l) {
+    if (silent || SHOT || (PM.reducedMotion && PM.reducedMotion())) l.remove(); else dismissLayer(l);
+  });
+};
+/* animowane zdjęcie warstwy sheeta (wyjazd w dół + wygaszenie scrimu), potem usunięcie z DOM */
+export const dismissLayer = PM.dismissLayer = function (l) {
+  if (!l || l.classList.contains('is-closing')) return;
+  l.classList.add('is-closing');
+  l.removeAttribute('data-route-sheet');
+  l.removeAttribute('data-dynamic-sheet');
+  l.setAttribute('aria-hidden', 'true');
+  l.setAttribute('inert', '');
+  setTimeout(function () { l.remove(); }, 240);
 };
 
 /* ---------- toast ---------- */

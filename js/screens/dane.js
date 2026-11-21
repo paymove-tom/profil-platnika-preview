@@ -4,7 +4,7 @@
      #/dane, #/dane/niepotwierdzony, #/dane/adres, #/dane/adres-blad,
      #/dane/numer-dodaj, #/dane/numer-blad, #/dane/numer-duplikat,
      #/dane/numer-usun (sheet, base #/dane), #/dane/bez-numerow,
-     #/dane/mail-zmien, #/dane/mail-kod, #/dane/zapisano
+     #/dane/mail-kod (potwierdzenie obecnego maila), #/dane/zapisano
    Zależności: js/data.js, js/core.js (API PM).
    ===================================================================== */
 import { PM } from '../core/index.js';
@@ -14,7 +14,6 @@ var G = 'Moje dane';
 var TAB = 'dane';
 var PLATE_RE = /^[A-Z]{2,3} ?[A-Z0-9]{4,5}$/;
 var KOD_RE = /^\d{2}-\d{3}$/;
-var MAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 var esc = PM.esc;
 
   /* ---------- pomocnicze ---------- */
@@ -131,9 +130,8 @@ function daneScreen(ctx, o) {
       '<div class="pstack grow">' +
         '<div class="pname">' + esc(name || 'Bez imienia') + '</div>' +
         '<div class="meta ellipsis dn-mail">' + esc(u.mail) + '</div>' +
-        '<div class="dn-badges">' + badge +
-          '<a class="textbtn" href="#/dane/mail-zmien">Zmień mail</a>' +
-        '</div>' +
+        '<div class="dn-badges">' + badge + '</div>' +
+        '<p class="dn-mail-help">Aby zmienić e-mail, napisz do nas: <a href="mailto:info@paymove.io">info@paymove.io</a></p>' +
       '</div>' +
     '</div>';
 
@@ -321,49 +319,11 @@ function mountNumer(root, ctx) {
 }
 
 /* ---------- mail ---------- */
-function mailZmienScreen(ctx) {
-  var u = ctx.state.user || {};
-  var content =
-    '<p class="lead-text">Wyślemy kod na nowy adres.</p>' +
-    '<div class="card"><div class="row">' +
-      '<div class="thumb">' + PM.icon('mail-line', 20) + '</div>' +
-      '<div class="grow"><div class="meta">Obecny</div><div class="name ellipsis">' + esc(u.mail) + '</div></div>' +
-    '</div></div>' +
-    fld({
-      id: 'dn-mail', label: 'Nowy mail', value: '', type: 'email',
-      placeholder: 'np. anna.k@example.com', inputmode: 'email', autocomplete: 'email',
-      autofocus: true, hint: 'Do czasu potwierdzenia logujesz się obecnym mailem.',
-      attrs: { autocapitalize: 'off', spellcheck: 'false' }
-    });
-  return PM.screen({
-    title: 'Zmień mail',
-    content: content,
-    cta: PM.actions({ back: '#/dane', primary: { label: 'Wyślij kod', attrs: { 'data-save': '' } } })
-  });
-}
-
-function mountMailZmien(root, ctx) {
-  var inp = root.querySelector('#dn-mail');
-  if (!inp) return;
-  inp.addEventListener('input', function () { showErr(root, 'dn-mail', null); });
-  bindSave(root, function () {
-    var u = ctx.state.user;
-    var v = String(inp.value).trim().toLowerCase();
-    var err = !v ? 'Wpisz nowy mail'
-      : !MAIL_RE.test(v) ? 'Sprawdź adres, np. anna@example.com'
-      : v === String(u.mail || '').toLowerCase() ? 'To jest Twój obecny mail'
-      : null;
-    showErr(root, 'dn-mail', err);
-    if (err) { inp.focus(); return; }
-    u.nowyMail = v;
-    PM.go('#/dane/mail-kod');
-  });
-}
-
+/* Zmiany maila w aplikacji nie ma (tylko przez obsługę: info@paymove.io). Kod potwierdza obecny mail. */
 function mailKodScreen(ctx) {
   var u = ctx.state.user || {};
-  var cel = ctx.query.cel === 'potwierdz';
-  var target = cel ? u.mail : (u.nowyMail || u.mail);
+  var cel = true;
+  var target = u.mail;
   var wazn = (ctx.state.login && ctx.state.login.waznoscMin) || 10;
   var za = (ctx.state.login && ctx.state.login.ponownieZa) || 42;
   var content =
@@ -378,10 +338,10 @@ function mailKodScreen(ctx) {
       '<span class="countdown" data-cd>' + PM.fmtSec(za) + '</span></p>' +
     '</div>';
   return PM.screen({
-    title: cel ? 'Potwierdź mail' : 'Nowy mail',
+    title: 'Potwierdź mail',
     content: content,
     cta: PM.actions({
-      back: cel ? '#/dane/niepotwierdzony' : '#/dane/mail-zmien',
+      back: '#/dane/niepotwierdzony',
       primary: { label: 'Potwierdź', attrs: { 'data-save': '' } }
     })
   });
@@ -389,7 +349,7 @@ function mailKodScreen(ctx) {
 
 function mountMailKod(root, ctx) {
   var u = ctx.state.user;
-  var cel = ctx.query.cel === 'potwierdz';
+  var cel = true;
   var good = (ctx.state.login && ctx.state.login.kodPoprawny) || '123456';
   var za = (ctx.state.login && ctx.state.login.ponownieZa) || 42;
   var done = false;
@@ -400,7 +360,6 @@ function mountMailKod(root, ctx) {
     if (code === good) {
       done = true;
       api.disable(true);
-      if (!cel && u.nowyMail) u.mail = u.nowyMail;
       u.mailPotwierdzony = true;
       syncPola(ctx.state);
       PM.go('#/dane/zapisano');
@@ -543,12 +502,6 @@ PM.route('#/dane/numer-usun', {
 PM.route('#/dane/bez-numerow', {
   title: 'Moje dane', group: G, label: 'Bez numerów', tab: TAB,
   render: function (ctx) { return daneScreen(ctx, { noPlates: true }); }
-});
-
-PM.route('#/dane/mail-zmien', {
-  title: 'Zmień mail', group: G, label: 'Zmiana maila', tab: TAB,
-  render: mailZmienScreen,
-  mount: mountMailZmien
 });
 
 PM.route('#/dane/mail-kod', {

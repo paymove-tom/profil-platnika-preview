@@ -10,6 +10,7 @@ import './components.js';
 import './shell.js';
 import './overlay.js';
 import './events.js';
+import './motion.js';
 import { start } from './router.js';
 
 export { PM, start };

@@ -112,6 +112,11 @@ function finish() {
   auth().zalogowany = true;
   if (PM.state.user) PM.state.user.pierwszeLogowanie = false;
 }
+/* Dodawanie BLIK z portfela (#/portfel/dodaj-blik) odcina onboarding: kroki 1–3 i „Gotowe”
+   przekierowują na portfel (także przez history.back). Flagę czyści dopiero ekran logowania. */
+function obGuard() {
+  return auth().addBlik ? '#/portfel' : null;
+}
 function goSoon(hash, ms) {
   if (PM.shot) { PM.go(hash); return; }
   PM.later(function () { PM.go(hash); }, ms || 600);
@@ -309,6 +314,7 @@ function prefillMail() {
 
 function loginMount(root) {
   var a = auth();
+  a.addBlik = false;
   a.obDir = null;
   a.obStill = false;
   var wrap = root.querySelector('.au-social');
@@ -345,11 +351,12 @@ legacyStart();
    2. Onboarding krok 1: adres
    ===================================================================== */
 PM.route('#/onboarding/1', {
-  title: 'Twój adres', group: G, label: 'Krok 1 Adres', tab: null,
+  guard: obGuard,
+  title: 'Adres', group: G, label: 'Krok 1 Adres', tab: null,
   render: function (ctx) {
     var a = ob().adres;
     return obScreen(1, ctx, {
-      title: 'Twój adres',
+      title: 'Adres',
       lead: 'Bot wpisze go za Ciebie, gdy zakup tego wymaga.',
       body:
         '<div class="stack">' +
@@ -407,12 +414,13 @@ function normPlate(v) {
 }
 
 PM.route('#/onboarding/2', {
+  guard: obGuard,
   title: 'Twoje auto', group: G, label: 'Krok 2 Rejestracja', tab: null,
   render: function (ctx) {
     var v = ob().rejestracja || '';
     return obScreen(2, ctx, {
       title: 'Twoje auto',
-      lead: 'Bot weźmie numer z profilu, więc parking opłaci bez wpisywania.',
+      lead: 'Parking zapłacisz bez wpisywania numeru. Bot weźmie go z profilu.',
       body:
         PM.field({
           id: 'ob-rej', label: 'Numer rejestracyjny', value: v, placeholder: 'WI 4821K',
@@ -458,10 +466,11 @@ PM.route('#/onboarding/2', {
    4. Onboarding krok 3: BLIK
    ===================================================================== */
 /* ---------- checkout BLIK jako sheet nad dowolnym wariantem kroku 4 ---------- */
-function registerCheckout(baseHash, label) {
+function registerCheckout(baseHash, label, opt) {
+  opt = opt || {};
   PM.route(baseHash + '/checkout', {
-    title: 'Konfiguracja BLIK', group: G, label: label || 'Checkout BLIK (sheet)', tab: null,
-    sheet: true, base: baseHash,
+    title: 'Konfiguracja BLIK', group: opt.group || G, label: label || 'Checkout BLIK (sheet)', tab: null,
+    sheet: true, base: baseHash, guard: opt.guard,
     render: function () {
       var url = PM.esc(CHECKOUT_URL);
       var body =
@@ -578,7 +587,8 @@ function registerCheckout(baseHash, label) {
           done.classList.add('is-loading');
           done.setAttribute('aria-busy', 'true');
           auth().obStill = false;
-          goSoon('#/onboarding/gotowe', 600);
+          if (opt.done) { goSoon(opt.done, 600); if (opt.doneToast) PM.later(function () { PM.toast(opt.doneToast); }, PM.shot ? 0 : 650); }
+          else goSoon('#/onboarding/gotowe', 600);
         });
       }
     }
@@ -642,14 +652,9 @@ function vMount(root, ctx) {
   }
 }
 
-/* ---------- krok 3: portfel ---------- */
-PM.route('#/onboarding/3', {
-  title: 'Podepnij BLIK', group: G, label: 'Krok 3 BLIK', tab: null,
-  render: function (ctx) {
-    return obScreen(3, ctx, {
-      title: 'Dodaj BLIK do portfela',
-      lead: 'Bot zapłaci bez przepisywania kodu, a Ty potwierdzisz w aplikacji banku.',
-      body:
+/* ---------- karta BLIK z Visa/Mastercard „Wkrótce” (krok 3 i dodawanie z portfela) ---------- */
+function vcBody() {
+  return (
         '<div class="au-vc">' +
           '<div class="au-vc-stack">' +
             '<div class="au-vc-card au-vc-card--visa">' + VISA_SVG + '<span class="au-vc-soon">Wkrótce</span></div>' +
@@ -673,21 +678,65 @@ PM.route('#/onboarding/3', {
             '<span class="au-vc-pt">' + PM.icon('shield-check-line', 14) + 'Limity ustawiasz sam</span>' +
             '<span class="au-vc-pt">' + PM.icon('check-line', 14) + 'Odłączysz kiedy chcesz</span>' +
           '</div>' +
-        '</div>',
+        '</div>'
+  );
+}
+
+/* ---------- krok 3: portfel ---------- */
+PM.route('#/onboarding/3', {
+  guard: obGuard,
+  title: 'Podepnij BLIK', group: G, label: 'Krok 3 BLIK', tab: null,
+  render: function (ctx) {
+    return obScreen(3, ctx, {
+      title: 'Dodaj BLIK do portfela',
+      lead: 'Bot zapłaci bez przepisywania kodu, a Ty potwierdzisz w aplikacji banku.',
+      body: vcBody(),
       cta: vCta('#/onboarding/3')
     });
   },
   mount: vMount
 });
+/* ---------- BLIK z portfela: osobny tryb bez kroków onboardingu ---------- */
+var ADD = '#/portfel/dodaj-blik';
+var GP = '0 Portfel';
+PM.route(ADD, {
+  title: 'Podepnij BLIK', group: GP, label: 'Dodaj BLIK (z portfela)', tab: null,
+  render: function () {
+    return PM.screen({
+      title: 'Dodaj BLIK do portfela',
+      showTitle: false,
+      cls: 'au-addblik',
+      header: '<header class="hdr au-add-hdr"><a class="hdr-back press" href="#/portfel" aria-label="Wróć do portfela">' + PM.icon('arrow-left-s-line', 20) + '</a></header>',
+      contentCls: 'content--top',
+      content:
+        '<div class="stack-24">' +
+          '<div class="auth-head">' +
+            '<h1 class="title">Dodaj BLIK do portfela</h1>' +
+            '<p class="lead-text">Bot zapłaci bez przepisywania kodu, a Ty potwierdzisz w aplikacji banku.</p>' +
+          '</div>' +
+          vcBody() +
+        '</div>',
+      cta: blikOneClickBtn(ADD + '/info') +
+        PM.actions({ extra: PM.btn('Zrobię to później', { variant: 'ghost', block: true, cls: 'press', href: '#/portfel' }) })
+    });
+  },
+  mount: function (root, ctx) {
+    if (ctx && ctx.isBase) return;
+    auth().addBlik = true;
+  }
+});
+
 /* ---------- krok 3: objaśnienie przed bramką (zapłać i zapamiętaj sklep) ---------- */
   function in3Step(n, html, key, d) {
   return '<li class="au-in3-step au-in' + (key ? ' is-key' : '') + '" style="--d:' + d + 's">' +
     '<span class="au-in3-n" aria-hidden="true">' + n + '</span><span>' + html + '</span></li>';
 }
 
-PM.route('#/onboarding/3/info', {
-  title: 'Zapłać i zapamiętaj sklep', group: G, label: 'Krok 3 · jak zapamiętać sklep (modal)', tab: null,
-  sheet: true, base: '#/onboarding/3',
+function registerInfo(baseHash, label, opt) {
+  opt = opt || {};
+PM.route(baseHash + '/info', {
+  title: 'Zapłać i zapamiętaj sklep', group: opt.group || G, label: label, tab: null,
+  sheet: true, base: baseHash, guard: opt.guard,
   render: function () {
     var body =
       '<div class="au-in3-art au-in" style="--d:.16s" aria-hidden="true">' +
@@ -699,11 +748,11 @@ PM.route('#/onboarding/3/info', {
         '<h2 class="au-in3-title au-in" style="--d:.32s">Zapłać i zapamiętaj sklep</h2>' +
         '<p class="au-in3-lead au-in" style="--d:.38s">W aplikacji banku wybierz <b>„Zapamiętaj sklep”</b>.</p>' +
         '<p class="au-in3-note au-in" style="--d:.44s">' + PM.icon('information-line', 14) +
-          '<span>Kolejne płatności przejdą już bez kodu BLIK.</span></p>' +
+          '<span>Dzięki temu kolejne płatności nie będą korzystać z kodów BLIK.</span></p>' +
       '</div>' +
       '<div class="act-row au-in3-cta au-in" style="--d:.58s">' +
-        PM.btn('Wróć', { variant: 'secondary', href: '#/onboarding/3', cls: 'press au-in3-back' }) +
-        PM.btn('Rozumiem, dalej', { variant: 'primary', href: '#/onboarding/3/checkout', cls: 'press', iconRight: 'arrow-right-s-line' }) +
+        PM.btn('Wróć', { variant: 'secondary', href: baseHash, cls: 'press au-in3-back' }) +
+        PM.btn('Rozumiem, dalej', { variant: 'primary', href: baseHash + '/checkout', cls: 'press', iconRight: 'arrow-right-s-line' }) +
       '</div>';
     return PM.sheet({ body: body, cls: 'au-in3', label: 'Zapłać i zapamiętaj sklep' });
   },
@@ -712,13 +761,18 @@ PM.route('#/onboarding/3/info', {
     auth().obStill = true;
   }
 });
+}
 
-registerCheckout('#/onboarding/3', 'Checkout BLIK (sheet)');
+registerInfo('#/onboarding/3', 'Krok 3 · jak zapamiętać sklep (modal)', { guard: obGuard });
+registerCheckout('#/onboarding/3', 'Checkout BLIK (sheet)', { guard: obGuard });
+registerInfo(ADD, 'Dodaj BLIK · jak zapamiętać sklep (modal)', { group: GP });
+registerCheckout(ADD, 'Dodaj BLIK · checkout (sheet)', { group: GP, done: '#/portfel', doneToast: 'BLIK podpięty' });
 
 /* =====================================================================
    5. Gotowe
    ===================================================================== */
 PM.route('#/onboarding/gotowe', {
+  guard: obGuard,
   title: 'Wszystko gotowe', group: G, label: 'Gotowe', tab: null,
   render: function () {
     var o = ob();

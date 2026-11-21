@@ -89,7 +89,7 @@ function blikCard(bl) {
 }
 
 function addBlikTile() {
-  return '<a class="pay-card pay-card--blik pf-blik pf-blik--off press pf-press" href="#/onboarding/3" aria-label="BLIK bez kodu, niepodpięty. Podepnij BLIK">' +
+  return '<a class="pay-card pay-card--blik pf-blik pf-blik--off press pf-press" href="#/portfel/dodaj-blik" aria-label="BLIK bez kodu, niepodpięty. Podepnij BLIK">' +
     '<div class="pf-row">' +
       '<img class="pf-blik-logo" src="' + BLIK_LOGO + '" alt="BLIK" draggable="false">' +
       '<span class="pay-badge pf-badge pf-badge--off"><span class="dot"></span>Niepodpięty</span>' +
@@ -185,7 +185,7 @@ function renderManage() {
       '<div class="sheet-head"><h2 class="h-sheet">BLIK nie jest podpięty</h2>' +
       '<p class="sheet-text">Podepnij go, żeby boty mogły płacić. Każdą płatność potwierdzasz w aplikacji banku.</p></div>' +
       '<div class="sheet-actions">' +
-        PM.btn('Podepnij BLIK', { variant: 'primary', href: '#/onboarding/3', block: true, cls: 'press' }) +
+        PM.btn('Podepnij BLIK', { variant: 'primary', href: '#/portfel/dodaj-blik', block: true, cls: 'press' }) +
         PM.btn('Zamknij', { variant: 'ghost', href: '#/portfel', block: true }) +
       '</div>';
   }
