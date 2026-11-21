@@ -1,0 +1,136 @@
+/* css/polish.css: finalny polish (t416). Ładowany po motion.css, przed onboarding-legacy.css.
+   Zakres: wyłącznie elementy oznaczone przez js/core/polish.js:
+     .pm-polish        na .view > .screen (poza onboardingiem/loginem/zgodą) i na .sheet-layer (poza .au-in3/.au-checkout/zgodą)
+     html.pm-polish-on gdy bieżąca trasa nie jest onboardingiem (toasty, fokus tab bara)
+   Tab bar: bez zmian wyglądu/wysokości/layoutu. Animujemy tylko transform/opacity
+   (wyjątek: stroke-dashoffset 20-px ikony ✓). ?shot=1 i reduced-motion: wyłączone (shot.css + bloki niżej). */
+
+/* ---------- 1. tokeny ruchu i kolorów (Porcelain Metal) ---------- */
+:root{
+  --dur-1:100ms;   /* wciśnięcie */
+  --dur-2:150ms;   /* hover, kolor, hairline */
+  --dur-3:200ms;   /* zmiana stanu */
+  --dur-4:240ms;   /* wyjście */
+  --dur-5:340ms;   /* powrót sprężyną, push */
+  --dur-6:420ms;   /* sheet, toast */
+  --ease-standard:cubic-bezier(.2,0,0,1);
+  --ease-decel:cubic-bezier(.05,.7,.1,1);
+  --ease-accel:cubic-bezier(.3,0,.8,.15);
+  --ease-out-quart:cubic-bezier(.25,1,.5,1);
+  --pm-focus:#3567DE;
+  --pm-error:#BE222A;
+  --pm-success-text:#006732;
+  --pm-hairline:#0C0C0D1A;
+  --pm-a06:#0C0C0D0F;
+  --pm-tertiary:#68696C;
+}
+
+/* ---------- 2. kontrast: błąd na tokenie error (#BE222A ≥ 4.5:1) ---------- */
+.pm-polish{--err:#BE222A;--err-tint:rgba(190,34,42,.10)}
+.pm-polish .btn--danger-solid{background:var(--pm-error);box-shadow:0 8px 20px rgba(190,34,42,.24)}
+/* wyłączone pole kwoty: obrys zamiast opacity .4 (1.82:1 → ≈5.2:1) */
+.pm-polish .money.off,.pm-polish .money.is-disabled{opacity:1;background:transparent;box-shadow:inset 0 0 0 1px var(--pm-hairline)}
+.pm-polish .money.off input,.pm-polish .money.off span,
+.pm-polish .money.is-disabled input,.pm-polish .money.is-disabled span{color:var(--pm-tertiary);-webkit-text-fill-color:var(--pm-tertiary)}
+
+/* ---------- 3. fokus: spójny ring #3567DE 2px / offset 2px ---------- */
+.pm-polish :focus-visible,html.pm-polish-on .tabbar :focus-visible{outline:2px solid var(--pm-focus);outline-offset:2px}
+.pm-polish:focus-visible,.pm-polish .sheet:focus-visible{outline:none}
+.pm-polish .content:focus-visible{outline-offset:-2px;border-radius:4px}
+/* pola: ring przez box-shadow (bez podwójnej ramki) */
+.pm-polish .input:focus-visible,.pm-polish .textarea:focus-visible,.pm-polish .code-input input:focus-visible{outline:none;box-shadow:0 0 0 2px var(--pm-focus)}
+.pm-polish .money input:focus-visible{outline:none}
+.pm-polish .money:focus-within{box-shadow:0 0 0 2px var(--pm-focus)}
+.pm-polish .is-error .input:focus-visible,.pm-polish .input.is-error:focus-visible,
+.pm-polish .money.is-error:focus-within,.pm-polish .code-input.is-error input:focus-visible{box-shadow:0 0 0 2px var(--err)}
+.pm-polish .range:focus-visible{outline:none}
+.pm-polish .range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--pm-focus),0 2px 6px rgba(31,41,82,.18)}
+.pm-polish .range:focus-visible::-moz-range-thumb{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--pm-focus)}
+
+/* ---------- 4. tap targety ≥44 px dla linków w tekście (bez zmiany layoutu) ---------- */
+.pm-polish :is(.dn-mail-help,.legal,.hint,.sheet-text,.lead-text,.banner-text) a:not(.btn):not(.chip){
+  display:inline-block;padding:15px 0;margin:-15px 0}
+/* przycisk kopiowania (nr transakcji): niewidoczne powiększenie */
+.pm-copy{position:relative;display:inline;margin:0;padding:0;border:0;background:none;font:inherit;letter-spacing:inherit;color:inherit;text-align:inherit;word-break:inherit;cursor:pointer;border-radius:6px;-webkit-tap-highlight-color:transparent;transition:color var(--dur-3) var(--ease-standard),opacity var(--dur-2) var(--ease-standard)}
+.pm-copy::before{content:"";position:absolute;left:50%;top:50%;width:max(100%,44px);height:44px;transform:translate(-50%,-50%)}
+.pm-copy:active{opacity:.55;transition-duration:0s}
+.pm-copy.is-copied{color:var(--pm-success-text)}
+
+/* ---------- 5. hairline nagłówka/CTA po przewinięciu (tylko opacity, zero zmiany wysokości) ---------- */
+.pm-polish > .hdr,.pm-polish > .cta-bar{position:relative}
+.pm-polish > .hdr::after,.pm-polish > .cta-bar::before{content:"";position:absolute;left:0;right:0;height:1px;background:var(--pm-hairline);opacity:0;pointer-events:none;z-index:1;transition:opacity var(--dur-2) var(--ease-standard)}
+.pm-polish > .hdr::after{bottom:-1px}
+.pm-polish > .cta-bar::before{top:0}
+.pm-polish.is-scrolled > .hdr::after,.pm-polish.has-more > .cta-bar::before{opacity:1}
+
+/* ---------- 6. press state: chipy, segmenty, przyciski tekstowe, karty botów ---------- */
+.pm-polish :is(.chip,.chip-bot,.seg-item,.textbtn,.hdr-back,.pf-x,a.card.bot){
+  transition:transform var(--dur-5) var(--spring),background-color var(--dur-2) var(--ease-standard),color var(--dur-2) var(--ease-standard),opacity var(--dur-2) var(--ease-standard),box-shadow var(--dur-3) var(--ease-standard)}
+.pm-polish :is(.chip,.chip-bot,.seg-item,.textbtn,.hdr-back,.pf-x):active{transform:scale(.96);transition-duration:var(--dur-1);transition-timing-function:ease-out}
+.pm-polish a.card.bot:active{transform:scale(.97);transition-duration:var(--dur-1);transition-timing-function:ease-out}
+.pm-polish :is(a.row,button.row,.radio-row){transition:background-color var(--dur-2) var(--ease-standard)}
+.pm-polish :is(.input,.textarea,.code-input input){transition:box-shadow var(--dur-2) var(--ease-standard),background-color var(--dur-2) var(--ease-standard)}
+.pm-polish .btn:disabled{transition:opacity var(--dur-3) var(--ease-standard)}
+
+/* ---------- 7. toggle: sprężysta gałka + rozciągnięcie przy dotyku (iOS) ---------- */
+.pm-polish .toggle{transition:background-color var(--dur-3) var(--ease-standard)}
+.pm-polish .toggle::after{transition:transform var(--dur-5) var(--spring)}
+.pm-polish .toggle:not(:disabled):active::after{transform:scaleX(1.12);transform-origin:left center;transition-duration:var(--dur-3)}
+.pm-polish .toggle[aria-checked="true"]:not(:disabled):active::after{transform:translateX(20px) scaleX(1.12);transform-origin:right center}
+
+/* ---------- 8. sheety: fill backwards (inline transform działa przy dragu), scroll ---------- */
+.sheet-layer.pm-polish:not(.is-closing) .sheet,.sheet-layer.pm-polish:not(.is-closing) .scrim{animation-fill-mode:backwards}
+.sheet-layer.pm-polish .sheet{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+
+/* ---------- 9. scroll ---------- */
+.pm-polish .content{overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch}
+.pm-polish .chips{overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+
+/* ---------- 10. toasty: sprężyna, swipe w górę, rysowany ✓ ---------- */
+html.pm-polish-on .toast{pointer-events:auto;touch-action:none}
+html.pm-polish-on .toast span{text-wrap:balance}
+.pm-check{display:block;width:20px;height:20px;flex:none}
+.pm-check circle,.pm-check path{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pm-check circle{opacity:.6}
+
+/* ---------- 11. karta BLIK: jednorazowy połysk (transform na pseudo-elemencie) ---------- */
+.pf-blik > .pm-sheen{position:absolute;inset:0;z-index:2;overflow:hidden;border-radius:inherit;pointer-events:none}
+.pm-sheen::before{content:"";position:absolute;top:-20%;bottom:-20%;left:0;width:45%;
+  background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.10) 40%,rgba(255,255,255,.20) 50%,rgba(255,255,255,.10) 60%,rgba(255,255,255,0) 100%);
+  transform:translateX(-120%) skewX(-14deg)}
+
+/* ---------- 12. typografia: balans nagłówków, ładne akapity, cyfry tabelaryczne ---------- */
+.pm-polish :is(h1,h2,.title,.h-sheet,.pname,.display,.pf-hi,.empty-title,.banner-title,.tl-title){text-wrap:balance}
+.pm-polish :is(p,.hint,.lead-text,.sheet-text,.empty-text,.banner-text,.legal,.pf-alert-s){text-wrap:pretty}
+.pm-polish :is(.progress-meta,.tl-meta,.countdown,.pf-tile .meta,.hs-active .mono-s,.bspend-amt .meta){font-variant-numeric:tabular-nums}
+
+/* ---------- 13. optyka ikon: chevron dosunięty do krawędzi paddingu ---------- */
+.pm-polish .row .row-chev:last-child,.pm-polish .bot-top .row-chev{margin-right:-4px}
+
+/* ---------- 14. animacje (tylko gdy ruch dozwolony; w .is-shot wyłączone przez shot.css) ---------- */
+@media (prefers-reduced-motion:no-preference){
+  html.pm-polish-on .toast:not(.is-leaving){animation:pm-toast-spring var(--dur-6) var(--spring) backwards}
+  html.pm-polish-on .toast.is-leaving{animation:pm-toast-out var(--dur-4) var(--ease-accel) both}
+  .pm-check circle{transform-origin:12px 12px;animation:pm-check-ring 380ms var(--spring) backwards}
+  .pm-check path{stroke-dasharray:14;animation:pm-check-draw 360ms var(--ease-out-quart) 120ms backwards}
+  .pm-sheen::before{animation:pm-sheen 1100ms var(--ease-standard) 380ms both}
+  .pm-polish.pm-enter :is(.progress>i,.bar i){transform-origin:left center;animation:pm-bar-grow 700ms var(--ease-out-quart) 120ms backwards}
+}
+@keyframes pm-toast-spring{from{opacity:0;transform:translateY(-14px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes pm-check-ring{from{opacity:0;transform:scale(.6)}to{opacity:.6;transform:none}}
+@keyframes pm-check-draw{from{stroke-dashoffset:14}to{stroke-dashoffset:0}}
+@keyframes pm-sheen{to{transform:translateX(330%) skewX(-14deg)}}
+@keyframes pm-bar-grow{from{transform:scaleX(0)}to{transform:none}}
+
+/* ---------- 15. reduced motion / zrzuty ---------- */
+@media (prefers-reduced-motion:reduce){
+  .pm-sheen{display:none}
+  .pm-polish :is(.chip,.chip-bot,.seg-item,.textbtn,.hdr-back,.pf-x,a.card.bot):active{transform:none}
+  .pm-polish .toggle:active::after{transform:none}
+  .pm-polish .toggle[aria-checked="true"]:active::after{transform:translateX(20px)}
+}
+.is-shot .pm-sheen{display:none}
+
+/* ---------- t416: pusty stan z wyśrodkowaną treścią – tytuł ekranu zostaje u góry (Historia pusta) ---------- */
+.screen.pm-polish .content--center > :first-child:not(.empty){margin-bottom:auto}
+.screen.pm-polish .content--center > .empty{margin-bottom:auto}

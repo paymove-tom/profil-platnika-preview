@@ -9,6 +9,7 @@ import { els, buildShell, buildStates, updateNav, updateMockbar, updateStatesAct
 import { initEvents } from './events.js';
 import './components.js';
 import './overlay.js';
+import './polish.js';
 
 const html = document.documentElement;
 const routes = {};

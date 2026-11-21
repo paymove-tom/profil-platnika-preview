@@ -14,30 +14,37 @@ PM.reducedMotion = reduced;
 
 /* ---------- przejścia między ekranami ---------- */
 let vt = null;
+function swallow() {}
 export function runTransition(kind, update) {
   if (!kind || reduced()) { update(); return; }
-  if (vt && vt.skipTransition) { try { vt.skipTransition(); } catch (e) {} }
+  if (vt) { try { vt.skipTransition(); } catch (e) {} }
   if (typeof document.startViewTransition === 'function') {
     html.setAttribute('data-nav', kind);
-    try {
-      vt = document.startViewTransition(update);
-      const done = function () { if (vt && vt._k === stamp) { html.removeAttribute('data-nav'); vt = null; } };
-      const stamp = Math.random(); vt._k = stamp;
-      vt.finished.then(done, done);
+    let t = null;
+    try { t = document.startViewTransition(update); } catch (e) { t = null; }
+    if (t) {
+      vt = t;
+      /* skipTransition / przerwanie odrzuca ready ("Transition was skipped"): to nie jest błąd */
+      if (t.ready && t.ready.catch) t.ready.catch(swallow);
+      if (t.updateCallbackDone && t.updateCallbackDone.catch) t.updateCallbackDone.catch(function (err) { console.error('[PM] transition update', err); });
+      const done = function () { if (vt === t) { vt = null; html.removeAttribute('data-nav'); } };
+      if (t.finished) t.finished.then(done, done); else done();
       return;
-    } catch (e) { html.removeAttribute('data-nav'); }
+    }
+    html.removeAttribute('data-nav');
   }
   update();
   fallbackAnim(kind);
 }
 
+/* fallback (iOS 17 bez VT): tylko transform, bez opacity na .screen (zero migania) */
 function fallbackAnim(kind) {
   const el = document.querySelector('.view > .screen');
   if (!el || typeof el.animate !== 'function') return;
   const frames = kind === 'tab'
-    ? [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }]
-    : [{ opacity: .4, transform: 'translateX(' + (kind === 'back' ? '-' : '') + '28px)' }, { opacity: 1, transform: 'none' }];
-  el.animate(frames, { duration: kind === 'tab' ? 180 : 260, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    ? [{ transform: 'translateY(6px)' }, { transform: 'none' }]
+    : [{ transform: 'translateX(' + (kind === 'back' ? '-' : '') + '24px)' }, { transform: 'none' }];
+  el.animate(frames, { duration: kind === 'tab' ? 200 : 300, easing: 'cubic-bezier(.05,.7,.1,1)' });
 }
 
 /* ---------- :active na iOS, haptyka ---------- */
