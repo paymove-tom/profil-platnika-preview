@@ -130,8 +130,12 @@ function daneScreen(ctx, o) {
       '<div class="pstack grow">' +
         '<div class="pname">' + esc(name || 'Bez imienia') + '</div>' +
         '<div class="meta ellipsis dn-mail">' + esc(u.mail) + '</div>' +
-        '<div class="dn-badges">' + badge + '</div>' +
-        '<p class="dn-mail-help">Aby zmienić e-mail, napisz do nas: <a href="mailto:info@paymove.io">info@paymove.io</a></p>' +
+        '<div class="dn-badges">' + badge +
+          '<button type="button" class="textbtn dn-mailbtn" aria-expanded="false" aria-controls="dn-mailtip" aria-haspopup="dialog">Zmień mail</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="dn-tip" id="dn-mailtip" role="dialog" aria-label="Zmiana maila" hidden>' +
+        '<p class="dn-tip-text">Aby zmienić e-mail, napisz do nas: <a href="mailto:info@paymove.io">info@paymove.io</a></p>' +
       '</div>' +
     '</div>';
 
@@ -514,3 +518,49 @@ PM.route('#/dane/zapisano', {
   title: 'Moje dane', group: G, label: 'Zapisano', tab: TAB, toast: 'Zapisano',
   render: function (ctx) { return daneScreen(ctx); }
 });
+
+/* t422: „Zmień mail” → dymek z informacją (bez trasy zmiany maila). Delegacja na dokumencie, raz. */
+(function mailTip() {
+  if (typeof document === 'undefined' || document.__pmMailTip) return;
+  document.__pmMailTip = true;
+  var RM = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  function parts() {
+    var btn = document.querySelector('.dn-mailbtn'), tip = document.getElementById('dn-mailtip');
+    return btn && tip ? { btn: btn, tip: tip } : null;
+  }
+  function place(p) {
+    var card = p.tip.offsetParent || p.tip.parentElement;
+    var cr = card.getBoundingClientRect(), br = p.btn.getBoundingClientRect();
+    p.tip.style.top = Math.round(br.bottom - cr.top + 8) + 'px';
+    var tr = p.tip.getBoundingClientRect();
+    var x = br.left + br.width / 2 - tr.left;
+    p.tip.style.setProperty('--arrow-x', Math.round(Math.max(16, Math.min(tr.width - 16, x))) + 'px');
+  }
+  function open(p) {
+    clearTimeout(p.tip.__t);
+    p.tip.hidden = false;
+    place(p);
+    p.btn.setAttribute('aria-expanded', 'true');
+    void p.tip.offsetWidth;
+    p.tip.classList.add('is-open');
+  }
+  function close(p, refocus) {
+    if (p.tip.hidden) return;
+    p.btn.setAttribute('aria-expanded', 'false');
+    p.tip.classList.remove('is-open');
+    clearTimeout(p.tip.__t);
+    p.tip.__t = setTimeout(function () { if (!p.tip.classList.contains('is-open')) p.tip.hidden = true; }, RM.matches ? 0 : 180);
+    if (refocus) p.btn.focus();
+  }
+  document.addEventListener('click', function (e) {
+    var p = parts(); if (!p) return;
+    if (e.target.closest('.dn-mailbtn')) { e.preventDefault(); p.tip.hidden || !p.tip.classList.contains('is-open') ? open(p) : close(p); return; }
+    if (!e.target.closest('#dn-mailtip')) close(p);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var p = parts(); if (p && !p.tip.hidden) { e.preventDefault(); e.stopPropagation(); close(p, true); }
+  }, true);
+  window.addEventListener('resize', function () { var p = parts(); if (p && !p.tip.hidden) place(p); });
+  document.addEventListener('scroll', function () { var p = parts(); if (p && !p.tip.hidden) place(p); }, true);
+})();
